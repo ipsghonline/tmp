@@ -3,7 +3,9 @@ description: Documentation for End Users and Technicians - Impact Environment Mi
 
 remote_theme: just-the-docs/just-the-docs
 
-# Theme settings
+# Theme settings - Dark mode support
+# Default to light, toggle button allows switching to dark mode
+# Automatically respects system preference on first visit
 color_scheme: light
 
 # Search configuration
