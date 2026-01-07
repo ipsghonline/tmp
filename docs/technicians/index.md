@@ -98,11 +98,11 @@ Get-IntuneDeviceCompliancePolicy
 
 ## Full Documentation
 
-| Guide                                                                                                     | Description                 | Audience          |
-| --------------------------------------------------------------------------------------------------------- | --------------------------- | ----------------- |
-| [Network Migration Reference](../../Impact_Property_Solutions_Network_Migration_Technical_Reference.html) | Complete network procedures | Network Engineers |
-| [Onsite Coordination Overview](../../Onsite_Coordination_Overview.html)                                   | Multi-site deployment       | Coordinators      |
-| [Administrator Guide](../../Windows_Device_Migration_Administrator_Guide.html)                            | Device management           | IT Admins         |
+| Guide                                                              | Description                 | Audience          |
+| ------------------------------------------------------------------ | --------------------------- | ----------------- |
+| [Network Migration Reference](../network-migration-reference.html) | Complete network procedures | Network Engineers |
+| [Onsite Coordination Overview](../onsite-coordination-guide.html)  | Multi-site deployment       | Coordinators      |
+| [Administrator Guide](../admin-migration-guide.html)               | Device management           | IT Admins         |
 
 ---
 

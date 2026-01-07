@@ -78,8 +78,8 @@ Everything you need to successfully complete your migration to the Impact enviro
 
 - [Schedule Migration](https://outlook.office.com/book/KeyUserMigration@ImpactFloors.com/?ismsaljsauthenabled)
 - [Key User Migration Info](../key-user-migration.html)
-- [Full Remote Support Worksheet](../../Impact_Remote_Support_Migration_Worksheet.html)
-- [Full Device Onboarding Guide](../../New%20Windows%20Device%20Onboarding%20and%20Deployment.html)
+- [Full Remote Support Worksheet](../remote-support-worksheet.html)
+- [Full Device Onboarding Guide](../device-onboarding-guide.html)
 
 ---
 

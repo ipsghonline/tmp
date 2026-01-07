@@ -14,7 +14,7 @@ nav_order: 2
 Complete guide for deploying and configuring new Windows devices in the Impact environment.
 
 <p style="margin: 1.5rem 0;">
-<a href="../../New%20Windows%20Device%20Onboarding%20and%20Deployment.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
+<a href="../device-onboarding-guide.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
 Open Deployment Guide →
 </a>
 </p>
@@ -64,4 +64,4 @@ For Dell devices with pre-provisioning enabled, follow the expedited deployment 
 
 ---
 
-[Open Device Onboarding Guide →](../../New%20Windows%20Device%20Onboarding%20and%20Deployment.html)
+[Open Device Onboarding Guide →](../device-onboarding-guide.html)

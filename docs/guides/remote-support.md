@@ -14,7 +14,7 @@ nav_order: 1
 Step-by-step interactive worksheet for completing your device migration with remote support.
 
 <p style="margin: 1.5rem 0;">
-<a href="../../Impact_Remote_Support_Migration_Worksheet.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
+<a href="../remote-support-worksheet.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
 Open Interactive Worksheet →
 </a>
 </p>
@@ -63,4 +63,4 @@ This interactive worksheet guides you through your migration appointment with a 
 
 ---
 
-[Open Interactive Worksheet →](../../Impact_Remote_Support_Migration_Worksheet.html)
+[Open Interactive Worksheet →](../remote-support-worksheet.html)

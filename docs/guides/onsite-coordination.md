@@ -14,7 +14,7 @@ nav_order: 2
 Comprehensive coordination guide for multi-site deployment operations.
 
 <p style="margin: 1.5rem 0;">
-<a href="../../Onsite_Coordination_Overview.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #6c757d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
+<a href="../onsite-coordination-guide.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #6c757d; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
 Open Full Coordination Guide →
 </a>
 </p>
@@ -69,4 +69,4 @@ The migration follows a phased approach:
 
 ---
 
-[Open Full Onsite Coordination Guide →](../../Onsite_Coordination_Overview.html)
+[Open Full Onsite Coordination Guide →](../onsite-coordination-guide.html)

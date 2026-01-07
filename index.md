@@ -60,38 +60,34 @@ Schedule Now →
 <div style="background: #e7f3ff; border-radius: 12px; padding: 1.5rem;">
 <h3 style="margin-top: 0; color: #0056b3;">👤 End Users</h3>
 <p>Resources to help you through the migration process.</p>
-
-**Guides:**
-
-- [Remote Support Worksheet](docs/guides/remote-support.html) - Interactive migration tracking
-- [Device Onboarding](docs/guides/device-onboarding.html) - New device setup guide
-
-**Quick Links:**
-
-- [FAQ for End Users](docs/faq.html#end-user-questions)
-- [What to Expect](docs/key-user-migration.html#what-to-expect-during-migration)
-
+<p><strong>Guides:</strong></p>
+<ul style="margin: 0.5rem 0;">
+<li><a href="docs/guides/remote-support.html">Remote Support Worksheet</a> - Interactive migration tracking</li>
+<li><a href="docs/guides/device-onboarding.html">Device Onboarding</a> - New device setup guide</li>
+</ul>
+<p><strong>Quick Links:</strong></p>
+<ul style="margin: 0.5rem 0;">
+<li><a href="docs/faq.html#end-user-questions">FAQ for End Users</a></li>
+<li><a href="docs/key-user-migration.html#what-to-expect-during-migration">What to Expect</a></li>
+</ul>
 <a href="docs/end-users/" style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: #007bff; color: white; text-decoration: none; border-radius: 6px;">View All End User Resources →</a>
-
 </div>
 
 <div style="background: #f8f9fa; border-radius: 12px; padding: 1.5rem;">
 <h3 style="margin-top: 0; color: #495057;">🔧 Technicians</h3>
 <p>Technical documentation and reference materials.</p>
-
-**Guides:**
-
-- [Network Migration](docs/guides/network-migration.html) - Infrastructure procedures
-- [Onsite Coordination](docs/guides/onsite-coordination.html) - Multi-site deployment
-- [Administrator Guide](docs/guides/admin-guide.html) - Device management
-
-**Quick Links:**
-
-- [Troubleshooting](docs/troubleshooting.html)
-- [Escalation Guide](docs/troubleshooting.html#escalation-guide)
-
+<p><strong>Guides:</strong></p>
+<ul style="margin: 0.5rem 0;">
+<li><a href="docs/guides/network-migration.html">Network Migration</a> - Infrastructure procedures</li>
+<li><a href="docs/guides/onsite-coordination.html">Onsite Coordination</a> - Multi-site deployment</li>
+<li><a href="docs/guides/admin-guide.html">Administrator Guide</a> - Device management</li>
+</ul>
+<p><strong>Quick Links:</strong></p>
+<ul style="margin: 0.5rem 0;">
+<li><a href="docs/troubleshooting.html">Troubleshooting</a></li>
+<li><a href="docs/troubleshooting.html#escalation-guide">Escalation Guide</a></li>
+</ul>
 <a href="docs/technicians/" style="display: inline-block; margin-top: 1rem; padding: 0.5rem 1rem; background: #6c757d; color: white; text-decoration: none; border-radius: 6px;">View All Technician Resources →</a>
-
 </div>
 
 </div>
@@ -121,15 +117,15 @@ Schedule Now →
 
 ### For End Users
 
-| Guide                                                                            | Description                                | Time    |
-| -------------------------------------------------------------------------------- | ------------------------------------------ | ------- |
-| [Remote Support Worksheet](Impact_Remote_Support_Migration_Worksheet.html)       | Interactive step-by-step migration tracker | ~2 hrs  |
-| [Device Onboarding](New%20Windows%20Device%20Onboarding%20and%20Deployment.html) | New Windows device setup guide             | ~90 min |
+| Guide                                                          | Description                                | Time    |
+| -------------------------------------------------------------- | ------------------------------------------ | ------- |
+| [Remote Support Worksheet](docs/remote-support-worksheet.html) | Interactive step-by-step migration tracker | ~2 hrs  |
+| [Device Onboarding](docs/device-onboarding-guide.html)         | New Windows device setup guide             | ~90 min |
 
 ### For Technicians
 
-| Guide                                                                                     | Description                                | Time    |
-| ----------------------------------------------------------------------------------------- | ------------------------------------------ | ------- |
-| [Network Migration](Impact_Property_Solutions_Network_Migration_Technical_Reference.html) | Complete network infrastructure procedures | ~45 min |
-| [Onsite Coordination](Onsite_Coordination_Overview.html)                                  | Multi-site deployment coordination         | ~60 min |
-| [Administrator Guide](Windows_Device_Migration_Administrator_Guide.html)                  | Device management reference                | ~20 min |
+| Guide                                                      | Description                                | Time    |
+| ---------------------------------------------------------- | ------------------------------------------ | ------- |
+| [Network Migration](docs/network-migration-reference.html) | Complete network infrastructure procedures | ~45 min |
+| [Onsite Coordination](docs/onsite-coordination-guide.html) | Multi-site deployment coordination         | ~60 min |
+| [Administrator Guide](docs/admin-migration-guide.html)     | Device management reference                | ~20 min |

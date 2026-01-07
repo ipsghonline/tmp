@@ -13,7 +13,7 @@ nav_order: 3
 Quick reference guide for IT administrators managing Windows device migrations.
 
 <p style="margin: 1.5rem 0;">
-<a href="../../Windows_Device_Migration_Administrator_Guide.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #dc3545; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
+<a href="../admin-migration-guide.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #dc3545; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
 Open Administrator Guide →
 </a>
 </p>
@@ -83,4 +83,4 @@ Get-IntuneDeviceCompliancePolicy
 
 ---
 
-[Open Full Administrator Guide →](../../Windows_Device_Migration_Administrator_Guide.html)
+[Open Full Administrator Guide →](../admin-migration-guide.html)

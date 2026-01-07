@@ -13,7 +13,7 @@ nav_order: 1
 Complete technical reference for network infrastructure migration from ILG to Impact environment.
 
 <p style="margin: 1.5rem 0;">
-<a href="../../Impact_Property_Solutions_Network_Migration_Technical_Reference.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #28a745; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
+<a href="../network-migration-reference.html" style="display: inline-block; padding: 0.75rem 1.5rem; background-color: #28a745; color: white; text-decoration: none; border-radius: 6px; font-weight: bold;">
 Open Full Guide →
 </a>
 </p>
@@ -64,4 +64,4 @@ This guide covers the complete 14-step network migration procedure for transitio
 
 ---
 
-[Open Full Network Migration Guide →](../../Impact_Property_Solutions_Network_Migration_Technical_Reference.html)
+[Open Full Network Migration Guide →](../network-migration-reference.html)
