@@ -7,19 +7,19 @@ parent: End User Documentation
 
 # Remote Support Migration Worksheet
 
-{: .no_toc }
-
 Service Engineer Guide for Small Site Migrations (<5 users)
 {: .fs-5 .fw-300 }
 
 ---
 
-## Table of Contents
-
-{: .no_toc .text-delta }
-
+<details open markdown="block">
+  <summary>
+    Table of Contents
+  </summary>
+  {: .text-delta }
 1. TOC
-   {:toc}
+{:toc}
+</details>
 
 ---
 
