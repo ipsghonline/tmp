@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network Migration Technical Reference Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: #323338;
+            background: #f5f6f8;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+            padding: 40px;
+        }
+
+        header {
+            border-bottom: 3px solid #3f51b5;
+            padding-bottom: 30px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.2em;
+            color: #3f51b5;
+            margin-bottom: 10px;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 30px;
+            font-size: 0.95em;
+            color: #666;
+            margin-top: 15px;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .badge-critical {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .badge-prerequisite {
+            background: #fff3e0;
+            color: #e65100;
+        }
+
+        h2 {
+            font-size: 1.6em;
+            color: #323338;
+            margin-top: 40px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #e0e1e6;
+        }
+
+        h3 {
+            font-size: 1.3em;
+            color: #3f51b5;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .info-box {
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            border-left: 4px solid #ff6f00;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .success-box {
+            background: #e8f5e9;
+            border-left: 4px solid #2e7d32;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .procedure-list {
+            list-style: none;
+            counter-reset: procedure-counter;
+        }
+
+        .procedure-list li {
+            counter-increment: procedure-counter;
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+        }
+
+        .procedure-list li:before {
+            content: counter(procedure-counter);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 40px;
+            background: #3f51b5;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+
+        .step-title {
+            font-weight: 600;
+            color: #323338;
+            font-size: 1.05em;
+            margin-bottom: 5px;
+        }
+
+        .step-description {
+            color: #666;
+            font-size: 0.95em;
+            line-height: 1.5;
+        }
+
+        .checklist {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            color: #666;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .role-section {
+            background: #f9fafb;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #667eea;
+        }
+
+        .role-title {
+            font-weight: 600;
+            color: #323338;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .role-responsibilities {
+            list-style-position: inside;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        .role-responsibilities li {
+            margin: 8px 0;
+            padding-left: 10px;
+        }
+
+        .timeline {
+            margin: 30px 0;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .timeline-date {
+            font-weight: 600;
+            color: #3f51b5;
+            min-width: 140px;
+            padding-top: 5px;
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding: 15px;
+            background: #f9fafb;
+            border-radius: 8px;
+        }
+
+        .timeline-content-title {
+            font-weight: 600;
+            color: #323338;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content-desc {
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        th {
+            background: #3f51b5;
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #e0e1e6;
+            color: #666;
+            font-size: 0.95em;
+        }
+
+        tr:hover {
+            background: #f9fafb;
+        }
+
+        .critical-path {
+            background: #ffebee;
+            border-left: 4px solid #c62828;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 600;
+            color: #c62828;
+            display: inline-block;
+            font-size: 0.85em;
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e1e6;
+            color: #999;
+            font-size: 0.9em;
+            text-align: center;
+        }
+
+        .document-version {
+            background: #f9fafb;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        code {
+            background: #f5f6f8;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: #c62828;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🔧 Network Migration Technical Reference Guide</h1>
+            <div class="header-meta">
+                <div class="meta-item">
+                    <strong>Version:</strong> 1.0
+                </div>
+                <div class="meta-item">
+                    <strong>Date:</strong> November 23, 2025
+                </div>
+                <div class="meta-item">
+                    <span class="badge badge-prerequisite">PREREQUISITE FOR M365</span>
+                </div>
+            </div>
+        </header>
+
+        <section class="section">
+            <h2>📋 Overview</h2>
+            <p>This guide provides detailed technical procedures for network infrastructure migration at all Impact Floors on-site deployment locations. The network migration is a <span class="badge badge-critical">CRITICAL PREREQUISITE</span> that must be completed before M365 technician deployment begins.</p>
+
+            <div class="info-box">
+                <strong>🎯 Purpose:</strong> Migrate Meraki networking infrastructure from ILG-PS tenant to Impact tenant, establish redundant IPsec tunnels from both data centers, and validate RFMS CB environment access.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>⏱️ Timeline & Schedule</h2>
+            <p>Network migration follows the master M365 deployment schedule with minimum 48-hour stabilization window before M365 technician arrival.</p>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date"><strong>Migration Day</strong></div>
+                    <div class="timeline-content">
+                        <div class="timeline-content-title">Execute 14-Step Procedure (4-6 hours)</div>
+                        <div class="timeline-content-desc">Network team arrives on-site and completes all technical steps. Site contact and network team sign off on completion.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date"><strong>Day +1 to +2</strong></div>
+                    <div class="timeline-content">
+                        <div class="timeline-content-title">Stabilization & Monitoring Window (48 hours)</div>
+                        <div class="timeline-content-desc">IPsec tunnels stabilize, BGP converges, DNS propagates. Network team monitors for issues. M365 admin performs readiness verification.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date"><strong>Day +2 (Evening)</strong></div>
+                    <div class="timeline-content">
+                        <div class="timeline-content-title">Pre-Deployment Approval</div>
+                        <div class="timeline-content-desc">M365 admin confirms network migration completion, validates RFMS CB access, authorizes technician deployment.</div>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date"><strong>Day +3</strong></div>
+                    <div class="timeline-content">
+                        <div class="timeline-content-title">M365 Deployment Ready</div>
+                        <div class="timeline-content-desc">M365 technicians arrive on-site. Network infrastructure validated, RFMS access confirmed, deployment can proceed.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>👥 Roles & Responsibilities</h2>
+
+            <div class="role-section">
+                <div class="role-title">🔗 Network Team Lead</div>
+                <ul class="role-responsibilities">
+                    <li>Execute all 14 technical procedure steps</li>
+                    <li>Validate RFMS CB environment access from RFMS gateway</li>
+                    <li>Obtain site contact signature on completion form</li>
+                    <li>Report any deviations or issues to M365 team</li>
+                    <li>Document configuration details (tunnel IPs, device serials)</li>
+                </ul>
+            </div>
+
+            <div class="role-section">
+                <div class="role-title">🔧 Network Support Technician</div>
+                <ul class="role-responsibilities">
+                    <li>Assist Network Lead with device configuration</li>
+                    <li>Monitor Meraki dashboard during migration</li>
+                    <li>Perform initial connectivity testing (ping, tracert)</li>
+                    <li>Participate in IPsec tunnel validation</li>
+                    <li>Verify alarm and camera system connectivity</li>
+                </ul>
+            </div>
+
+            <div class="role-section">
+                <div class="role-title">📊 M365 Admin (Readiness Verification)</div>
+                <ul class="role-responsibilities">
+                    <li>Receive sign-off from Network Lead</li>
+                    <li>Wait minimum 48 hours for stabilization (Day +2 evening)</li>
+                    <li>Test M365 connectivity from site location</li>
+                    <li>Validate RFMS CB access: <code>I00774GW02.IMPACTFLOORS.LOCAL</code></li>
+                    <li>Confirm no DNS resolution issues</li>
+                    <li>Authorize M365 technician deployment</li>
+                </ul>
+            </div>
+
+            <div class="role-section">
+                <div class="role-title">👤 Site Contact (On-site)</div>
+                <ul class="role-responsibilities">
+                    <li>Provide network team physical access to equipment</li>
+                    <li>Facilitate user testing (RFMS access verification)</li>
+                    <li>Observe all configuration steps</li>
+                    <li>Sign completion form confirming all steps executed</li>
+                    <li>Report any issues to Network Lead immediately</li>
+                </ul>
+            </div>
+
+            <div class="role-section">
+                <div class="role-title">🚀 M365 Field Technician</div>
+                <ul class="role-responsibilities">
+                    <li>Verify network migration completed before arrival (from M365 admin)</li>
+                    <li>Test RFMS CB access: <code>I00774GW02.IMPACTFLOORS.LOCAL</code> on arrival (part of pre-deployment checklist)</li>
+                    <li>Proceed with M365 user enrollment after network verification</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>✅ Pre-Migration Checklist</h2>
+            <p><strong>Network Team:</strong> Complete these items BEFORE arriving on-site</p>
+            <ul class="checklist">
+                <li>Confirm Meraki licenses available in Impact tenant (quantity = # of devices)</li>
+                <li>Verify IPsec tunnel configurations loaded in both ILG DC and Impact DC</li>
+                <li>Test VPN connectivity from office to both data centers</li>
+                <li>Download latest Meraki firmware for device model</li>
+                <li>Print this procedure guide + site contact info</li>
+                <li>Prepare device serial numbers and MAC addresses</li>
+                <li>Test Meraki dashboard access (login credentials ready)</li>
+            </ul>
+        </section>
+
+        <section class="section">
+            <h2>🔄 14-Step Technical Procedure</h2>
+
+            <div class="warning-box">
+                <strong>⚠️ CRITICAL DEPENDENCY:</strong> These steps must execute sequentially. Do not skip steps or perform out of order. Each step validates the previous step.
+            </div>
+
+            <ol class="procedure-list">
+                <li>
+                    <div class="step-title">Confirm Remote Access & Connectivity</div>
+                    <div class="step-description">
+                        Confirm remote access to Meraki dashboard. Verify network connectivity and equipment visibility. Coordinate with on-site technicians as needed for physical access or equipment verification. Verify site contact availability for testing phases.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Unclaim Devices from ILG Tenant</div>
+                    <div class="step-description">
+                        Log into Meraki dashboard for ILG-PS tenant. Navigate to Inventory → Devices. Select all site devices. Action: "Unclaim". Document device serial numbers during unclaim process. Confirm devices now show as "Unclaimed" in dashboard.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Claim Devices in Impact Tenant</div>
+                    <div class="step-description">
+                        Log into Meraki dashboard for Impact tenant (use provided credentials). Navigate to Inventory. Add devices by serial number. Confirm claim succeeds for ALL devices. Verify devices appear in Impact tenant inventory (may take 2-3 minutes).
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Assign Licenses to Devices</div>
+                    <div class="step-description">
+                        For each claimed device, navigate to Device Settings → License. Assign appropriate license tier (match previous ILG licensing or per M365 team specification). Confirm license assignment succeeds. Devices should show "Licensed" status in dashboard.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Verify WAN Settings</div>
+                    <div class="step-description">
+                        Navigate to Switching → Network Settings → WAN. Confirm WAN configuration matches site specifications (primary ISP, backup provider if applicable). Verify IP addressing, gateway, DNS servers. Check for any configuration warnings or errors in dashboard.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Verify LAN Settings</div>
+                    <div class="step-description">
+                        Navigate to Switching → VLANs and Routing. Confirm site VLANs exist (typical: User Network, Print Server Network, Management). Verify VLAN routing and inter-VLAN connectivity. Confirm IP ranges match site specifications. No configuration errors should appear.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Test Prisma VPN Connect (if applicable)</div>
+                    <div class="step-description">
+                        If site uses Prisma VPN for remote access, navigate to Security → VPN. Confirm VPN tunnel status shows "Connected" or "Active". If status is "Down", troubleshoot: verify VPN pre-shared key, firewall rules, remote gateway accessibility. Document any issues.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Test Access to RFMS</div>
+                    <div class="step-description">
+                        Ask site contact to test RFMS access from end user workstation. URL: <code>I00774GW02.IMPACTFLOORS.LOCAL</code> (from impact.impactfloors.com RDS or direct connection). User should see RFMS login prompt. Confirm network connectivity allows RFMS application to load. Document any access issues.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Test Printing from Local Device</div>
+                    <div class="step-description">
+                        Ask site contact to print test page from local workstation to site printer. Verify print job completes successfully. Confirm printer is accessible and responsive. Test from at least one workstation per printer (if multiple printers exist). Document any print failures.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Set Up IPsec Tunnel: ILG DC → Local Site</div>
+                    <div class="step-description">
+                        Using provided IPsec configuration file for ILG DC, create tunnel endpoint at this site. Configure: local gateway IP, remote gateway IP (ILG DC), pre-shared key, encryption algorithm (AES-256), authentication (SHA-256), lifetime settings. Initiate tunnel and confirm status shows "Established" or "Connected". May take 1-2 minutes to converge.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Set Up IPsec Tunnel: Impact DC → Local Site</div>
+                    <div class="step-description">
+                        Using provided IPsec configuration file for Impact DC, create second tunnel endpoint at this site. Configure: local gateway IP, remote gateway IP (Impact DC), pre-shared key, encryption algorithm (AES-256), authentication (SHA-256), lifetime settings. Initiate tunnel and confirm status shows "Established" or "Connected". BOTH tunnels should now show as active.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Test Printing from RFMS</div>
+                    <div class="step-description">
+                        Ask site contact to test printing from RFMS CB environment: log in via <code>I00774GW02.IMPACTFLOORS.LOCAL</code>, navigate to Print function, send test print job to local site printer. Verify print job completes successfully from RFMS. This validates end-to-end connectivity through both IPsec tunnels.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Verify Burglar Alarm Connection (if applicable)</div>
+                    <div class="step-description">
+                        If site has alarm system connected to network monitoring: test alarm panel network connectivity. Confirm heartbeat signal to monitoring center. Ask site contact to confirm alarm system status in their management console. Document alarm system status: Connected/Operational.
+                    </div>
+                </li>
+
+                <li>
+                    <div class="step-title">Verify Camera System Connection (if applicable)</div>
+                    <div class="step-description">
+                        If site has IP cameras or NVR: test camera network connectivity. Confirm cameras respond to ping. If remote viewing available, test access to camera feed from impact.impactfloors.com portal. Verify all cameras show "Online" status. Document camera system status: All Online.
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <section class="section">
+            <h2>✔️ Success Criteria</h2>
+            <p>Network migration is <strong>COMPLETE</strong> and <strong>APPROVED FOR M365 DEPLOYMENT</strong> when ALL of the following are confirmed:</p>
+
+            <div class="success-box">
+                <ul class="checklist">
+                    <li>All devices claimed and licensed in Impact tenant</li>
+                    <li>WAN and LAN configurations verified with no errors</li>
+                    <li>RFMS CB access: <code>I00774GW02.IMPACTFLOORS.LOCAL</code> working from site</li>
+                    <li>Local device printing functional</li>
+                    <li>Both IPsec tunnels (ILG DC and Impact DC) established and stable</li>
+                    <li>RFMS CB printing functional (through IPsec tunnels)</li>
+                    <li>Burglar alarm connected (if applicable)</li>
+                    <li>Camera system online (if applicable)</li>
+                    <li>Network Lead and Site Contact sign-off obtained</li>
+                    <li>M365 Admin readiness verification completed (≥48 hours post-migration)</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📋 Sign-Off Form</h2>
+            <p>To be completed by Network Lead and Site Contact on-site, immediately after Step 14 completion.</p>
+
+            <table>
+                <tr>
+                    <th>Item</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+                <tr>
+                    <td>All 14 technical steps executed</td>
+                    <td style="text-align: center;">☐ Complete</td>
+                    <td style="font-style: italic;">Record any skipped steps or deviations</td>
+                </tr>
+                <tr>
+                    <td>RFMS access verified</td>
+                    <td style="text-align: center;">☐ Confirmed</td>
+                    <td style="font-style: italic;">User tested: ________________</td>
+                </tr>
+                <tr>
+                    <td>Both IPsec tunnels established</td>
+                    <td style="text-align: center;">☐ Confirmed</td>
+                    <td style="font-style: italic;">Tunnel status verified in Meraki dashboard</td>
+                </tr>
+                <tr>
+                    <td>No critical issues encountered</td>
+                    <td style="text-align: center;">☐ Confirmed</td>
+                    <td style="font-style: italic;">Issues resolved on-site: ________________</td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background: #f9fafb; font-weight: 600; padding: 15px;">
+                        <strong>Network Lead Name:</strong> ________________  <strong>Signature:</strong> ________________  <strong>Date/Time:</strong> ________________
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3" style="background: #f9fafb; font-weight: 600; padding: 15px;">
+                        <strong>Site Contact Name:</strong> ________________  <strong>Signature:</strong> ________________  <strong>Date/Time:</strong> ________________
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section class="section">
+            <h2>⚠️ Troubleshooting Guide</h2>
+
+            <h3>Device Claim Failures</h3>
+            <div class="info-box">
+                <strong>Problem:</strong> "Device cannot be claimed" or "License exhausted" error<br>
+                <strong>Solution:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Verify license count in Impact tenant (Inventory → Licenses)</li>
+                    <li>If exhausted: check if older devices can be removed from inventory</li>
+                    <li>Confirm device is unclaimed from ILG tenant (may take 5-10 minutes to propagate)</li>
+                    <li>Try claiming again with exact serial number (no spaces, correct case)</li>
+                </ul>
+            </div>
+
+            <h3>IPsec Tunnel Not Establishing</h3>
+            <div class="info-box">
+                <strong>Problem:</strong> IPsec tunnel shows "Down" or "Not Connected"<br>
+                <strong>Solution:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Verify pre-shared key matches exactly on both ends (case-sensitive)</li>
+                    <li>Confirm both ILG DC and Impact DC gateways are reachable (ping test from Meraki device)</li>
+                    <li>Check firewall rules allow UDP 500 and UDP 4500 (IKE, IPsec)</li>
+                    <li>Verify local and remote subnet configurations are correct</li>
+                    <li>Wait 2-3 minutes after configuration, then reboot Meraki device</li>
+                    <li>Contact Network Operations team if tunnels still fail to establish</li>
+                </ul>
+            </div>
+
+            <h3>RFMS Access Not Working</h3>
+            <div class="info-box">
+                <strong>Problem:</strong> Cannot access <code>I00774GW02.IMPACTFLOORS.LOCAL</code> from site<br>
+                <strong>Solution:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Test basic connectivity: <code>ping I00774GW02.IMPACTFLOORS.LOCAL</code></li>
+                    <li>Verify DNS resolution: <code>nslookup I00774GW02.IMPACTFLOORS.LOCAL</code></li>
+                    <li>Confirm at least one IPsec tunnel is established (if RFMS behind tunnel)</li>
+                    <li>Check firewall rules allow port 443 (HTTPS) to RFMS gateway</li>
+                    <li>Clear browser cache and try again</li>
+                    <li>Try from different workstation to confirm not a single-device issue</li>
+                </ul>
+            </div>
+
+            <h3>Printing Not Working from Site</h3>
+            <div class="info-box">
+                <strong>Problem:</strong> Print jobs fail or printer offline<br>
+                <strong>Solution:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Verify printer has network connectivity (ping printer IP)</li>
+                    <li>Confirm printer is on same VLAN as user workstations</li>
+                    <li>Check printer web interface for errors (navigate to printer IP address)</li>
+                    <li>Restart printer (power cycle 30 seconds)</li>
+                    <li>If using print queue: clear print jobs on workstation (Settings → Devices → Printers)</li>
+                    <li>Re-add printer if necessary</li>
+                </ul>
+            </div>
+
+            <h3>Printing Not Working from RFMS</h3>
+            <div class="info-box">
+                <strong>Problem:</strong> Print jobs from RFMS fail or printer appears offline<br>
+                <strong>Solution:</strong>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Verify BOTH IPsec tunnels are established (may be redundant paths)</li>
+                    <li>Test basic connectivity through RFMS network: <code>ping printer-ip-from-rfms</code></li>
+                    <li>Confirm print server has routes to local site through IPsec tunnels</li>
+                    <li>Check firewall rules on RFMS print server allow traffic to site printer</li>
+                    <li>Verify printer queue on RFMS server shows site printer (may need to re-add)</li>
+                    <li>Contact print infrastructure team if issue persists</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📞 Escalation & Support</h2>
+            <table>
+                <tr>
+                    <th>Issue Category</th>
+                    <th>Contact</th>
+                    <th>Priority</th>
+                </tr>
+                <tr>
+                    <td>Meraki dashboard/licensing issues</td>
+                    <td>Meraki Support + Network Ops Team</td>
+                    <td>CRITICAL</td>
+                </tr>
+                <tr>
+                    <td>IPsec tunnel failures</td>
+                    <td>Network Operations + Data Center Teams</td>
+                    <td>CRITICAL</td>
+                </tr>
+                <tr>
+                    <td>RFMS connectivity issues</td>
+                    <td>RFMS Infrastructure Team</td>
+                    <td>HIGH</td>
+                </tr>
+                <tr>
+                    <td>Printer configuration issues</td>
+                    <td>Print Infrastructure Team</td>
+                    <td>HIGH</td>
+                </tr>
+                <tr>
+                    <td>Site-specific network issues</td>
+                    <td>Local IT support + Network Ops</td>
+                    <td>MEDIUM</td>
+                </tr>
+            </table>
+
+            <div class="warning-box">
+                <strong>⚠️ If any CRITICAL issue cannot be resolved on-site:</strong> Network Lead must notify M365 team immediately. Do NOT sign off. M365 deployment will be postponed until network is fully operational.
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>📊 Configuration Reference</h2>
+            <p>Keep this information available during migration:</p>
+            <ul class="checklist">
+                <li>RFMS CB Gateway: <code>I00774GW02.IMPACTFLOORS.LOCAL</code></li>
+                <li>RFMS CB IronOrbit Gateway: <code>ironorbit.impactfloors.com</code></li>
+                <li>Impact Meraki Tenant Admin URL: <code>dashboard.meraki.com</code></li>
+                <li>IPsec Configuration Files: Provided by Network Ops (site-specific)</li>
+                <li>Device Firmware: Download from Meraki dashboard (latest stable release)</li>
+                <li>Meraki API Key: Provided by Network Ops (if scripted deployment used)</li>
+                <li>DNS Servers: Match site-specific configuration (typically Impact DNS servers)</li>
+            </ul>
+        </section>
+
+        <footer class="footer">
+            <p>Network Migration Technical Reference Guide v1.0 | November 23, 2025</p>
+            <p>For questions or updates: Network Operations Team</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,1634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Property Solutions - Remote Support Migration Worksheet</title>
+    <style>
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-tertiary: #6a6a6a;
+            --accent-primary: #1a5490;
+            --accent-secondary: #2d6ba0;
+            --accent-hover: #0d3d6b;
+            --border-color: #d1d1d1;
+            --code-bg: #fafafa;
+            --code-border: #e5e5e5;
+            --success: #107c10;
+            --warning: #ffb900;
+            --error: #d13438;
+            --info: #1a5490;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #252525;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b8b8b8;
+            --text-tertiary: #888888;
+            --accent-primary: #4a9eff;
+            --accent-secondary: #5ba5ff;
+            --accent-hover: #3a8eef;
+            --border-color: #404040;
+            --code-bg: #2a2a2a;
+            --code-border: #3a3a3a;
+            --success: #4ec04e;
+            --warning: #ffcc00;
+            --error: #ff6b6b;
+            --info: #4a9eff;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 0.95rem;
+            opacity: 0.95;
+        }
+
+        .call-info {
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .call-info h2 {
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item label {
+            font-weight: bold;
+            color: var(--accent-primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-item input,
+        .info-item select {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .info-item input:focus,
+        .info-item select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(26, 84, 144, 0.1);
+        }
+
+        .section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            page-break-inside: avoid;
+        }
+
+        .section h2 {
+            color: var(--accent-primary);
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .section h3 {
+            color: var(--accent-secondary);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.8rem;
+            margin: 0.6rem 0;
+            padding: 0.5rem;
+            background: var(--bg-primary);
+            border-radius: 4px;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 0.95rem;
+        }
+
+        .checklist-item input[type="checkbox"]:checked + label {
+            opacity: 0.6;
+            text-decoration: line-through;
+        }
+
+        .notes {
+            width: 100%;
+            min-height: 80px;
+            padding: 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            resize: vertical;
+        }
+
+        .notes:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 2px rgba(26, 84, 144, 0.1);
+        }
+
+        .alert {
+            padding: 0.8rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid;
+            font-size: 0.9rem;
+        }
+
+        .alert-warning {
+            background: rgba(255, 185, 0, 0.1);
+            border-left-color: var(--warning);
+            color: #cc9900;
+        }
+
+        .alert-error {
+            background: rgba(211, 52, 56, 0.1);
+            border-left-color: var(--error);
+            color: var(--error);
+        }
+
+        .alert-info {
+            background: rgba(26, 84, 144, 0.1);
+            border-left-color: var(--info);
+            color: var(--info);
+        }
+
+        .alert-success {
+            background: rgba(16, 124, 16, 0.1);
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        code {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            color: var(--accent-primary);
+        }
+
+        .quick-ref {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .quick-ref h4 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .quick-ref ul {
+            margin-left: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .quick-ref a {
+            color: var(--accent-primary);
+            text-decoration: none;
+        }
+
+        .quick-ref a:hover {
+            text-decoration: underline;
+        }
+
+        .script-box {
+            background: var(--bg-tertiary);
+            border-left: 4px solid var(--info);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .script-box strong {
+            color: var(--accent-primary);
+            font-style: normal;
+        }
+
+        .signoff {
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .signoff h2 {
+            color: var(--accent-primary);
+            margin-bottom: 1rem;
+        }
+
+        .signoff-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .signoff-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .signoff-item label {
+            font-weight: bold;
+            color: var(--accent-primary);
+            margin-bottom: 0.3rem;
+            font-size: 0.9rem;
+        }
+
+        .signoff-item input,
+        .signoff-item select {
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            z-index: 1000;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-hover);
+        }
+
+        .user-tracking {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+
+        .user-tracking h4 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timestamp {
+            display: flex;
+            gap: 1rem;
+            margin: 0.5rem 0;
+            align-items: center;
+        }
+
+        .timestamp label {
+            font-weight: bold;
+            color: var(--accent-primary);
+            min-width: 120px;
+            font-size: 0.9rem;
+        }
+
+        .timestamp input {
+            padding: 0.4rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .user-manager {
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .user-manager h2 {
+            color: var(--accent-primary);
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--accent-primary);
+            padding-bottom: 0.5rem;
+        }
+
+        .user-selector {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .user-selector select {
+            flex: 1;
+            min-width: 200px;
+            padding: 0.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 1rem;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        .user-selector button {
+            padding: 0.5rem 1rem;
+            background: var(--accent-primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .user-selector button:hover {
+            background: var(--accent-hover);
+        }
+
+        .user-progress {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .user-progress-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.8rem;
+            font-size: 0.9rem;
+        }
+
+        .user-progress-item.active {
+            border: 2px solid var(--accent-primary);
+            background: var(--bg-tertiary);
+        }
+
+        .user-progress-item h4 {
+            color: var(--accent-primary);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .user-progress-item .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--bg-tertiary);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .user-progress-item .progress-fill {
+            height: 100%;
+            background: var(--success);
+            transition: width 0.3s ease;
+        }
+
+        .user-progress-item .phase-status {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        @media print {
+            .theme-toggle {
+                display: none;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()">Dark Mode</button>
+
+    <div class="container">
+        <header>
+            <h1>Impact Property Solutions</h1>
+            <p>Remote Support Migration Worksheet</p>
+            <p style="font-size: 0.85rem; margin-top: 0.5rem;">Service Engineer Guide for Small Site Migrations (&lt;5 users)</p>
+        </header>
+
+        <div class="user-manager">
+            <h2>User Management</h2>
+            <div class="alert alert-info">
+                <strong>Multi-User Support:</strong> Track up to 4 users per site. Switch between users to save and load progress independently.
+            </div>
+            
+            <div class="user-selector">
+                <label for="user-select" style="font-weight: bold; color: var(--accent-primary); min-width: 120px;">Current User:</label>
+                <select id="user-select">
+                    <option value="">-- Select or Add User --</option>
+                </select>
+                <button type="button" onclick="addNewUser()">+ Add New User</button>
+                <button type="button" onclick="deleteCurrentUser()" style="background: var(--error);" onmouseover="this.style.background='#b02a2a'" onmouseout="this.style.background='var(--error)'">Delete Current User</button>
+            </div>
+
+            <div class="user-progress" id="user-progress-container">
+                <!-- User progress items will be dynamically added here -->
+            </div>
+        </div>
+
+        <div class="call-info">
+            <h2>Call Information</h2>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label for="call-date">Call Date *</label>
+                    <input type="date" id="call-date" required>
+                </div>
+                <div class="info-item">
+                    <label for="call-time-start">Call Start Time *</label>
+                    <input type="time" id="call-time-start" required>
+                </div>
+                <div class="info-item">
+                    <label for="engineer-name">Service Engineer Name *</label>
+                    <input type="text" id="engineer-name" placeholder="Your full name" required>
+                </div>
+                <div class="info-item">
+                    <label for="site-name">Site Name *</label>
+                    <input type="text" id="site-name" placeholder="e.g., El Paso, TX" required>
+                </div>
+                <div class="info-item">
+                    <label for="user-name">End User Name *</label>
+                    <input type="text" id="user-name" placeholder="User's full name" required>
+                </div>
+                <div class="info-item">
+                    <label for="user-email">User Email *</label>
+                    <input type="email" id="user-email" placeholder="user@impactpropertysolutions.com" required>
+                </div>
+                <div class="info-item">
+                    <label for="user-phone">User Phone Number</label>
+                    <input type="tel" id="user-phone" placeholder="(XXX) XXX-XXXX">
+                </div>
+                <div class="info-item">
+                    <label for="call-method">Communication Method *</label>
+                    <select id="call-method" required>
+                        <option value="">Select...</option>
+                        <option value="phone">Phone Call</option>
+                        <option value="teams">Microsoft Teams</option>
+                        <option value="teams-screen">Teams with Screen Share</option>
+                    </select>
+                </div>
+                <div class="info-item">
+                    <label for="total-users">Total Users at Site</label>
+                    <input type="number" id="total-users" min="1" max="4" placeholder="1-4">
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Pre-Call Preparation</h2>
+            <div class="alert alert-info">
+                <strong>Before starting the call:</strong> Review site information, verify user has devices ready, and confirm they have 60-90 minutes available.
+            </div>
+
+            <div class="checklist-item">
+                <input type="checkbox" id="prep-site-info">
+                <label for="prep-site-info">Reviewed site information from dispatch ticket (if available)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="prep-user-ready">
+                <label for="prep-user-ready">Confirmed user has Windows device and iOS device (if applicable) ready</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="prep-time-available">
+                <label for="prep-time-available">Confirmed user has 60-90 minutes available for migration</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="prep-network">
+                <label for="prep-network">Confirmed user has stable internet connection (wired Ethernet preferred)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="prep-teams-setup">
+                <label for="prep-teams-setup">If using Teams, confirmed user can share screen (optional but recommended)</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Opening Script:</strong> "Hi [User Name], this is [Your Name] from Impact Property Solutions IT support. I'm calling to help you migrate your devices to our new system. This process will take about 60-90 minutes. Do you have that time available right now? Great! Let's get started. First, I need to verify a few things..."
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 1: Pre-Migration Backup (BEFORE RESET)</h2>
+            <div class="alert alert-warning">
+                <strong>CRITICAL:</strong> All backups must be completed and verified BEFORE requesting device reset. This is a one-way process.
+            </div>
+
+            <div class="user-tracking">
+                <h4>User: <span id="current-user-display">[Enter user name above]</span></h4>
+                <div class="timestamp">
+                    <label>Phase 1 Start:</label>
+                    <input type="time" id="phase1-start">
+                </div>
+            </div>
+
+            <h3>Browser Bookmarks Export</h3>
+            <div class="script-box">
+                <strong>Script:</strong> "Before we reset your device, we need to backup your browser bookmarks. This ensures you won't lose any saved websites. Let's start with Chrome..."
+            </div>
+
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-chrome">
+                <label for="backup-chrome"><strong>Chrome Bookmarks:</strong> User exported to Desktop (Menu → Bookmarks → Bookmark Manager → ⋮ → Export)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-edge">
+                <label for="backup-edge"><strong>Edge Bookmarks:</strong> User exported to Desktop (Settings → Favorites → Export)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-firefox">
+                <label for="backup-firefox"><strong>Firefox Bookmarks:</strong> User exported to Desktop (if Firefox is used)</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Password Note:</strong> "I should mention that browser passwords are encrypted and can't be easily transferred. You'll need to re-enter passwords for websites after migration. However, your Microsoft 365 passwords will sync automatically."
+            </div>
+
+            <h3>Printer Configuration Backup</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-printers">
+                <label for="backup-printers"><strong>Printer Screenshot:</strong> User took screenshot of printer mappings and saved to Desktop as "PrinterBackup.png"</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Now let's backup your printer settings. Please open Settings → Devices → Printers & scanners. Take a screenshot showing all your printers and save it to your Desktop as 'PrinterBackup.png'."
+            </div>
+
+            <h3>OneDrive Verification</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-onedrive-check">
+                <label for="backup-onedrive-check"><strong>OneDrive Known-Folder Backup:</strong> Verified ON (Settings → Account → OneDrive → Manage backup)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-onedrive-sync">
+                <label for="backup-onedrive-sync"><strong>OneDrive 100% Synced:</strong> Verified at portal.office.com - all files show as synced</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "This is very important - we need to make sure all your files are backed up to OneDrive. Please open a web browser and go to portal.office.com. Sign in and check your OneDrive. Can you confirm all your files show a green checkmark indicating they're synced? Great! We cannot proceed until OneDrive shows 100% complete."
+            </div>
+
+            <div class="alert alert-error">
+                <strong>DO NOT PROCEED</strong> until OneDrive shows 100% sync completion. This is critical for data safety.
+            </div>
+
+            <h3>iOS Device Backup (If Applicable)</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-ios-check">
+                <label for="backup-ios-check"><strong>iOS Device Present:</strong> User has iOS device that needs migration</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-ios-app">
+                <label for="backup-ios-app"><strong>Apple Devices App:</strong> Installed on Windows PC (Microsoft Store)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="backup-ios-complete">
+                <label for="backup-ios-complete"><strong>iOS Backup Complete:</strong> Connected via USB, Apple Devices app → Backup → Completed</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "If you have an iPhone or iPad, we need to backup that too. First, please install the 'Apple Devices' app from the Microsoft Store if you don't have it. Then connect your iOS device via USB cable. When prompted, tap 'Trust' on your device. Then in the Apple Devices app, click 'Backup' and wait for it to complete."
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 1 Complete:</label>
+                <input type="time" id="phase1-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 2: Device Documentation & Reset Request</h2>
+            <div class="alert alert-info">
+                <strong>Estimated Time:</strong> 5-10 minutes to document, then 15-30 minute wait for reset confirmation
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 2 Start:</label>
+                <input type="time" id="phase2-start">
+            </div>
+
+            <h3>Windows Device Serial Number</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="doc-windows-serial">
+                <label for="doc-windows-serial"><strong>Windows Serial Recorded:</strong> Settings → System → About → Device identifier</label>
+            </div>
+
+            <div class="info-item" style="margin-top: 1rem;">
+                <label for="windows-serial">Windows Serial Number:</label>
+                <input type="text" id="windows-serial" placeholder="ABC123XYZ (ALL CAPS, no spaces)" style="text-transform: uppercase;">
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Now I need to get your device serial numbers. For your Windows computer, please go to Settings, then System, then About. Look for the device identifier or serial number. Can you read that to me? Please use all capital letters and no spaces."
+            </div>
+
+            <h3>iOS Device Information (If Applicable)</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="doc-ios-serial">
+                <label for="doc-ios-serial"><strong>iOS Serial Recorded:</strong> Settings → General → About → Serial Number</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="doc-ios-udid">
+                <label for="doc-ios-udid"><strong>iOS UDID Recorded:</strong> Settings → General → About → UDID (or Apple Configurator)</label>
+            </div>
+
+            <div class="info-item" style="margin-top: 1rem;">
+                <label for="ios-serial">iOS Serial Number:</label>
+                <input type="text" id="ios-serial" placeholder="DEF456UVW">
+            </div>
+            <div class="info-item" style="margin-top: 1rem;">
+                <label for="ios-udid">iOS UDID:</label>
+                <input type="text" id="ios-udid" placeholder="A1B2C3D4-E5F6-7890-ABCD-EF1234567890">
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "For your iPhone/iPad, please go to Settings, then General, then About. I need both the Serial Number and the UDID. The UDID might be below the serial number. Can you read both to me?"
+            </div>
+
+            <h3>Submit Reset Request to Suleman</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="reset-teams-open">
+                <label for="reset-teams-open"><strong>Teams Opened:</strong> User opened Microsoft Teams (or engineer will send message)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="reset-message-sent">
+                <label for="reset-message-sent"><strong>Reset Message Sent:</strong> Sent to Suleman Manji (smanji@viyu.net) via Teams</label>
+            </div>
+
+            <div class="quick-ref">
+                <h4>Reset Request Message Format (Copy Exactly):</h4>
+                <code>Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]</code>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">Example: <code>Windows Serial: ABC123XYZ | iOS Serial: DEF456UVW | iOS UDID: A1B2C3D4-E5F6-7890-ABCD-EF1234567890</code></p>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Now I'm going to send a message to our IT administrator to request your device reset. This will take about 15-30 minutes. While we wait, we can prepare for the next steps. Please don't turn off your device or disconnect from the internet during this time."
+            </div>
+
+            <div class="timestamp">
+                <label>Reset Request Sent:</label>
+                <input type="datetime-local" id="reset-request-time">
+            </div>
+            <div class="timestamp">
+                <label>Reset Confirmation Received:</label>
+                <input type="datetime-local" id="reset-confirm-time">
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Wait Period:</strong> During the 15-30 minute wait, you can help the user understand what's coming next, or if there are multiple users, start preparing the next user's backup.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 2 Complete:</label>
+                <input type="time" id="phase2-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 3: Windows OOBE (Out-of-Box Experience)</h2>
+            <div class="alert alert-error">
+                <strong>CRITICAL WARNING:</strong> User must NOT interrupt the Autopilot ESP screen. If device is turned off or disconnected during setup, it will require full re-enrollment.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 3 Start:</label>
+                <input type="time" id="phase3-start">
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Great! I've received confirmation that your device reset is ready. Now we need to restart your computer. After it restarts, you'll see a setup screen. This is normal - it's called the 'Out-of-Box Experience' or OOBE. Please follow my instructions carefully."
+            </div>
+
+            <h3>Device Boot & Network</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-boot">
+                <label for="oobe-boot"><strong>Device Booted:</strong> User restarted device and it booted to setup screen</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-network">
+                <label for="oobe-network"><strong>Network Connected:</strong> Device connected to network (Ethernet preferred, WiFi acceptable)</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Please restart your computer now. After it boots up, you'll see a setup screen. Make sure you're connected to the internet - preferably with an Ethernet cable, but WiFi will work too. Can you confirm you see the setup screen?"
+            </div>
+
+            <h3>Organizational Sign-In</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-language">
+                <label for="oobe-language"><strong>Language Selected:</strong> User selected language and region</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-terms">
+                <label for="oobe-terms"><strong>Terms Accepted:</strong> User accepted terms and conditions</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-no-local">
+                <label for="oobe-no-local"><strong>NO Local Account:</strong> User did NOT create local account - proceeded to organizational sign-in</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-org-signin">
+                <label for="oobe-org-signin"><strong>Organizational Sign-In:</strong> User signed in with @impactpropertysolutions.com email</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="oobe-mfa">
+                <label for="oobe-mfa"><strong>MFA Completed:</strong> User completed multi-factor authentication</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "On the setup screen, select your language and region, then accept the terms. When it asks you to sign in, make sure you sign in with your work email - that's your @impactpropertysolutions.com address. Do NOT create a local account. After you sign in, you'll be asked to verify your identity with your phone - that's the multi-factor authentication. Please complete that step."
+            </div>
+
+            <h3>Autopilot ESP (Enrollment Status Page)</h3>
+            <div class="alert alert-warning">
+                <strong>DO NOT INTERRUPT:</strong> The ESP screen will show apps installing. This takes 30-60 minutes. User must NOT turn off device, disconnect internet, or close the screen.
+            </div>
+
+            <div class="checklist-item">
+                <input type="checkbox" id="esp-started">
+                <label for="esp-started"><strong>ESP Screen Appeared:</strong> User sees enrollment progress screen showing apps installing</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="esp-waiting">
+                <label for="esp-waiting"><strong>Waiting Period:</strong> User understands to wait 30-60 minutes without interrupting</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="esp-restarts">
+                <label for="esp-restarts"><strong>Device Restarts:</strong> Device restarted 1-2 times (normal behavior)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="esp-complete">
+                <label for="esp-complete"><strong>ESP Completed:</strong> Setup finished and user can see desktop</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Perfect! Now you should see a screen that says something like 'Setting up your device' or 'Installing apps'. This is the Autopilot setup process. It's going to install all the software you need for work. This will take about 30-60 minutes. Please DO NOT turn off your computer, disconnect from the internet, or close this screen. The computer might restart once or twice - that's normal. Just let it do its thing. I'll check back with you in about 45 minutes, or you can call me when you see your desktop appear. Does that make sense?"
+            </div>
+
+            <div class="alert alert-info">
+                <strong>Follow-Up Options:</strong> Schedule a callback in 45-60 minutes, or have user call back when ESP completes. During this time, you can help other users or take other calls.
+            </div>
+
+            <div class="info-item" style="margin-top: 1rem;">
+                <label for="callback-scheduled">Callback Scheduled For:</label>
+                <input type="datetime-local" id="callback-scheduled">
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 3 Complete:</label>
+                <input type="time" id="phase3-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 4: Post-ESP Verification & Application Check</h2>
+            <div class="alert alert-info">
+                <strong>After ESP Completes:</strong> Verify all required applications are installed before proceeding to user validation.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 4 Start:</label>
+                <input type="time" id="phase4-start">
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Great! I can see your desktop now. Let's verify that all your work applications installed correctly. I'll guide you through checking each one."
+            </div>
+
+            <h3>Required Applications Verification</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-outlook">
+                <label for="verify-outlook"><strong>Outlook Classic:</strong> Installed and can be launched (pin to taskbar if needed)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-teams">
+                <label for="verify-teams"><strong>Microsoft Teams:</strong> Installed with work/school account (pin to taskbar)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-chrome">
+                <label for="verify-chrome"><strong>Google Chrome:</strong> Installed and set as default browser</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-foxit">
+                <label for="verify-foxit"><strong>Foxit PDF Reader:</strong> Installed and set as default PDF viewer</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-ninja">
+                <label for="verify-ninja"><strong>NinjaOne RMM Agent:</strong> Running (check system tray icon)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-vpn">
+                <label for="verify-vpn"><strong>IPS VPN:</strong> IPS.exe run to create VPN profile (if needed)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="verify-onedrive-sync">
+                <label for="verify-onedrive-sync"><strong>OneDrive:</strong> Syncing automatically (check taskbar icon)</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Let's check each application. First, look for Outlook in your Start menu - it should say 'Outlook' or 'Microsoft Outlook'. Can you see it? Great! Now let's check Teams. Look for Microsoft Teams in your Start menu. Do you see it? Let's also check your system tray - that's the area in the bottom right corner of your screen. You should see a OneDrive icon and possibly a NinjaOne icon. Can you confirm you see those?"
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>If Office 365 Not Installed:</strong> Guide user to portal.office.com → Install Office → Office 365 apps
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 4 Complete:</label>
+                <input type="time" id="phase4-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 5: User Validation (3-Point Test)</h2>
+            <div class="alert alert-info">
+                <strong>User Must Be Present:</strong> These tests require the user to verify functionality. Conduct this phase with user on the call or via screen share.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 5 Start:</label>
+                <input type="time" id="phase5-start">
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Now let's test three critical functions to make sure everything is working. I'll guide you through each test, and you'll let me know if it works. Ready?"
+            </div>
+
+            <h3>Test 1: Internet Access</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="test-internet">
+                <label for="test-internet"><strong>Internet Test:</strong> User opened browser, navigated to google.com, page loaded successfully</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "First test - Internet access. Please open your web browser - that should be Chrome. Now type 'google.com' in the address bar and press Enter. Does the Google page load? Great! Internet is working."
+            </div>
+
+            <h3>Test 2: RFMS RDP Connection</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="test-rfms">
+                <label for="test-rfms"><strong>RFMS RDP Test:</strong> User opened Remote Desktop, connected to RFMS server, connection successful</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Second test - RFMS access. Please open Remote Desktop Connection. You can find it by typing 'Remote Desktop' in your Start menu. Now, do you know the RFMS server address? [If not, check dispatch ticket or site info]. Please connect to that server. Does it connect? Can you see the RFMS login screen? Perfect!"
+            </div>
+
+            <h3>Test 3: Printer Access</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="test-printer">
+                <label for="test-printer"><strong>Printer Test:</strong> User sent test print job, confirmed printout received</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Third test - Printing. Please go to Settings → Devices → Printers & scanners. Do you see your printer listed? If not, we may need to re-add it using the screenshot you took earlier. Let's try printing a test page. Open Notepad, type 'Test', and go to File → Print. Select your printer and click Print. Did a page come out of your printer? Excellent! All three tests passed."
+            </div>
+
+            <div class="alert alert-success">
+                <strong>All Tests Passed!</strong> Device is functioning correctly. Proceed to browser restoration.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 5 Complete:</label>
+                <input type="time" id="phase5-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 6: Browser Bookmarks Restoration</h2>
+            <div class="alert alert-info">
+                <strong>After Validation:</strong> Restore user's browser bookmarks from the files saved to Desktop in Phase 1.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 6 Start:</label>
+                <input type="time" id="phase6-start">
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Now let's restore your browser bookmarks. Remember those files we saved to your Desktop earlier? We're going to import them back into your browsers."
+            </div>
+
+            <h3>Chrome Bookmarks Restoration</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="restore-chrome">
+                <label for="restore-chrome"><strong>Chrome Bookmarks:</strong> Settings → Bookmarks → Bookmark Manager → Import → Selected Chrome_Bookmarks_[USERNAME].html from Desktop</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "For Chrome, please open Chrome, then click the three dots menu in the top right. Go to Bookmarks → Bookmark Manager. Now click the three dots again in the Bookmark Manager, and select 'Import bookmarks'. Navigate to your Desktop and find the file that starts with 'Chrome_Bookmarks' and has your name in it. Select it and click Open. Do you see your bookmarks appear? Great!"
+            </div>
+
+            <h3>Edge Bookmarks Restoration</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="restore-edge">
+                <label for="restore-edge"><strong>Edge Bookmarks:</strong> Settings → Profiles → Import browser data → Selected Edge_Bookmarks_[USERNAME].html</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "For Edge, please open Edge, then click the three dots menu. Go to Settings → Profiles. Look for 'Import browser data' and click it. Select 'From an HTML file' and navigate to your Desktop. Find the file that starts with 'Edge_Bookmarks' and select it. Did your bookmarks import?"
+            </div>
+
+            <h3>Cleanup - Delete Backup Files</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="cleanup-files">
+                <label for="cleanup-files"><strong>Backup Files Deleted:</strong> User deleted all bookmark/password files from Desktop (contains sensitive data)</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "Perfect! Now, for security, please delete those backup files from your Desktop. They contain sensitive information. Just right-click each file and select Delete. Make sure to empty your Recycle Bin too. Have you done that? Good!"
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>Password Reminder:</strong> Remind user that browser passwords cannot be bulk-restored. They'll need to re-enter passwords manually or use password recovery for important sites. Microsoft 365 passwords will sync automatically.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 6 Complete:</label>
+                <input type="time" id="phase6-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 7: iOS Device Enrollment (If Applicable)</h2>
+            <div class="alert alert-info">
+                <strong>Note:</strong> iOS enrollment requires Apple Configurator and DEM credentials. This may need to be scheduled separately or completed on-site if user doesn't have access to Apple Configurator.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 7 Start:</label>
+                <input type="time" id="phase7-start">
+            </div>
+
+            <div class="checklist-item">
+                <input type="checkbox" id="ios-enrollment-needed">
+                <label for="ios-enrollment-needed"><strong>iOS Enrollment Required:</strong> User has iOS device that needs enrollment</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="ios-configurator-available">
+                <label for="ios-configurator-available"><strong>Apple Configurator Available:</strong> User has Apple Configurator installed or can install it</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="ios-dem-credentials">
+                <label for="ios-dem-credentials"><strong>DEM Credentials Obtained:</strong> Engineer obtained DEM credentials from Suleman</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="ios-enrollment-complete">
+                <label for="ios-enrollment-complete"><strong>iOS Enrollment Complete:</strong> Device enrolled via Apple Configurator, shows "Managed by Impact Property Solutions"</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Script:</strong> "For your iPhone or iPad, we need to enroll it in our management system. This requires Apple Configurator, which is a free app from the Mac App Store. Do you have a Mac available? [If yes, proceed. If no, schedule on-site visit or provide alternative instructions]. We'll also need to connect your device via USB and use special credentials I'll provide."
+            </div>
+
+            <div class="alert alert-warning">
+                <strong>iOS Enrollment Limitation:</strong> If user doesn't have Apple Configurator access, iOS enrollment may need to be scheduled for on-site visit or alternative method. Document this in notes.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 7 Complete:</label>
+                <input type="time" id="phase7-end">
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Phase 8: Final Verification & Sign-Off</h2>
+            <div class="alert alert-success">
+                <strong>Almost Done!</strong> Complete final checks before closing the call.
+            </div>
+
+            <div class="timestamp">
+                <label>Phase 8 Start:</label>
+                <input type="time" id="phase8-start">
+            </div>
+
+            <h3>Final Checklist</h3>
+            <div class="checklist-item">
+                <input type="checkbox" id="final-all-apps">
+                <label for="final-all-apps"><strong>All Applications Verified:</strong> Outlook, Teams, Chrome, Foxit, NinjaOne all present and working</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="final-validation">
+                <label for="final-validation"><strong>3-Point Test Passed:</strong> Internet, RFMS, and Printer all tested and working</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="final-bookmarks">
+                <label for="final-bookmarks"><strong>Bookmarks Restored:</strong> User confirmed bookmarks are back in browsers</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="final-cleanup">
+                <label for="final-cleanup"><strong>Desktop Cleanup:</strong> Backup files deleted from Desktop</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="final-onedrive">
+                <label for="final-onedrive"><strong>OneDrive Syncing:</strong> OneDrive is syncing files (check taskbar icon)</label>
+            </div>
+            <div class="checklist-item">
+                <input type="checkbox" id="final-user-satisfied">
+                <label for="final-user-satisfied"><strong>User Satisfied:</strong> User confirmed device is working and ready for use</label>
+            </div>
+
+            <div class="script-box">
+                <strong>Closing Script:</strong> "Perfect! Your device migration is complete. Let me just verify a few final things with you. Can you confirm that Outlook opens? Teams works? Your bookmarks are back? Great! Your device is now fully migrated and ready to use. If you have any issues or questions, please don't hesitate to call our support line. Is there anything else you need help with today?"
+            </div>
+
+            <h3>Issues & Follow-Up</h3>
+            <textarea class="notes" id="final-issues" placeholder="Document any issues encountered, items that need follow-up, or special notes about this migration..."></textarea>
+
+            <div class="info-item" style="margin-top: 1rem;">
+                <label for="follow-up-needed">Follow-Up Required:</label>
+                <select id="follow-up-needed">
+                    <option value="no">No follow-up needed</option>
+                    <option value="ios-enrollment">iOS enrollment scheduled</option>
+                    <option value="printer-issue">Printer configuration needed</option>
+                    <option value="app-issue">Application installation issue</option>
+                    <option value="other">Other (see notes)</option>
+                </select>
+            </div>
+
+            <div class="info-item" style="margin-top: 1rem;">
+                <label for="follow-up-date">Follow-Up Scheduled For:</label>
+                <input type="datetime-local" id="follow-up-date">
+            </div>
+
+            <div class="timestamp">
+                <label>Call End Time:</label>
+                <input type="time" id="call-time-end">
+            </div>
+
+            <div class="timestamp">
+                <label>Total Call Duration:</label>
+                <input type="text" id="call-duration" placeholder="Calculated automatically" readonly>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Quick Reference & Troubleshooting</h2>
+
+            <div class="quick-ref">
+                <h4>Important Contacts</h4>
+                <ul>
+                    <li><strong>Device Reset Issues:</strong> Suleman Manji | 281-904-1969 | Teams: smanji@viyu.net</li>
+                    <li><strong>iOS Enrollment Help:</strong> Suleman Manji | Teams (has DEM credentials)</li>
+                    <li><strong>Network Issues:</strong> Site Contact (check dispatch ticket)</li>
+                </ul>
+            </div>
+
+            <div class="quick-ref">
+                <h4>Remote Support Troubleshooting</h4>
+                <ul>
+                    <li><strong>User can't find settings:</strong> Use Windows key + I to open Settings quickly</li>
+                    <li><strong>User confused about steps:</strong> Break down into smaller steps, use screen share if available</li>
+                    <li><strong>ESP taking longer than 60 min:</strong> Check network connectivity, may need to restart device</li>
+                    <li><strong>Bookmarks won't import:</strong> Verify file is .html format, not .json</li>
+                    <li><strong>OneDrive not syncing:</strong> Wait 15-30 min, check sync status in taskbar, sign out/in if needed</li>
+                    <li><strong>Printer not appearing:</strong> Use screenshot from Phase 1, manually add via Settings → Devices → Printers</li>
+                    <li><strong>User needs to pause:</strong> Document current phase, schedule callback for continuation</li>
+                </ul>
+            </div>
+
+            <div class="quick-ref">
+                <h4>Time Estimates</h4>
+                <ul>
+                    <li><strong>Phase 1 (Backup):</strong> 15-20 minutes</li>
+                    <li><strong>Phase 2 (Documentation):</strong> 5-10 minutes + 15-30 min wait</li>
+                    <li><strong>Phase 3 (OOBE):</strong> 30-60 minutes (mostly waiting)</li>
+                    <li><strong>Phase 4 (Verification):</strong> 10-15 minutes</li>
+                    <li><strong>Phase 5 (Validation):</strong> 10-15 minutes</li>
+                    <li><strong>Phase 6 (Restoration):</strong> 10-15 minutes</li>
+                    <li><strong>Phase 7 (iOS):</strong> 15-20 minutes (if applicable)</li>
+                    <li><strong>Total Active Time:</strong> 60-90 minutes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="signoff">
+            <h2>Service Engineer Sign-Off</h2>
+            <p>Complete this section to document successful remote migration support:</p>
+
+            <div class="signoff-grid">
+                <div class="signoff-item">
+                    <label for="signoff-engineer">Engineer Name</label>
+                    <input type="text" id="signoff-engineer" placeholder="Full name">
+                </div>
+                <div class="signoff-item">
+                    <label for="signoff-date">Completion Date</label>
+                    <input type="date" id="signoff-date">
+                </div>
+                <div class="signoff-item">
+                    <label for="signoff-status">Migration Status</label>
+                    <select id="signoff-status">
+                        <option value="">Select status...</option>
+                        <option value="success">✓ Successful - Device ready for use</option>
+                        <option value="partial">⚠ Partial - Some issues remain, follow-up scheduled</option>
+                        <option value="in-progress">⏳ In Progress - Callback scheduled</option>
+                        <option value="failed">✗ Failed - Requires escalation</option>
+                    </select>
+                </div>
+            </div>
+
+            <div style="margin-top: 1.5rem;">
+                <label for="signoff-notes" style="font-weight: bold; color: var(--accent-primary); display: block; margin-bottom: 0.5rem;">Additional Notes</label>
+                <textarea class="notes" id="signoff-notes" placeholder="Describe any issues, special circumstances, user feedback, or items that need follow-up..."></textarea>
+            </div>
+
+            <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border-color);">
+                <p style="font-size: 0.95rem; color: var(--text-secondary);">
+                    <strong>Confirmation:</strong> I confirm that I have provided remote support for this device migration according to the Impact Property Solutions Remote Support Migration procedures. All completed phases are documented, and any required follow-up actions have been scheduled.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Multi-User Management
+        let currentUserId = null;
+        const MAX_USERS = 4;
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('remote-worksheet-theme', newTheme);
+            
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = newTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+
+        function getUserList() {
+            const userListJson = localStorage.getItem('remote-worksheet-userlist');
+            return userListJson ? JSON.parse(userListJson) : [];
+        }
+
+        function saveUserList(userList) {
+            localStorage.setItem('remote-worksheet-userlist', JSON.stringify(userList));
+        }
+
+        function getCurrentUserId() {
+            if (!currentUserId) {
+                const saved = localStorage.getItem('remote-worksheet-current-user');
+                if (saved) {
+                    currentUserId = saved;
+                }
+            }
+            return currentUserId;
+        }
+
+        function setCurrentUserId(userId) {
+            currentUserId = userId;
+            localStorage.setItem('remote-worksheet-current-user', userId);
+        }
+
+        function getUserDataKey(userId, fieldId) {
+            return `remote-worksheet-${userId}-${fieldId}`;
+        }
+
+        function saveUserData(userId, fieldId, value) {
+            if (!userId) return;
+            const key = getUserDataKey(userId, fieldId);
+            localStorage.setItem(key, value);
+        }
+
+        function loadUserData(userId, fieldId) {
+            if (!userId) return null;
+            const key = getUserDataKey(userId, fieldId);
+            return localStorage.getItem(key);
+        }
+
+        function saveAllFormData(userId) {
+            if (!userId) return;
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(element => {
+                const value = element.type === 'checkbox' ? element.checked : element.value;
+                saveUserData(userId, element.id, value);
+            });
+        }
+
+        function loadAllFormData(userId) {
+            if (!userId) return;
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(element => {
+                const saved = loadUserData(userId, element.id);
+                if (saved !== null) {
+                    if (element.type === 'checkbox') {
+                        element.checked = saved === 'true';
+                    } else {
+                        element.value = saved;
+                    }
+                }
+            });
+        }
+
+        function addNewUser() {
+            const userList = getUserList();
+            if (userList.length >= MAX_USERS) {
+                alert(`Maximum of ${MAX_USERS} users allowed per site.`);
+                return;
+            }
+
+            const userName = prompt('Enter user name:');
+            if (!userName || userName.trim() === '') {
+                return;
+            }
+
+            const userId = 'user-' + Date.now();
+            const newUser = {
+                id: userId,
+                name: userName.trim(),
+                email: '',
+                created: new Date().toISOString()
+            };
+
+            userList.push(newUser);
+            saveUserList(userList);
+            updateUserSelector();
+            switchToUser(userId);
+        }
+
+        function deleteCurrentUser() {
+            const userId = getCurrentUserId();
+            if (!userId) {
+                alert('No user selected.');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to delete this user? All saved data will be lost.')) {
+                return;
+            }
+
+            // Remove user from list
+            const userList = getUserList();
+            const filteredList = userList.filter(u => u.id !== userId);
+            saveUserList(filteredList);
+
+            // Clear all user data
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(element => {
+                const key = getUserDataKey(userId, element.id);
+                localStorage.removeItem(key);
+            });
+
+            // Switch to first user or clear
+            if (filteredList.length > 0) {
+                switchToUser(filteredList[0].id);
+            } else {
+                currentUserId = null;
+                localStorage.removeItem('remote-worksheet-current-user');
+                updateUserSelector();
+                clearForm();
+            }
+        }
+
+        function switchToUser(userId) {
+            // Save current user data before switching
+            const currentId = getCurrentUserId();
+            if (currentId) {
+                saveAllFormData(currentId);
+            }
+
+            // Load new user data
+            setCurrentUserId(userId);
+            loadAllFormData(userId);
+            updateUserSelector();
+            updateUserProgress();
+            updateCurrentUserDisplay();
+        }
+
+        function updateUserSelector() {
+            const userSelect = document.getElementById('user-select');
+            const userList = getUserList();
+            const currentId = getCurrentUserId();
+
+            userSelect.innerHTML = '<option value="">-- Select or Add User --</option>';
+            userList.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.id;
+                option.textContent = user.name + (user.email ? ` (${user.email})` : '');
+                option.selected = user.id === currentId;
+                userSelect.appendChild(option);
+            });
+        }
+
+        function calculateUserProgress(userId) {
+            if (!userId) return { completed: 0, total: 0, percentage: 0 };
+
+            const phaseCheckboxes = {
+                'prep': ['prep-site-info', 'prep-user-ready', 'prep-time-available', 'prep-network', 'prep-teams-setup'],
+                'phase1': ['backup-chrome', 'backup-edge', 'backup-printers', 'backup-onedrive-check', 'backup-onedrive-sync'],
+                'phase2': ['doc-windows-serial', 'reset-message-sent'],
+                'phase3': ['oobe-boot', 'oobe-network', 'oobe-org-signin', 'oobe-mfa', 'esp-started', 'esp-complete'],
+                'phase4': ['verify-outlook', 'verify-teams', 'verify-chrome', 'verify-foxit', 'verify-ninja'],
+                'phase5': ['test-internet', 'test-rfms', 'test-printer'],
+                'phase6': ['restore-chrome', 'restore-edge', 'cleanup-files'],
+                'phase8': ['final-all-apps', 'final-validation', 'final-bookmarks', 'final-user-satisfied']
+            };
+
+            let completed = 0;
+            let total = 0;
+
+            Object.values(phaseCheckboxes).forEach(checkboxIds => {
+                checkboxIds.forEach(checkboxId => {
+                    total++;
+                    const saved = loadUserData(userId, checkboxId);
+                    if (saved === 'true') {
+                        completed++;
+                    }
+                });
+            });
+
+            return {
+                completed: completed,
+                total: total,
+                percentage: total > 0 ? Math.round((completed / total) * 100) : 0
+            };
+        }
+
+        function updateUserProgress() {
+            const container = document.getElementById('user-progress-container');
+            const userList = getUserList();
+            const currentId = getCurrentUserId();
+
+            container.innerHTML = '';
+
+            if (userList.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-secondary); font-style: italic;">No users added yet. Click "Add New User" to get started.</p>';
+                return;
+            }
+
+            userList.forEach(user => {
+                const progress = calculateUserProgress(user.id);
+                const isActive = user.id === currentId;
+
+                const item = document.createElement('div');
+                item.className = 'user-progress-item' + (isActive ? ' active' : '');
+                item.innerHTML = `
+                    <h4>${user.name}</h4>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: ${progress.percentage}%"></div>
+                    </div>
+                    <div class="phase-status">${progress.completed} / ${progress.total} tasks completed (${progress.percentage}%)</div>
+                `;
+                item.style.cursor = 'pointer';
+                item.onclick = () => switchToUser(user.id);
+                container.appendChild(item);
+            });
+        }
+
+        function updateCurrentUserDisplay() {
+            const currentId = getCurrentUserId();
+            const userList = getUserList();
+            const user = userList.find(u => u.id === currentId);
+            const display = document.getElementById('current-user-display');
+            if (display) {
+                display.textContent = user ? user.name : '[No user selected]';
+            }
+        }
+
+        function clearForm() {
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(element => {
+                if (element.type === 'checkbox') {
+                    element.checked = false;
+                } else if (element.type === 'date') {
+                    const today = new Date().toISOString().split('T')[0];
+                    if (element.id === 'call-date' || element.id === 'signoff-date') {
+                        element.value = today;
+                    } else {
+                        element.value = '';
+                    }
+                } else {
+                    element.value = '';
+                }
+            });
+        }
+
+        // Load saved theme preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('remote-worksheet-theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            const button = document.querySelector('.theme-toggle');
+            button.textContent = savedTheme === 'dark' ? 'Light Mode' : 'Dark Mode';
+
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            const dateInput = document.getElementById('call-date');
+            const signoffDateInput = document.getElementById('signoff-date');
+            if (dateInput && !dateInput.value) {
+                dateInput.value = today;
+            }
+            if (signoffDateInput && !signoffDateInput.value) {
+                signoffDateInput.value = today;
+            }
+
+            // Initialize user management
+            updateUserSelector();
+            const currentId = getCurrentUserId();
+            if (currentId) {
+                loadAllFormData(currentId);
+            }
+            updateUserProgress();
+            updateCurrentUserDisplay();
+
+            // User selector change handler
+            const userSelect = document.getElementById('user-select');
+            userSelect.addEventListener('change', function() {
+                if (this.value) {
+                    switchToUser(this.value);
+                }
+            });
+
+            // Auto-save all form data on change (per user)
+            const allInputs = document.querySelectorAll('input, select, textarea');
+            allInputs.forEach(element => {
+                element.addEventListener('change', function() {
+                    const userId = getCurrentUserId();
+                    if (userId) {
+                        const value = element.type === 'checkbox' ? element.checked : element.value;
+                        saveUserData(userId, element.id, value);
+                        updateUserProgress();
+                        
+                        // Update user name/email in user list if changed
+                        if (element.id === 'user-name' || element.id === 'user-email') {
+                            const userList = getUserList();
+                            const user = userList.find(u => u.id === userId);
+                            if (user) {
+                                if (element.id === 'user-name') {
+                                    user.name = element.value;
+                                } else if (element.id === 'user-email') {
+                                    user.email = element.value;
+                                }
+                                saveUserList(userList);
+                                updateUserSelector();
+                                updateCurrentUserDisplay();
+                            }
+                        }
+                    }
+                });
+            });
+
+            // Update current user display when name changes
+            const userNameInput = document.getElementById('user-name');
+            const currentUserDisplay = document.getElementById('current-user-display');
+            if (userNameInput && currentUserDisplay) {
+                userNameInput.addEventListener('input', function() {
+                    updateCurrentUserDisplay();
+                });
+            }
+
+            // Auto-populate engineer name in signoff
+            const engineerNameInput = document.getElementById('engineer-name');
+            const signoffEngineerInput = document.getElementById('signoff-engineer');
+            if (engineerNameInput && signoffEngineerInput) {
+                engineerNameInput.addEventListener('blur', function() {
+                    if (this.value && !signoffEngineerInput.value) {
+                        signoffEngineerInput.value = this.value;
+                        const userId = getCurrentUserId();
+                        if (userId) {
+                            saveUserData(userId, signoffEngineerInput.id, signoffEngineerInput.value);
+                        }
+                    }
+                });
+            }
+
+            // Calculate call duration
+            const callStartInput = document.getElementById('call-time-start');
+            const callEndInput = document.getElementById('call-time-end');
+            const callDurationInput = document.getElementById('call-duration');
+            
+            function calculateDuration() {
+                if (callStartInput && callEndInput && callDurationInput) {
+                    const start = callStartInput.value;
+                    const end = callEndInput.value;
+                    if (start && end) {
+                        const startTime = new Date('2000-01-01T' + start);
+                        const endTime = new Date('2000-01-01T' + end);
+                        if (endTime > startTime) {
+                            const diff = endTime - startTime;
+                            const hours = Math.floor(diff / 3600000);
+                            const minutes = Math.floor((diff % 3600000) / 60000);
+                            callDurationInput.value = `${hours}h ${minutes}m`;
+                        }
+                    }
+                }
+            }
+
+            if (callEndInput) {
+                callEndInput.addEventListener('change', calculateDuration);
+            }
+
+            // Save data before page unload
+            window.addEventListener('beforeunload', function() {
+                const userId = getCurrentUserId();
+                if (userId) {
+                    saveAllFormData(userId);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
+

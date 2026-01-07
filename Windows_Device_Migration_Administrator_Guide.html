@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ILG Windows Device Migration - Administrator Guide</title>
+    <style>
+                :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #fafafa;
+            --bg-tertiary: #f5f5f5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #4a4a4a;
+            --text-tertiary: #6a6a6a;
+            --accent-primary: #1a5490;
+            --accent-secondary: #2d6ba0;
+            --accent-hover: #0d3d6b;
+            --border-color: #d1d1d1;
+            --code-bg: #fafafa;
+            --code-border: #e5e5e5;
+            --success: #107c10;
+            --warning: #ffb900;
+            --error: #d13438;
+            --info: #1a5490;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --shadow-hover: rgba(0, 0, 0, 0.15);
+        }
+        [data-theme="dark"] {
+            --bg-primary: #1e1e1e;
+            --bg-secondary: #252525;
+            --bg-tertiary: #2d2d2d;
+            --text-primary: #e8e8e8;
+            --text-secondary: #b8b8b8;
+            --text-tertiary: #888888;
+            --accent-primary: #4a9eff;
+            --accent-secondary: #5ba5ff;
+            --accent-hover: #3a8eef;
+            --border-color: #404040;
+            --code-bg: #2a2a2a;
+            --code-border: #3a3a3a;
+            --success: #4ec04e;
+            --warning: #ffcc00;
+            --error: #ff6b6b;
+            --info: #4a9eff;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --shadow-hover: rgba(0, 0, 0, 0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .content-wrapper {
+            flex: 1;
+            min-width: 0;
+            margin-left: 320px;
+        }
+        @media (max-width: 1024px) {
+            .content-wrapper { margin-left: 0; }
+        }
+        header {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+        header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        header p { opacity: 0.9; font-size: 1.1rem; }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+        .theme-toggle:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-hover);
+        }
+        .toc {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            position: fixed;
+            left: 20px;
+            top: 80px;
+            width: 280px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+            overflow-x: hidden;
+            z-index: 100;
+            box-shadow: 0 4px 6px var(--shadow);
+            scroll-behavior: smooth;
+        }
+        .toc::-webkit-scrollbar {
+            width: 6px;
+        }
+        .toc::-webkit-scrollbar-track {
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+        }
+        .toc::-webkit-scrollbar-thumb {
+            background: var(--accent-primary);
+            border-radius: 3px;
+        }
+        .toc::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-hover);
+        }
+        .toc h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--accent-primary);
+        }
+        .toc ul { list-style: none; }
+        .toc li { margin: 0.5rem 0; }
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: block;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+        }
+        .toc a:hover, .toc a:focus-visible {
+            color: var(--accent-primary);
+            background: var(--bg-tertiary);
+            outline: 2px solid var(--accent-primary);
+            outline-offset: -2px;
+        }
+        .toc a.active {
+            color: var(--accent-primary);
+            background: var(--bg-tertiary);
+            font-weight: 600;
+            border-left: 3px solid var(--accent-primary);
+            padding-left: calc(0.75rem - 3px);
+        }
+        .toc ul ul { margin-left: 1rem; margin-top: 0.25rem; }
+        .toc ul ul a { font-size: 0.9rem; }
+        section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 4px var(--shadow);
+            scroll-margin-top: 100px;
+        }
+        section h2 {
+            color: var(--accent-primary);
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent-primary);
+        }
+        section h3 {
+            color: var(--accent-secondary);
+            font-size: 1.4rem;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        section h4 {
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        p { margin-bottom: 1rem; color: var(--text-secondary); }
+        ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; color: var(--text-secondary); }
+        li { margin: 0.5rem 0; }
+        code {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 4px;
+            padding: 0.2rem 0.4rem;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: var(--accent-primary);
+        }
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--code-border);
+            border-radius: 6px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: var(--text-primary);
+        }
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 4px solid;
+        }
+        .alert-success {
+            background: rgba(16, 124, 16, 0.1);
+            border-color: var(--success);
+            color: var(--success);
+        }
+        .alert-warning {
+            background: rgba(255, 185, 0, 0.1);
+            border-color: var(--warning);
+            color: var(--warning);
+        }
+        .alert-error {
+            background: rgba(209, 52, 56, 0.1);
+            border-color: var(--error);
+            color: var(--error);
+        }
+        .alert-info {
+            background: rgba(0, 120, 212, 0.1);
+            border-color: var(--info);
+            color: var(--info);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            background: var(--bg-primary);
+        }
+        th, td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+        }
+        th {
+            background: var(--bg-tertiary);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        tr:nth-child(even) { background: var(--bg-secondary); }
+        .script-reference {
+            background: var(--code-bg);
+            border-left: 4px solid var(--accent-primary);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+        .script-reference strong { color: var(--accent-primary); }
+        .step {
+            display: flex;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 4px;
+        }
+        .workflow-step {
+            display: flex;
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background: var(--bg-primary);
+            border-left: 4px solid var(--accent-primary);
+            border-radius: 4px;
+        }
+        .step-number {
+            display: inline-block;
+            background: var(--accent-primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+        .step-content { flex: 1; }
+        .checklist {
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .checklist-item {
+            display: flex;
+            align-items: flex-start;
+            margin: 0.75rem 0;
+            padding: 0.5rem;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 1rem;
+            margin-top: 0.25rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        .card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px var(--shadow);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-hover);
+        }
+        .card h4 {
+            color: var(--accent-primary);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+        }
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-tertiary);
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--accent-primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px var(--shadow);
+            z-index: 999;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 1.2rem;
+        }
+        .back-to-top:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px var(--shadow-hover);
+        }
+        .back-to-top.visible {
+            display: flex;
+        }
+        .toc a.active-parent {
+            color: var(--accent-primary);
+            font-weight: 500;
+        }
+        @media (max-width: 1024px) {
+            .container { flex-direction: column; padding: 10px; }
+            .toc { position: relative; left: 0; top: 0; width: 100%; max-height: 300px; }
+            .content-wrapper { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" onclick="toggleTheme()" id="themeToggle">🌙 Dark Mode</button>
+    <div class="container">
+        <nav class="toc" aria-label="Table of Contents">
+            <h2>Table of Contents</h2>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#prerequisites">Prerequisites & Access</a></li>
+                <li><a href="#phase1">Phase 1: Pre-Migration (Pinnacle)</a>
+                    <ul>
+                        <li><a href="#phase1-export">Export Hardware Hashes</a></li>
+                        <li><a href="#phase1-autopilot">Export Autopilot Config</a></li>
+                        <li><a href="#phase1-intune">Export Intune Config</a></li>
+                        <li><a href="#phase1-inventory">Device Inventory</a></li>
+                    </ul>
+                </li>
+                <li><a href="#phase2">Phase 2: Pre-Migration (Impact)</a>
+                    <ul>
+                        <li><a href="#phase2-login">Login Readiness</a></li>
+                        <li><a href="#phase2-assessment">Environment Assessment</a></li>
+                        <li><a href="#phase2-users">User Creation</a></li>
+                        <li><a href="#phase2-groups">Group Configuration</a></li>
+                        <li><a href="#phase2-autopilot">Autopilot Setup</a></li>
+                        <li><a href="#phase2-hashes">Hardware Hash Import</a></li>
+                        <li><a href="#phase2-intune">Intune Configuration</a></li>
+                    </ul>
+                </li>
+                <li><a href="#phase3">Phase 3: Migration Execution</a></li>
+                <li><a href="#phase4">Phase 4: Post-Migration</a></li>
+                <li><a href="#troubleshooting">Troubleshooting</a></li>
+                <li><a href="#scripts">Scripts Reference</a></li>
+                <li><a href="#contacts">Key Contacts</a></li>
+            </ul>
+        </nav>
+        <div class="content-wrapper">
+            <header>
+                <h1>ILG Windows Device Migration</h1>
+                <p>Administrator Guide - Pinnacle to Impact M365 Tenant Migration</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem;">Comprehensive guide for administrators performing Windows device migration tasks</p>
+            </header>
+            <main id="main-content">
+                <section id="overview">
+                    <h2>1. Overview</h2>
+                    <p>This guide provides comprehensive step-by-step instructions for administrators performing the Windows device migration from Pinnacle ILG (Interior Logic Group) to Impact Property Solutions' Microsoft 365 tenant. This migration involves 193 Windows devices and requires coordination between Pinnacle and Impact administrators.</p>
+                    
+                    <div class="alert alert-info">
+                        <strong>Migration Type:</strong> Tenant-to-tenant migration with device wipe and Autopilot re-enrollment. Devices are wiped from Pinnacle tenant and re-enrolled in Impact tenant using Windows Autopilot.
+                    </div>
+
+                    <h3>Migration Administrators</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h4>Impact Tenant Administrator</h4>
+                            <p><strong>Suleman Manji</strong></p>
+                            <p>Email: <code>smanji@viyu.net</code></p>
+                            <p><strong>Responsibilities:</strong></p>
+                            <ul>
+                                <li>Impact tenant preparation</li>
+                                <li>User account creation</li>
+                                <li>Autopilot profile setup</li>
+                                <li>Hardware hash import</li>
+                                <li>Intune configuration</li>
+                                <li>Device enrollment verification</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>Pinnacle/ILG Tenant Administrator</h4>
+                            <p><strong>Willie Dallas</strong></p>
+                            <p>Email: <code>willie.dallas@ilginc.com</code></p>
+                            <p><strong>Responsibilities:</strong></p>
+                            <ul>
+                                <li>Hardware hash export</li>
+                                <li>Autopilot configuration export</li>
+                                <li>Intune configuration export</li>
+                                <li>Device inventory</li>
+                                <li>Device wipe coordination</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h3>Migration Scope</h3>
+                    <ul>
+                        <li><strong>Total Devices:</strong> 193 Windows devices</li>
+                        <li><strong>Source Tenant:</strong> Pinnacle ILG M365 tenant</li>
+                        <li><strong>Destination Tenant:</strong> Impact Property Solutions M365 tenant</li>
+                        <li><strong>Migration Method:</strong> Device wipe + Autopilot re-enrollment</li>
+                        <li><strong>Timeline:</strong> 60-day migration window</li>
+                    </ul>
+
+                    <h3>Migration Phases</h3>
+                    <div class="grid">
+                        <div class="card">
+                            <h4>Phase 1: Pre-Migration (Pinnacle)</h4>
+                            <p>Export hardware hashes, Autopilot configuration, and Intune settings from Pinnacle tenant</p>
+                        </div>
+                        <div class="card">
+                            <h4>Phase 2: Pre-Migration (Impact)</h4>
+                            <p>Prepare Impact tenant: user creation, Autopilot setup, hardware hash import, Intune configuration</p>
+                        </div>
+                        <div class="card">
+                            <h4>Phase 3: Migration Execution</h4>
+                            <p>Device wipe, transfer, and Autopilot re-enrollment in Impact tenant</p>
+                        </div>
+                        <div class="card">
+                            <h4>Phase 4: Post-Migration</h4>
+                            <p>Verification, user affinity assignment, application deployment, and cleanup</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="prerequisites">
+                    <h2>2. Prerequisites & Access Requirements</h2>
+                    
+                    <h3>Migration Administrators</h3>
+                    <p>The following administrators are responsible for performing migration tasks on their respective tenants:</p>
+                    <table>
+                        <tr>
+                            <th>Administrator</th>
+                            <th>Organization</th>
+                            <th>Email</th>
+                            <th>Responsible For</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Suleman Manji</strong></td>
+                            <td>Impact Floors</td>
+                            <td><code>smanji@viyu.net</code></td>
+                            <td>Impact tenant preparation, Autopilot setup, hardware hash import, Intune configuration, device enrollment verification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Willie Dallas</strong></td>
+                            <td>ILG/Pinnacle</td>
+                            <td><code>willie.dallas@ilginc.com</code></td>
+                            <td>Pinnacle tenant exports, hardware hash collection, Autopilot configuration export, Intune configuration export, device wipe coordination</td>
+                        </tr>
+                    </table>
+                    
+                    <h3>Required Azure AD Roles</h3>
+                    <p>Each administrator must have the following roles in their respective tenant:</p>
+                    <table>
+                        <tr>
+                            <th>Role</th>
+                            <th>Required For</th>
+                            <th>Tenant</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Global Administrator</strong></td>
+                            <td>App Registration, Autopilot profile creation</td>
+                            <td>Both (Impact & Pinnacle)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Intune Administrator</strong></td>
+                            <td>Intune configuration, device management, device wipe</td>
+                            <td>Both (Impact & Pinnacle)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Device Administrator</strong></td>
+                            <td>Device management operations</td>
+                            <td>Both (Impact & Pinnacle)</td>
+                        </tr>
+                    </table>
+                    
+                    <div class="alert alert-info">
+                        <strong>Note:</strong> Suleman Manji performs all tasks in the Impact tenant. Willie Dallas performs all tasks in the Pinnacle/ILG tenant. Coordination between administrators is required for device wipe and transfer phases.
+                    </div>
+
+                    <h3>PowerShell Modules</h3>
+                    <p>Install required PowerShell modules:</p>
+                    <pre><code># Set execution policy
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy RemoteSigned
+
+# Core Microsoft Graph modules
+Install-Module Microsoft.Graph -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.DeviceManagement -Scope CurrentUser -Force
+Install-Module Microsoft.Graph.Beta.Devices.CorporateManagement -Scope CurrentUser -Force
+
+# Autopilot script
+Install-Script -Name Get-WindowsAutopilotInfo -Force
+
+# Verify installation
+Get-Module -ListAvailable | Where-Object {$_.Name -like "Microsoft.Graph*"}
+Get-InstalledScript -Name Get-WindowsAutopilotInfo</code></pre>
+
+                    <h3>Azure AD App Registration</h3>
+                    <p>For automated scripts, create an App Registration with the following permissions:</p>
+                    <ul>
+                        <li><code>Device.ReadWrite.All</code></li>
+                        <li><code>DeviceManagementManagedDevices.ReadWrite.All</code></li>
+                        <li><code>DeviceManagementConfiguration.ReadWrite.All</code></li>
+                        <li><code>User.Read.All</code></li>
+                        <li><code>Group.Read.All</code></li>
+                        <li><code>Directory.Read.All</code></li>
+                    </ul>
+                    <div class="alert alert-warning">
+                        <strong>Important:</strong> All permissions require Admin Consent. Use the <code>Setup-AppRegistration.ps1</code> script for interactive setup.
+                    </div>
+                </section>
+
+                <section id="phase1">
+                    <h2>3. Phase 1: Pre-Migration Tasks (Pinnacle Tenant - Source)</h2>
+                    <p><strong>Administrator:</strong> Willie Dallas (willie.dallas@ilginc.com)</p>
+                    <p>These tasks are performed by the Pinnacle/ILG administrator to export device information and configuration for migration to Impact tenant.</p>
+
+                    <h3 id="phase1-export">3.1 Export Hardware Hashes</h3>
+                    <p>Hardware hashes are unique identifiers for each device required for Autopilot registration in the destination tenant.</p>
+
+                    <h4>Method 1: Export from Intune (Recommended)</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A1-AutopilotDevices.ps1</code><br>
+                        <strong>Location:</strong> <code>1.pinnacle/Scripts/Autopilot-Intune/</code>
+                    </div>
+                    <pre><code># Connect to Pinnacle tenant
+Connect-MgGraph -Scopes DeviceManagementConfiguration.Read.All
+
+# Export Autopilot devices
+.\A1-AutopilotDevices.ps1 `
+    -OutputPath "C:\Exports\Intune" `
+    -IncludeAllDevices</code></pre>
+
+                    <h4>Method 2: Collect from Individual Devices</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A2-HardwareHashes.ps1</code><br>
+                        <strong>Location:</strong> <code>1.pinnacle/Scripts/Autopilot-Intune/</code>
+                    </div>
+                    <p>Run on each device to collect hardware hash:</p>
+                    <pre><code># Run on each Windows device
+.\A2-HardwareHashes.ps1 `
+    -OutputPath "C:\Exports" `
+    -GroupTag "Pinnacle-Migration"</code></pre>
+
+                    <div class="alert alert-info">
+                        <strong>Output:</strong> Hardware hashes will be exported to CSV format. Save this file securely and provide to Impact administrators.
+                    </div>
+
+                    <h3 id="phase1-autopilot">3.2 Export Autopilot Configuration</h3>
+                    <p>Export Autopilot profiles and device assignments from Pinnacle tenant.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A3-AutopilotProfiles.ps1</code><br>
+                        <strong>Location:</strong> <code>1.pinnacle/Scripts/Autopilot-Intune/</code>
+                    </div>
+                    <pre><code># Export Autopilot profiles
+.\A3-AutopilotProfiles.ps1 `
+    -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h4>Export Device Group Tags</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A4-DeviceGroupTags.ps1</code>
+                    </div>
+                    <pre><code>.\A4-DeviceGroupTags.ps1 -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h3 id="phase1-intune">3.3 Export Intune Configuration</h3>
+                    <p>Export all Intune configuration that will need to be recreated in Impact tenant.</p>
+
+                    <h4>Export Configuration Profiles</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A6-ConfigurationProfiles.ps1</code>
+                    </div>
+                    <pre><code>.\A6-ConfigurationProfiles.ps1 -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h4>Export Compliance Policies</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A7-CompliancePolicies.ps1</code>
+                    </div>
+                    <pre><code>.\A7-CompliancePolicies.ps1 -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h4>Export Application Assignments</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A8-AssignedApps.ps1</code>
+                    </div>
+                    <pre><code>.\A8-AssignedApps.ps1 -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h4>Export Scripts and Remediations</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A9-ScriptsAndRemediations.ps1</code>
+                    </div>
+                    <pre><code>.\A9-ScriptsAndRemediations.ps1 -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h4>Export Primary User Mappings</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A5-IntunePrimaryUsers.ps1</code>
+                    </div>
+                    <pre><code>.\A5-IntunePrimaryUsers.ps1 -OutputPath "C:\Exports\Intune"</code></pre>
+
+                    <h3 id="phase1-inventory">3.4 Device Inventory & Validation</h3>
+                    <p>Create a complete inventory of all devices to be migrated.</p>
+                    <div class="checklist">
+                        <h4>Inventory Checklist</h4>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="inv1">
+                            <label for="inv1">All 193 devices identified and documented</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="inv2">
+                            <label for="inv2">Device serial numbers recorded</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="inv3">
+                            <label for="inv3">Hardware hashes collected for all devices</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="inv4">
+                            <label for="inv4">Current user assignments documented</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="inv5">
+                            <label for="inv5">Device models and specifications recorded</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="inv6">
+                            <label for="inv6">Carve-out devices identified (if any not in scope)</label>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <strong>Completion:</strong> Once all exports are complete, provide the following to Impact administrators:
+                        <ul>
+                            <li>Hardware hash CSV file</li>
+                            <li>Autopilot profile configuration</li>
+                            <li>Intune configuration exports</li>
+                            <li>Device inventory spreadsheet</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="phase2">
+                    <h2>4. Phase 2: Pre-Migration Tasks (Impact Tenant - Destination)</h2>
+                    <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p>These tasks are performed by the Impact administrator to prepare the destination tenant for device migration.</p>
+
+                    <h3 id="phase2-login">4.1 Login Readiness Validation (CRITICAL)</h3>
+                    <div class="alert alert-error">
+                        <strong>⚠️ CRITICAL:</strong> This step MUST be completed before proceeding with any migration tasks. Do NOT proceed until login readiness validation passes.
+                    </div>
+
+                    <p>The login readiness audit validates that the M365 tenant is properly configured for user authentication and device enrollment.</p>
+
+                    <h4>Run Login Readiness Audit</h4>
+                    <div class="script-reference">
+                        <strong>Script (PowerShell):</strong> <code>M365-BaselineAudit.ps1</code><br>
+                        <strong>Script (Python - Recommended for macOS):</strong> <code>M365-BaselineAudit.py</code><br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+
+                    <h5>PowerShell Version</h5>
+                    <pre><code>.\M365-BaselineAudit.ps1 `
+    -TenantId "your-tenant-id" `
+    -ClientId "your-client-id" `
+    -ClientSecret "your-client-secret" `
+    -OutputPath "./LoginAudit" `
+    -DetailedReport</code></pre>
+
+                    <h5>Python Version (Recommended for macOS)</h5>
+                    <pre><code>python3 M365-BaselineAudit.py \
+    --tenant-id "your-tenant-id" \
+    --client-id "your-client-id" \
+    --client-secret "your-client-secret"</code></pre>
+
+                    <h4>Success Criteria</h4>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="login1">
+                            <label for="login1"><strong>Login Readiness Score: ≥80%</strong> (target)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="login2">
+                            <label for="login2"><strong>Critical Blockers: 0</strong> (must be zero)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="login3">
+                            <label for="login3"><strong>User Login Ready: >0</strong> (users can authenticate)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="login4">
+                            <label for="login4"><strong>Device Enrollment: READY</strong> (Intune configured)</label>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning">
+                        <strong>DO NOT PROCEED</strong> with migration preparation until all success criteria are met. Resolve any critical blockers before continuing.
+                    </div>
+
+                    <h3 id="phase2-assessment">4.2 Environment Assessment</h3>
+                    <p>Assess the Impact tenant capacity, licensing, and current configuration.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I1-ImpactAssessment.ps1</code><br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+                    <pre><code>.\I1-ImpactAssessment.ps1 `
+    -TenantId "your-tenant-id" `
+    -ClientId "your-client-id" `
+    -ClientSecret "your-client-secret" `
+    -OutputPath ".\Output" `
+    -DetailedReport</code></pre>
+
+                    <h4>Verify Assessment Results</h4>
+                    <ul>
+                        <li>Sufficient M365 licenses available (193+ required)</li>
+                        <li>Intune licensing enabled</li>
+                        <li>Current device count documented</li>
+                        <li>No capacity warnings</li>
+                    </ul>
+
+                    <h3 id="phase2-users">4.3 User Account Creation</h3>
+                    <p>Create user accounts in Impact tenant for all Pinnacle users.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I2-UserCreation.ps1</code><br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+
+                    <h4>Prepare User Data</h4>
+                    <p>Create <code>pinnacle_users.csv</code> from Pinnacle export with the following columns:</p>
+                    <ul>
+                        <li>UserPrincipalName</li>
+                        <li>DisplayName</li>
+                        <li>GivenName</li>
+                        <li>Surname</li>
+                        <li>JobTitle</li>
+                        <li>Department</li>
+                        <li>OfficeLocation</li>
+                        <li>MobilePhone</li>
+                        <li>Manager</li>
+                    </ul>
+
+                    <h4>Run User Creation Script</h4>
+                    <pre><code>.\I2-UserCreation.ps1 `
+    -InputCsvPath ".\PinnacleData\pinnacle_users.csv" `
+    -OutputPath ".\Output" `
+    -LicenseSku "ENTERPRISEPACK" `
+    -DomainSuffix "impactpropertysolutions.com"</code></pre>
+
+                    <h4>Verify User Creation</h4>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="user1">
+                            <label for="user1">All users created successfully</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="user2">
+                            <label for="user2">Licenses assigned to all users</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="user3">
+                            <label for="user3">Review creation log for any errors</label>
+                        </div>
+                    </div>
+
+                    <h3 id="phase2-groups">4.4 Group Configuration</h3>
+                    <p>Create security groups and distribution lists based on Pinnacle group structure.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I3-GroupConfiguration.ps1</code><br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+
+                    <h4>Prepare Group Data</h4>
+                    <p>Create <code>pinnacle_groups.csv</code> with the following columns:</p>
+                    <ul>
+                        <li>DisplayName</li>
+                        <li>Description</li>
+                        <li>MailNickname</li>
+                        <li>GroupTypes</li>
+                        <li>MailEnabled</li>
+                        <li>SecurityEnabled</li>
+                        <li>Members</li>
+                        <li>Owners</li>
+                    </ul>
+
+                    <h4>Run Group Configuration Script</h4>
+                    <pre><code>.\I3-GroupConfiguration.ps1 `
+    -InputCsvPath ".\PinnacleData\pinnacle_groups.csv" `
+    -OutputPath ".\Output" `
+    -DomainSuffix "impactpropertysolutions.com"</code></pre>
+
+                    <h3 id="phase2-autopilot">4.5 Autopilot Profile Setup</h3>
+                    <p>Configure Windows Autopilot profiles for device enrollment.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I4-AutopilotSetup.ps1</code><br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+
+                    <h4>Create Autopilot Profile</h4>
+                    <pre><code>.\I4-AutopilotSetup.ps1 `
+    -OutputPath ".\Output" `
+    -ProfileName "Impact Standard Profile" `
+    -DeviceNamingTemplate "IMP-%SERIAL%"</code></pre>
+
+                    <h4>Autopilot Profile Settings</h4>
+                    <table>
+                        <tr>
+                            <th>Setting</th>
+                            <th>Value</th>
+                            <th>Description</th>
+                        </tr>
+                        <tr>
+                            <td>Hide Privacy Settings</td>
+                            <td>Enabled</td>
+                            <td>Skips privacy settings during OOBE</td>
+                        </tr>
+                        <tr>
+                            <td>Hide EULA</td>
+                            <td>Enabled</td>
+                            <td>Skips EULA acceptance</td>
+                        </tr>
+                        <tr>
+                            <td>Skip Keyboard Selection</td>
+                            <td>Enabled</td>
+                            <td>Skips keyboard layout selection</td>
+                        </tr>
+                        <tr>
+                            <td>Device Naming Template</td>
+                            <td>IMP-%SERIAL%</td>
+                            <td>Automatic device naming</td>
+                        </tr>
+                        <tr>
+                            <td>User Type</td>
+                            <td>Standard</td>
+                            <td>Standard user account (not admin)</td>
+                        </tr>
+                    </table>
+
+                    <h4>Enrollment Status Page (ESP) Configuration</h4>
+                    <ul>
+                        <li>Show Installation Progress: <strong>Enabled</strong></li>
+                        <li>Block Device Setup Retry: <strong>Enabled</strong></li>
+                        <li>Allow Device Reset on Failure: <strong>Enabled</strong></li>
+                        <li>Allow Log Collection: <strong>Enabled</strong></li>
+                        <li>ESP Timeout: <strong>60 minutes</strong></li>
+                    </ul>
+
+                    <h3 id="phase2-hashes">4.6 Hardware Hash Import</h3>
+                    <p>Import hardware hashes from Pinnacle tenant into Impact Autopilot.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I8-ImportAutopilotHashes.ps1</code><br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+
+                    <h4>Process Hardware Hash CSV (Optional)</h4>
+                    <p>If using Python processing script:</p>
+                    <pre><code>python3 Process-DeviceCSV.py \
+    "path/to/hardware_hashes.csv" \
+    "./DeviceProcessing"</code></pre>
+
+                    <h4>Import Hardware Hashes</h4>
+                    <pre><code>.\I8-ImportAutopilotHashes.ps1 `
+    -OutputPath ".\Output" `
+    -AutopilotProfileName "Impact Standard Profile" `
+    -GroupTag "Pinnacle-Migration" `
+    -UsePythonResults</code></pre>
+
+                    <h4>Verify Import</h4>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="hash1">
+                            <label for="hash1">All 193 devices appear in Autopilot devices list</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="hash2">
+                            <label for="hash2">Autopilot profile assigned to all devices</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="hash3">
+                            <label for="hash3">Group tag "Pinnacle-Migration" applied</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="hash4">
+                            <label for="hash4">Review import log for any failures</label>
+                        </div>
+                    </div>
+
+                    <h3 id="phase2-intune">4.7 Intune Configuration</h3>
+                    <p>Configure Intune policies, profiles, and applications for migrated devices.</p>
+
+                    <h4>Create Device Group</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I7-CreateDeviceGroup.ps1</code>
+                    </div>
+                    <pre><code>.\I7-CreateDeviceGroup.ps1 `
+    -OutputPath ".\Output" `
+    -GroupName "Impact - All Windows Devices (Initial Enrollment)" `
+    -GroupDescription "All Windows devices from Pinnacle migration" `
+    -UsePythonResults</code></pre>
+
+                    <h4>Configuration Profiles</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I5-IntuneConfigurationProfiles.ps1</code>
+                    </div>
+                    <p>Create configuration profiles for:</p>
+                    <ul>
+                        <li>Windows Update for Business</li>
+                        <li>Administrative Templates (RDC UDP, app associations)</li>
+                        <li>Settings Catalog (Taskbar, OneDrive, Power settings)</li>
+                    </ul>
+                    <pre><code>.\I5-IntuneConfigurationProfiles.ps1 `
+    -OutputPath ".\Output"</code></pre>
+
+                    <h4>Application Deployment</h4>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>I6-IntuneAppDeployment.ps1</code>
+                    </div>
+                    <p>Deploy required applications:</p>
+                    <ul>
+                        <li>Google Chrome</li>
+                        <li>Foxit PDF Reader</li>
+                        <li>Microsoft 365 Apps</li>
+                        <li>NinjaOne Agent</li>
+                        <li>IPS.exe (if required)</li>
+                    </ul>
+                    <pre><code>.\I6-IntuneAppDeployment.ps1 `
+    -OutputPath ".\Output"</code></pre>
+
+                    <div class="alert alert-info">
+                        <strong>Note:</strong> See <code>Intune_App_Deployment_README.md</code> for detailed application packaging and deployment instructions.
+                    </div>
+                </section>
+
+                <section id="phase3">
+                    <h2>5. Phase 3: Migration Execution</h2>
+                    <p>This phase involves the actual device migration process, including device reset requests, Autopilot enrollment, and post-migration verification. The process involves coordination between onsite technicians, Impact administrators (Suleman Manji), and Pinnacle administrators (Willie Dallas).</p>
+
+                    <div class="alert alert-info">
+                        <strong>Workflow Overview:</strong> Onsite technicians perform the physical device work, while administrators handle remote tasks including Autopilot removal, Intune resets, and enrollment verification. See <a href="../On-site Coordination/Onsite_Coordination_Guide.html" target="_blank">Onsite Coordination Guide</a> for technician workflow details.
+                    </div>
+
+                    <h3>5.0 Tenant Migration Methods</h3>
+                    <p>Microsoft provides two methods for transferring Windows Autopilot devices between tenants. This migration uses <strong>Method 1: Online Migration</strong> as the primary approach, with Method 2 available as a fallback <strong>if Method 1 fails for any reason</strong>.</p>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h4>Method 1: Online Migration (Primary Method)</h4>
+                            <p><strong>Status:</strong> ✅ <strong>PRIMARY METHOD FOR THIS MIGRATION</strong></p>
+                            <p><strong>Best For:</strong></p>
+                            <ul>
+                                <li>Standard migration scenarios</li>
+                                <li>Short time frames (days vs weeks/months)</li>
+                                <li>Immediate access to new tenant for profile assignment</li>
+                                <li>Up to 500 devices per batch</li>
+                                <li>193 devices (single batch for this migration)</li>
+                            </ul>
+                            <p><strong>How It Works:</strong> Devices are removed from old tenant Autopilot, registered to new tenant Autopilot, then reset to enroll in new tenant.</p>
+                        </div>
+                        <div class="card">
+                            <h4>Method 2: Offline Migration (Fallback Method)</h4>
+                            <p><strong>Status:</strong> ⚠️ <strong>FALLBACK WHEN METHOD 1 FAILS</strong></p>
+                            <p><strong>When to Use:</strong></p>
+                            <ul>
+                                <li><strong>Primary Use Case:</strong> When Method 1 (Online Migration) fails for any reason</li>
+                                <li>Autopilot registration errors in new tenant</li>
+                                <li>Deletion not completing in old tenant</li>
+                                <li>Device enrollment failures with online method</li>
+                                <li>Large device uploads (2000+ devices) - not applicable to this migration</li>
+                            </ul>
+                            <p><strong>How It Works:</strong> Uses local JSON-based Autopilot configuration file deployed to devices before reset, bypassing Autopilot service communication.</p>
+                    <div class="alert alert-warning">
+                                <strong>Note:</strong> This method is more complex and should only be used if Method 1 encounters issues that cannot be resolved.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Method 1: Online Migration - Detailed Process</h4>
+                    <p>This is the <strong>primary method</strong> used for the Pinnacle to Impact migration. Follow these steps in order:</p>
+
+                    <div class="workflow-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h5>Collect Hardware Hashes from Devices</h5>
+                            <p><strong>Administrator:</strong> Willie Dallas (willie.dallas@ilginc.com) - Pinnacle Tenant</p>
+                            <p>Collect hardware hashes from all devices that will be migrated to the new tenant.</p>
+                            <p><strong>Methods Available:</strong></p>
+                            <ul>
+                                <li><strong>Get-WindowsAutoPilotInfo Script:</strong> Run on each device to generate hardware hash</li>
+                                <li><strong>Configuration Manager:</strong> Export hashes from existing Autopilot devices</li>
+                                <li><strong>Intune Portal:</strong> Export from existing Autopilot device registrations</li>
+                            </ul>
+                            <p><strong>Script Reference:</strong> <code>A2-HardwareHashes.ps1</code> or <code>Get-WindowsAutoPilotInfo</code></p>
+                            <pre><code># Example: Collect hardware hash from device
+Install-Script -Name Get-WindowsAutopilotInfo -Force
+Get-WindowsAutopilotInfo -OutputFile "C:\DeviceHash.csv"</code></pre>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> Limit is 500 hashes per upload batch. For 193 devices, this can be done in a single batch.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h5>Upload Hashes to New Tenant (Tenant B - Impact)</h5>
+                            <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net) - Impact Tenant</p>
+                            <p>Register devices to the new tenant (Impact) Autopilot service. Two methods available:</p>
+                            
+                            <h6>Method A: Microsoft Intune Admin Center (UI)</h6>
+                            <ol>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong> → <strong>Windows enrollment</strong> → <strong>Devices</strong></li>
+                                <li>Click <strong>Import</strong></li>
+                                <li>Upload CSV file with hardware hashes</li>
+                                <li>Monitor import batch status via API: <code>/importedWindowsAutopilotDeviceIdentities/${id}?$select=id,state</code></li>
+                                <li>UX will pool for import batch status and notify admin of success/failure</li>
+                            </ol>
+
+                            <h6>Method B: PowerShell Script (Automated)</h6>
+                            <p>Use the WindowsAutoPilotIntune PowerShell module:</p>
+                            <pre><code># Install module
+Install-Module WindowsAutoPilotIntune -Force
+
+# Import hardware hashes CSV
+Import-AutopilotCSV -GroupTag "Pinnacle-Migration" -Assign</code></pre>
+                            <p><strong>Script Reference:</strong> <code>I8-ImportAutopilotHashes.ps1</code></p>
+                            <pre><code>.\I8-ImportAutopilotHashes.ps1 `
+    -OutputPath ".\Output" `
+    -CSVPath ".\PinnacleData\ALL-WindowsDevices_AutoPilot_Hashes.csv" `
+    -GroupTag "Pinnacle-Migration" `
+    -AutopilotProfileName "Impact Standard Profile" `
+    -UpdateExisting</code></pre>
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> At this point, devices are registered to Tenant B (Impact) but still managed by Tenant A (Pinnacle). This is expected behavior.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h5>Remove Autopilot Registration from Old Tenant (Tenant A - Pinnacle)</h5>
+                            <p><strong>Administrator:</strong> Willie Dallas (willie.dallas@ilginc.com) - Pinnacle Tenant</p>
+                            <p>After hashes are registered in Tenant B, remove the Autopilot registration from Tenant A.</p>
+                            
+                            <h6>Method A: Intune Admin Center (UI)</h6>
+                            <ol>
+                                <li>Log into Pinnacle Intune portal</li>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong> → <strong>Windows enrollment</strong> → <strong>Devices</strong></li>
+                                <li>Search for device by serial number</li>
+                                <li>Select device(s) and click <strong>Delete</strong></li>
+                                <li>Confirm deletion</li>
+                            </ol>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> The device will still be managed by Intune in Tenant A until reset. Only the Autopilot registration is removed.
+                            </div>
+
+                            <h6>Method B: PowerShell (Automated)</h6>
+                            <pre><code># Remove device from Autopilot (does not delete Intune managed device)
+Remove-AutopilotDevice -SerialNumber "XXXXX"</code></pre>
+                            <p><strong>Note:</strong> Both <code>Remove-AutopilotDevice</code> and <code>Import-AutopilotDevice</code> come from the WindowsAutoPilotIntune module.</p>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h5>Verify Device Registration in New Tenant</h5>
+                            <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net) - Impact Tenant</p>
+                            <p>Confirm device is registered in Impact Autopilot and profile is assigned:</p>
+                            <ol>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong> → <strong>Windows enrollment</strong> → <strong>Devices</strong></li>
+                                <li>Search for device by serial number</li>
+                                <li>Verify device appears with correct Autopilot profile assigned</li>
+                                <li>Verify group tag "Pinnacle-Migration" is applied</li>
+                            </ol>
+                            <div class="alert alert-error">
+                                <strong>Troubleshooting:</strong> If you receive an error when attempting to register in Tenant B, this may indicate the deletion was not fully completed in Tenant A. Wait 15-30 minutes and retry.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">5</span>
+                        <div class="step-content">
+                            <h5>Reset the Device</h5>
+                            <p><strong>Action:</strong> Onsite technician or user performs device reset</p>
+                            <p>Once device is registered in Tenant B and desired profile is assigned, reset the device to join the new tenant.</p>
+                            
+                            <h6>Reset Methods:</h6>
+                            <ul>
+                                <li><strong>Settings App:</strong> Settings → System → Recovery → Reset this PC</li>
+                                <li><strong>Intune Admin Center:</strong> Devices → Windows → Select device → Wipe</li>
+                                <li><strong>Remote Wipe:</strong> Performed by administrator via Intune</li>
+                            </ul>
+                            <div class="alert alert-error">
+                                <strong>CRITICAL:</strong> Do NOT use the "Autopilot Reset" function. This will NOT initiate Autopilot on the device and will leave it managed by the old tenant. Use "Reset this PC" or "Wipe" instead.
+                            </div>
+                            <p><strong>What Happens:</strong></p>
+                            <ul>
+                                <li>Device is wiped and reset to factory state</li>
+                                <li>During OOBE, device connects to Autopilot service</li>
+                                <li>Device downloads Autopilot profile from Tenant B (Impact)</li>
+                                <li>Device is re-provisioned and enrolled to Impact tenant using Autopilot</li>
+                                <li>All Intune policies and applications are deployed</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <h4>Method 2: Offline Migration - Detailed Process (Fallback)</h4>
+                    <p>This method should be used <strong>only if Method 1 (Online Migration) fails for any reason</strong> and cannot be resolved. It uses a local Autopilot JSON-based configuration file to bypass Autopilot service communication issues.</p>
+                    <div class="alert alert-error">
+                        <strong>When to Use This Method:</strong> Only use Method 2 if you encounter persistent failures with Method 1, such as:
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Autopilot registration errors that cannot be resolved</li>
+                            <li>Device deletion from old tenant not completing</li>
+                            <li>Enrollment failures after successful registration</li>
+                            <li>Service communication issues preventing online migration</li>
+                        </ul>
+                    </div>
+                    <div class="alert alert-warning">
+                        <strong>Important:</strong> When using offline migration, you won't be able to pre-target policies to the device. Once migration is complete, remove the JSON file for subsequent resets.
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h5>Remove Devices from Autopilot Profile Assignments</h5>
+                            <p><strong>Administrator:</strong> Willie Dallas (willie.dallas@ilginc.com) - Pinnacle Tenant</p>
+                            <p>Before deregistration, remove devices from any Autopilot profiles where "Convert existing devices" setting is enabled.</p>
+                            <ol>
+                                <li>Navigate to Autopilot deployment profiles</li>
+                                <li>Review profile assignments</li>
+                                <li>Remove devices from profiles with "Convert existing devices" enabled</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h5>Deregister Devices from Autopilot in Batches</h5>
+                            <p><strong>Administrator:</strong> Willie Dallas (willie.dallas@ilginc.com) - Pinnacle Tenant</p>
+                            <p>Deregister devices from Autopilot using Graph APIs. Use the one-step removal function (available as of Intune 2108) which removes Autopilot registration without deleting the Intune managed device object.</p>
+                            <pre><code># Example: Batch deregistration script
+# Use Graph API to deregister devices
+# Perform full device sync for every 2,000 devices deregistered</code></pre>
+                            <div class="alert alert-info">
+                                <strong>Recommendation:</strong> Perform a full device sync for every 2,000 devices deregistered to ensure proper cleanup.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h5>Create Offline Autopilot JSON File for New Tenant</h5>
+                            <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net) - Impact Tenant</p>
+                            <p>Create an offline Autopilot JSON configuration file for Tenant B (Impact) devices.</p>
+                            <p><strong>Reference:</strong> See <a href="https://learn.microsoft.com/en-us/mem/autopilot/existing-devices" target="_blank">Windows Autopilot deployment for existing devices: Create JSON file for Autopilot profile(s)</a></p>
+                            <p>The JSON file contains Autopilot profile configuration that will be used during device reset.</p>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h5>Deploy JSON File to Devices via Old Tenant</h5>
+                            <p><strong>Administrator:</strong> Willie Dallas (willie.dallas@ilginc.com) - Pinnacle Tenant</p>
+                            <p>Using Tenant A (Pinnacle), deploy a PowerShell script that copies the offline Autopilot profile for Tenant B to the desired devices.</p>
+                            <p><strong>Critical Path:</strong> The JSON file must be placed at this exact location:</p>
+                            <pre><code>%windir%\provisioning\autopilot\AutoPilotConfigurationFile.json</code></pre>
+                            <p><strong>Deployment Method:</strong></p>
+                            <ul>
+                                <li>Create Intune Win32 app or PowerShell script</li>
+                                <li>Deploy to target devices via Tenant A Intune</li>
+                                <li>Script copies JSON file to the exact path above</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">5</span>
+                        <div class="step-content">
+                            <h5>Initiate Full Device Wipe</h5>
+                            <p><strong>Action:</strong> Onsite technician or administrator</p>
+                            <p>Perform a full wipe of the device (no user data or apps). This can be:</p>
+                            <ul>
+                                <li>Local reset via Settings app</li>
+                                <li>Remote wipe via Intune</li>
+                            </ul>
+                            <p><strong>What Happens After Reset:</strong></p>
+                            <ul>
+                                <li>Autopilot profile from Tenant A registration is wiped</li>
+                                <li>Device is no longer registered with Autopilot</li>
+                                <li>No new profile is downloaded from Autopilot service</li>
+                                <li>The JSON file (from step 4) persists across resets</li>
+                                <li>Device uses the local JSON file for Autopilot configuration</li>
+                            </ul>
+                            <div class="alert alert-warning">
+                                <strong>Important:</strong> The JSON file will persist across all future resets. Remove it after migration if this isn't desired.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">6</span>
+                        <div class="step-content">
+                            <h5>Device Setup with New Tenant</h5>
+                            <p><strong>Action:</strong> User or onsite technician</p>
+                            <p>Device user sets up the Windows device with the new Tenant B (Impact) Autopilot experience using the local JSON configuration file.</p>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">7</span>
+                        <div class="step-content">
+                            <h5>Create Default Autopilot Profile for Auto-Registration</h5>
+                            <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net) - Impact Tenant</p>
+                            <p>Create a default Autopilot profile assigned to the "All Devices" virtual group with the setting "Convert existing devices" enabled.</p>
+                            <p><strong>Purpose:</strong> This automatically registers all devices into Autopilot during the devices' lifetime. Devices can be targeted with this default profile to automatically register the device to Tenant B in Autopilot.</p>
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> Before uploading multiple batches of devices, confirm that previous batch(es) are successfully registered.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4>Method Comparison</h4>
+                    <table>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Method 1: Online Migration</th>
+                            <th>Method 2: Offline Migration</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Best For</strong></td>
+                            <td>Standard migrations, up to 500 devices/batch</td>
+                            <td>When Method 1 fails - troubleshooting fallback</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pre-target Policies</strong></td>
+                            <td>✅ Yes - Can pre-assign policies before reset</td>
+                            <td>❌ No - Policies assigned after enrollment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Time Frame</strong></td>
+                            <td>Days (short timeline)</td>
+                            <td>Weeks/Months (extended timeline)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Complexity</strong></td>
+                            <td>Lower - Direct Autopilot service communication</td>
+                            <td>Higher - Requires JSON file deployment</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Device Limit per Batch</strong></td>
+                            <td>500 devices</td>
+                            <td>2000+ devices (with sync every 2000)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>This Migration Uses</strong></td>
+                            <td>✅ <strong>PRIMARY METHOD</strong></td>
+                            <td>⚠️ <strong>FALLBACK IF METHOD 1 FAILS</strong></td>
+                        </tr>
+                    </table>
+
+                    <h3>5.1 Device Reset Request Process</h3>
+                    <p><strong>Primary Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p>Onsite technicians submit device serial numbers to Suleman Manji via MS Teams for Autopilot removal and Intune device reset.</p>
+
+                    <h4>Process Flow</h4>
+                    <div class="workflow-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h5>Receive Device Reset Request</h5>
+                            <p>Onsite technician contacts Suleman Manji via MS Teams with the following format:</p>
+                            <pre><code>Windows Serial: [XXXXX] | iOS Serial: [XXXXX] | iOS UDID: [XXXXX]</code></pre>
+                            <p>Technician provides Windows device serial number for Autopilot removal and Intune reset.</p>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h5>Remove Device from Pinnacle Autopilot</h5>
+                            <p><strong>Action:</strong> Suleman Manji coordinates with Willie Dallas (willie.dallas@ilginc.com) to remove device from Pinnacle Autopilot.</p>
+                            <p><strong>Process:</strong></p>
+                            <ol>
+                                <li>Willie Dallas logs into Pinnacle Intune portal</li>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong> → <strong>Windows enrollment</strong> → <strong>Devices</strong></li>
+                                <li>Search for device by serial number</li>
+                                <li>Select device and click <strong>Delete</strong> to remove from Autopilot</li>
+                                <li>Confirm deletion</li>
+                            </ol>
+                            <div class="alert alert-warning">
+                                <strong>Timeline:</strong> This process typically takes 15-30 minutes. Technician should wait for confirmation before proceeding to OOBE.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h5>Perform Intune Device Reset</h5>
+                            <p><strong>Action:</strong> Suleman Manji performs Intune device reset to prepare device for Autopilot enrollment in Impact tenant.</p>
+                            <p><strong>Process:</strong></p>
+                            <ol>
+                                <li>Log into Impact Intune portal (Microsoft Endpoint Manager)</li>
+                        <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong></li>
+                                <li>If device is already enrolled, select device and perform <strong>Wipe</strong> action</li>
+                                <li>If device is not enrolled, verify hardware hash is in Autopilot devices list</li>
+                                <li>Confirm device reset completion</li>
+                    </ol>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h5>Confirm Reset Completion</h5>
+                            <p>Send confirmation to onsite technician via MS Teams that device reset is complete and ready for OOBE.</p>
+                            <div class="alert alert-success">
+                                <strong>Success Indicator:</strong> Device is removed from Pinnacle Autopilot, reset in Intune (if applicable), and hardware hash is present in Impact Autopilot with correct profile assignment.
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>5.2 Windows OOBE Setup (Onsite Technician)</h3>
+                    <p><strong>Note:</strong> This step is performed by onsite technicians. Administrators should verify enrollment status after completion.</p>
+                    <p>After receiving reset confirmation, onsite technician performs Windows Out-of-Box Experience (OOBE) setup:</p>
+                    <ul>
+                        <li>Boot device and connect to network (Ethernet preferred)</li>
+                        <li>User signs in with <code>@impactpropertysolutions.com</code> email</li>
+                        <li>Autopilot enrollment process begins automatically (ESP page appears)</li>
+                        <li>Allow all applications to install automatically (DO NOT INTERRUPT)</li>
+                        <li>Verify OneDrive sync starts automatically</li>
+                        <li>Configure Outlook and Teams</li>
+                        <li>Verify required applications installed (Chrome, Foxit Reader, NinjaOne Agent, IPS.exe)</li>
+                    </ul>
+
+                    <h4>Administrator Verification Tasks</h4>
+                    <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p>After technician completes OOBE, verify enrollment in Intune:</p>
+                    <div class="checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" id="oobe1">
+                            <label for="oobe1">Device appears in Intune devices list</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="oobe2">
+                            <label for="oobe2">Device shows as "Enrolled" status</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="oobe3">
+                            <label for="oobe3">Autopilot profile applied correctly</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="oobe4">
+                            <label for="oobe4">Configuration profiles beginning to apply</label>
+                        </div>
+                    </div>
+
+                    <h3>5.3 Post-Enrollment Verification (Onsite Technician)</h3>
+                    <p><strong>Note:</strong> This step is performed by onsite technicians. Administrators should verify application deployment status.</p>
+                    <p>Technician verifies the following on the device:</p>
+                    <ul>
+                        <li><strong>Outlook Classic:</strong> Account configured, pinned to taskbar</li>
+                        <li><strong>Teams:</strong> Work/school account set up, OneDrive synced, pinned to taskbar</li>
+                        <li><strong>Google Chrome:</strong> Installed and set as default browser</li>
+                        <li><strong>Foxit Reader:</strong> Installed and set as default PDF reader</li>
+                        <li><strong>NinjaOne RMM Agent:</strong> Installed and running</li>
+                        <li><strong>IPS.exe:</strong> VPN profile created (if not configured by Autopilot)</li>
+                    </ul>
+
+                    <h4>Administrator Application Verification</h4>
+                    <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p>Verify application deployment status in Intune:</p>
+                    <ol>
+                        <li>Navigate to <strong>Apps</strong> → <strong>Monitor</strong> → <strong>App install status</strong></li>
+                        <li>Filter by device or user</li>
+                        <li>Verify all required applications show "Installed" or "Installing" status</li>
+                        <li>Address any "Failed" installations</li>
+                    </ol>
+
+                    <h3>5.4 User Validation (Onsite Technician)</h3>
+                    <p><strong>Note:</strong> This step is performed by onsite technicians with user present. Administrators should verify network connectivity and functionality.</p>
+                    <p>Technician has user verify the following three critical items:</p>
+                    <div class="success-box">
+                        <h4 style="margin-top: 0;">✓ Internet Access</h4>
+                        <p>User opens browser and visits a website (e.g., google.com). Confirm connection is working.</p>
+                        </div>
+                    <div class="success-box">
+                        <h4 style="margin-top: 0;">✓ RFMS RDP Usability</h4>
+                        <p>User tests Remote Desktop connection to RFMS server. Confirm connectivity and responsiveness.</p>
+                        </div>
+                    <div class="success-box">
+                        <h4 style="margin-top: 0;">✓ Printing Functionality</h4>
+                        <p>User sends a test print job to the mapped printer. Confirm output is received.</p>
+                        </div>
+
+                    <h3>5.5 M365 Admin Tasks (Day +2, ≥48 Hours Post-Migration)</h3>
+                    <p><strong>Primary Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p><strong>Coordination Required:</strong> Willie Dallas (willie.dallas@ilginc.com)</p>
+                    <p>After device enrollment is complete (minimum 48 hours post-migration), perform final administrative verification and cleanup.</p>
+
+                    <h4>Enrollment Verification</h4>
+                    <div class="workflow-step">
+                        <span class="step-number">1</span>
+                        <div class="step-content">
+                            <h5>Verify Autopilot Enrollment Success</h5>
+                            <p>In Microsoft Endpoint Manager (Intune):</p>
+                            <ol>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong></li>
+                                <li>Search for device by serial number or user</li>
+                                <li>Verify device shows as "Enrolled" and "Compliant"</li>
+                                <li>Check enrollment date and time</li>
+                                <li>Review enrollment logs for any errors</li>
+                            </ol>
+                        </div>
+                        </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">2</span>
+                        <div class="step-content">
+                            <h5>Coordinate with Willie Dallas: Remove Device from Pinnacle Autopilot</h5>
+                            <p><strong>Action:</strong> Suleman Manji coordinates with Willie Dallas to remove the device from Pinnacle Autopilot after successful enrollment verification.</p>
+                            <p><strong>Process:</strong></p>
+                            <ol>
+                                <li>Suleman confirms device is successfully enrolled in Impact Intune</li>
+                                <li>Suleman contacts Willie Dallas via email or MS Teams with device serial number</li>
+                                <li>Willie Dallas logs into Pinnacle Intune portal</li>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Windows</strong> → <strong>Windows enrollment</strong> → <strong>Devices</strong></li>
+                                <li>Search for device by serial number</li>
+                                <li>If device still appears in Pinnacle Autopilot, delete it</li>
+                                <li>Willie confirms deletion to Suleman</li>
+                            </ol>
+                            <div class="alert alert-info">
+                                <strong>Note:</strong> This step ensures devices are fully removed from Pinnacle tenant and prevents any conflicts or confusion.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">3</span>
+                        <div class="step-content">
+                            <h5>Verify Device in Intune Management</h5>
+                            <p>Confirm device is fully managed by Impact Intune:</p>
+                            <ul>
+                                <li>Device appears in <strong>Devices</strong> → <strong>Windows</strong> list</li>
+                                <li>Primary user is assigned correctly</li>
+                                <li>Device is member of correct device groups</li>
+                                <li>Last sync time is recent (within 24 hours)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="workflow-step">
+                        <span class="step-number">4</span>
+                        <div class="step-content">
+                            <h5>Verify Compliance Policies Applied</h5>
+                            <p>Check compliance policy status:</p>
+                            <ol>
+                                <li>Navigate to <strong>Devices</strong> → <strong>Compliance policies</strong></li>
+                                <li>Filter by device or view device compliance status</li>
+                                <li>Verify device shows "Compliant" status</li>
+                                <li>Review any non-compliance issues and remediate</li>
+                                <li>Verify BitLocker encryption status (if applicable)</li>
+                                <li>Verify Windows Defender status</li>
+                    </ol>
+                        </div>
+                    </div>
+
+                    <h3>5.6 Production Rollout Monitoring</h3>
+                    <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p>Monitor device enrollment progress across all sites during production rollout. This migration follows a <strong>distributed site onboarding plan</strong> with 23 sites and 142 Windows devices over a compressed Dec 4-29 timeline.</p>
+
+                    <div class="alert alert-info">
+                        <strong>Reference Documentation:</strong> For complete site schedule, team assignments, and onsite workflow details, see the <a href="../On-site Coordination/Onsite_Coordination_Guide.html" target="_blank">Onsite Coordination Guide</a>. This includes the full migration schedule, site contacts, resource requirements, and network migration dependencies.
+                    </div>
+
+                    <h4>Migration Schedule Overview</h4>
+                    <p>The production rollout is organized into <strong>4 phases</strong> across 23 sites:</p>
+                    <table>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Dates</th>
+                            <th>Users</th>
+                            <th>Key Sites</th>
+                            <th>Team Structure</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 1: Launch & Momentum</strong></td>
+                            <td>Dec 4-10</td>
+                            <td>31 users</td>
+                            <td>Carrollton, Tampa, El Paso, Austin, Jacksonville, Orlando, Albuquerque, Pawtucket</td>
+                            <td>1 Team (standard sites)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 2: Build Phase</strong></td>
+                            <td>Dec 11-17</td>
+                            <td>26 users + Sacramento</td>
+                            <td>Denver, Las Vegas, Sparks, Salt Lake City, Fresno, Sacramento (12 users)</td>
+                            <td>1-2 Teams (Sacramento: 2-team)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 3: Peak Intensity</strong></td>
+                            <td>Dec 18-25</td>
+                            <td>51 users</td>
+                            <td>Union City (10), Chula Vista (11), La Mirada (19), Auburn (18), Tucson, Phoenix</td>
+                            <td>2 Teams + Surge (large sites)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phase 4: Final Sprint</strong></td>
+                            <td>Dec 26-29</td>
+                            <td>34 users</td>
+                            <td>Milwaukie (26 users - 3-team), Houston (8)</td>
+                            <td>3 Teams (Milwaukie), 2 Teams (Houston)</td>
+                        </tr>
+                    </table>
+
+                    <div class="alert alert-warning">
+                        <strong>Critical Prerequisite:</strong> Network infrastructure migration must be completed BEFORE M365 on-site deployment begins. Verify network migration status for each site before technician visit. See <a href="../On-site Coordination/Onsite_Coordination_Guide.html#network-dependencies" target="_blank">Network Migration Dependencies</a> in the Onsite Coordination Guide.
+                    </div>
+
+                    <h4>Phase-Based Monitoring Tasks</h4>
+                    <p>Administrator monitoring activities vary by phase based on site complexity and team deployment:</p>
+
+                    <h5>Phase 1-2: Standard Monitoring (Dec 4-17)</h5>
+                    <ul>
+                        <li><strong>Daily Enrollment Review:</strong> Check Intune portal daily for new device enrollments from standard 1-team sites</li>
+                        <li><strong>Reset Request Processing:</strong> Process device reset requests as received from onsite technicians (typically 1-5 devices per site)</li>
+                        <li><strong>Site Verification:</strong> Verify network migration completion before each site visit</li>
+                        <li><strong>Error Tracking:</strong> Review enrollment errors in <strong>Devices</strong> → <strong>Monitor</strong> → <strong>Enrollment failures</strong></li>
+                    </ul>
+
+                    <h5>Phase 3: Peak Period Monitoring (Dec 18-25 - Holiday Period)</h5>
+                    <div class="alert alert-error">
+                        <strong>Peak Intensity Period:</strong> This phase includes 51 users across large sites (La Mirada: 19 users, Auburn: 18 users) during the holiday period. Administrator must be available for increased reset request volume.
+                    </div>
+                    <ul>
+                        <li><strong>Batch Reset Processing:</strong> Process reset requests in batches for large sites (2-team deployments may submit 5-10 devices simultaneously)</li>
+                        <li><strong>Extended Availability:</strong> Maintain availability during holiday period (Dec 20-25) for La Mirada and Auburn site support</li>
+                        <li><strong>Queue Management:</strong> Process overnight reset queues to prepare for next-day technician activities</li>
+                        <li><strong>Large Site Coordination:</strong> Coordinate with Willie Dallas for bulk Autopilot removals from Pinnacle tenant for large sites</li>
+                        <li><strong>Application Deployment Status:</strong> Monitor app installation status across all devices, especially for large sites with concurrent enrollments</li>
+                    </ul>
+
+                    <h5>Phase 4: Final Sprint Monitoring (Dec 26-29)</h5>
+                    <div class="alert alert-warning">
+                        <strong>Milwaukie 3-Team Deployment:</strong> Milwaukie site (26 users, Dec 26-28) requires 3-team deployment with 3 concurrent subgroups. Expect high volume of simultaneous reset requests.
+                    </div>
+                    <ul>
+                        <li><strong>High-Volume Reset Processing:</strong> Process reset requests for Milwaukie's 3-team deployment (up to 26 devices in rapid succession)</li>
+                        <li><strong>Concurrent Enrollment Monitoring:</strong> Monitor 3 parallel enrollment streams for Milwaukie site</li>
+                        <li><strong>Final Site Verification:</strong> Complete verification for Houston (final site, Dec 29)</li>
+                        <li><strong>Completion Validation:</strong> Verify all 142 devices enrolled and compliant by Dec 27-29</li>
+                    </ul>
+
+                    <h4>Site-Specific Monitoring Considerations</h4>
+                    <p>Different site sizes require different monitoring approaches:</p>
+                    <ul>
+                        <li><strong>Standard Sites (1-4 users):</strong> Single technician, sequential device processing. Monitor for standard enrollment patterns.</li>
+                        <li><strong>Large Sites (10-12 users):</strong> 2-team parallel deployment. Monitor for concurrent enrollment patterns and potential conflicts.</li>
+                        <li><strong>Very Large Sites (18-19 users):</strong> 2-team + Surge deployment. Monitor for extended enrollment periods (2-3 days) and batch processing requirements.</li>
+                        <li><strong>Massive Sites (26 users - Milwaukie):</strong> 3-team deployment with 3 concurrent subgroups. Monitor for high-volume simultaneous enrollments and potential service throttling.</li>
+                    </ul>
+                    <p>For detailed site information, contacts, and resource requirements, see the <a href="../On-site Coordination/Onsite_Coordination_Guide.html#schedule" target="_blank">Migration Schedule</a> section in the Onsite Coordination Guide.</p>
+
+                    <h4>Enrollment Dashboard</h4>
+                    <p>Use Microsoft Endpoint Manager to monitor enrollment progress:</p>
+                    <ul>
+                        <li><strong>Devices</strong> → <strong>Windows</strong> → Enrollment status overview</li>
+                        <li><strong>Devices</strong> → <strong>Monitor</strong> → Enrollment errors and warnings</li>
+                        <li><strong>Devices</strong> → <strong>Autopilot devices</strong> → Profile assignments and enrollment status</li>
+                        <li><strong>Apps</strong> → <strong>Monitor</strong> → App install status by device</li>
+                    </ul>
+
+                    <h4>Site Coordination & Communication</h4>
+                    <p>Maintain communication with onsite technicians throughout the rollout:</p>
+                    <ul>
+                        <li><strong>Reset Request Queue:</strong> Monitor MS Teams for device reset requests from onsite technicians</li>
+                        <li><strong>Site Contact Verification:</strong> Reference <a href="../On-site Coordination/Onsite_Coordination_Guide.html#schedule" target="_blank">site schedule</a> for primary contacts and site-specific information</li>
+                        <li><strong>Issue Escalation:</strong> Coordinate with Willie Dallas for Pinnacle tenant issues, onsite technicians for device-specific problems</li>
+                        <li><strong>Progress Tracking:</strong> Track enrollment completion by site using the <a href="../On-site Coordination/Onsite_Coordination_Master_Checklist.csv" target="_blank">Onsite Coordination Master Checklist</a></li>
+                    </ul>
+
+                    <h4>Key Milestones & Completion Targets</h4>
+                    <ul>
+                        <li><strong>Dec 4:</strong> 🚀 Project launch (Carrollton) - immediately after BitTitan completion</li>
+                        <li><strong>Dec 4-10:</strong> Phase 1 complete - 31 users migrated</li>
+                        <li><strong>Dec 11-17:</strong> Phase 2 complete - 26 users + Sacramento (12) migrated</li>
+                        <li><strong>Dec 18-25:</strong> Phase 3 complete - 51 users migrated (peak intensity, holiday period)</li>
+                        <li><strong>Dec 26-28:</strong> Milwaukie 3-team deployment - 26 users</li>
+                        <li><strong>Dec 27-29:</strong> ✅ <strong>All 142 devices complete</strong> (3-4 days before deadline)</li>
+                        <li><strong>Dec 30-31:</strong> Buffer/validation days (if needed)</li>
+                    </ul>
+
+                    <div class="alert alert-success">
+                        <strong>Success Indicator:</strong> All 142 Windows devices successfully enrolled in Impact Intune, compliant, and fully configured with all required applications and policies by Dec 27-29, 2025.
+                    </div>
+
+                    <div class="alert alert-info">
+                        <strong>For Complete Details:</strong> Refer to the <a href="../On-site Coordination/Onsite_Coordination_Guide.html" target="_blank">Onsite Coordination Guide</a> for:
+                        <ul style="margin-top: 0.5rem;">
+                            <li>Complete site-by-site schedule with dates, times, and contacts</li>
+                            <li>Team structure and resource requirements</li>
+                            <li>Network migration dependencies and prerequisites</li>
+                            <li>Site-specific technician workflows</li>
+                            <li>Escalation procedures and contact information</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="phase4">
+                    <h2>6. Phase 4: Post-Migration Tasks</h2>
+                    <p><strong>Administrator:</strong> Suleman Manji (smanji@viyu.net)</p>
+                    <p>Verification, user assignment, and cleanup tasks after device enrollment performed by the Impact administrator.</p>
+
+                    <h3>6.1 Device Verification</h3>
+                    <p>Verify all devices enrolled successfully and are compliant.</p>
+                    <div class="checklist">
+                        <h4>Device Verification Checklist</h4>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="verify1">
+                            <label for="verify1">All 193 devices enrolled in Intune</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="verify2">
+                            <label for="verify2">Device compliance status: Compliant</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="verify3">
+                            <label for="verify3">Configuration profiles applied</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="verify4">
+                            <label for="verify4">Applications installed successfully</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="verify5">
+                            <label for="verify5">No policy conflicts</label>
+                        </div>
+                    </div>
+
+                    <h3>6.2 User Affinity Assignment</h3>
+                    <p>Assign primary users to devices for proper user-device relationships.</p>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>A5-IntunePrimaryUsers.ps1</code><br>
+                        <strong>Location:</strong> <code>1.pinnacle/Scripts/Autopilot-Intune/</code> (adapt for Impact tenant)
+                    </div>
+                    <pre><code># Assign primary users to devices
+# Use device serial number and user UPN mapping
+.\A5-IntunePrimaryUsers.ps1 `
+    -InputCsvPath ".\device_user_mapping.csv" `
+    -OutputPath ".\Output"</code></pre>
+
+                    <h3>6.3 Application Verification</h3>
+                    <p>Verify all required applications are installed and functioning.</p>
+                    <ul>
+                        <li>Check application installation status in Intune</li>
+                        <li>Remediate any failed installations</li>
+                        <li>Verify application functionality on test devices</li>
+                        <li>Document application deployment status</li>
+                    </ul>
+
+                    <h3>6.4 Policy Verification</h3>
+                    <p>Verify all policies are applied correctly.</p>
+                    <ul>
+                        <li>Configuration profiles: Applied</li>
+                        <li>Compliance policies: Enforced</li>
+                        <li>Check for policy conflicts</li>
+                        <li>Document policy status</li>
+                    </ul>
+
+                    <h3>6.5 Cleanup Tasks</h3>
+                    <ul>
+                        <li>Remove test devices/accounts</li>
+                        <li>Clean up temporary configurations</li>
+                        <li>Update documentation</li>
+                        <li>Archive migration data</li>
+                        <li>Retire devices from Pinnacle tenant (if not already done)</li>
+                    </ul>
+                </section>
+
+                <section id="troubleshooting">
+                    <h2>7. Troubleshooting</h2>
+                    <p>Common issues and resolutions during Windows device migration.</p>
+
+                    <h3>7.1 Hardware Hash Import Issues</h3>
+                    <h4>Issue: Import fails with "Device Already Exists"</h4>
+                    <div class="alert alert-info">
+                        <strong>Solution:</strong> Device may already be registered. Check Autopilot devices list. If device needs to be reassigned, delete and re-import, or update the existing registration.
+                    </div>
+
+                    <h4>Issue: Device Not Appearing After Import</h4>
+                    <div class="alert alert-warning">
+                        <strong>Solution:</strong>
+                        <ul>
+                            <li>Wait 5-10 minutes for sync to complete</li>
+                            <li>Refresh the Intune portal</li>
+                            <li>Verify CSV file format is correct</li>
+                            <li>Check for import errors in portal</li>
+                        </ul>
+                    </div>
+
+                    <h3>7.2 Autopilot Enrollment Issues</h3>
+                    <h4>Issue: Device doesn't boot to Autopilot OOBE</h4>
+                    <div class="alert alert-warning">
+                        <strong>Solution:</strong>
+                        <ul>
+                            <li>Verify device was fully reset to factory state</li>
+                            <li>Power cycle the device (full shutdown and restart)</li>
+                            <li>Ensure device is connected to internet during boot</li>
+                            <li>Check Intune to verify device is registered in Autopilot</li>
+                            <li>If still failing, may need to re-register device hash</li>
+                        </ul>
+                    </div>
+
+                    <h4>Issue: Autopilot enrollment hangs or fails</h4>
+                    <div class="alert alert-warning">
+                        <strong>Solution:</strong>
+                        <ul>
+                            <li>Ensure internet connection is stable</li>
+                            <li>Verify user has active Microsoft 365 credentials</li>
+                            <li>Check Intune portal for enrollment errors</li>
+                            <li>Wait 5-10 minutes for enrollment sync</li>
+                            <li>Restart device and retry enrollment</li>
+                        </ul>
+                    </div>
+
+                    <h3>7.3 Policy Application Issues</h3>
+                    <h4>Issue: Policies Not Applied</h4>
+                    <div class="alert alert-warning">
+                        <strong>Solution:</strong>
+                        <ul>
+                            <li>Check device is assigned to correct security groups</li>
+                            <li>Verify Intune policies/assignments target the device</li>
+                            <li>On device: Settings → Accounts → Access work or school → Info → Sync</li>
+                            <li>Wait 5 minutes after sync</li>
+                            <li>Contact Intune administrator if policies still not applying</li>
+                        </ul>
+                    </div>
+
+                    <h3>7.4 Application Deployment Issues</h3>
+                    <h4>Issue: Applications Not Installing</h4>
+                    <div class="alert alert-warning">
+                        <strong>Solution:</strong>
+                        <ul>
+                            <li>Restart device and wait another 10 minutes</li>
+                            <li>Check Windows Update Settings</li>
+                            <li>Verify device appears in Microsoft Endpoint Manager</li>
+                            <li>Check application assignment in Intune</li>
+                            <li>Review application installation logs</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="scripts">
+                    <h2>8. Scripts Reference</h2>
+                    <p>Quick reference for all scripts used in the migration process.</p>
+
+                    <h3>Pinnacle Tenant Scripts (Source)</h3>
+                    <table>
+                        <tr>
+                            <th>Script</th>
+                            <th>Purpose</th>
+                            <th>Location</th>
+                        </tr>
+                        <tr>
+                            <td><code>A1-AutopilotDevices.ps1</code></td>
+                            <td>Export Autopilot device identities</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>A2-HardwareHashes.ps1</code></td>
+                            <td>Collect hardware hashes from devices</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>A3-AutopilotProfiles.ps1</code></td>
+                            <td>Export Autopilot profiles</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>A5-IntunePrimaryUsers.ps1</code></td>
+                            <td>Export primary user mappings</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>A6-ConfigurationProfiles.ps1</code></td>
+                            <td>Export configuration profiles</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>A7-CompliancePolicies.ps1</code></td>
+                            <td>Export compliance policies</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>A8-AssignedApps.ps1</code></td>
+                            <td>Export app assignments</td>
+                            <td><code>1.pinnacle/Scripts/Autopilot-Intune/</code></td>
+                        </tr>
+                    </table>
+
+                    <h3>Impact Tenant Scripts (Destination)</h3>
+                    <table>
+                        <tr>
+                            <th>Script</th>
+                            <th>Purpose</th>
+                            <th>Location</th>
+                        </tr>
+                        <tr>
+                            <td><code>M365-BaselineAudit.ps1</code></td>
+                            <td>Login readiness validation (CRITICAL)</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>M365-BaselineAudit.py</code></td>
+                            <td>Login readiness validation (Python - macOS)</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I1-ImpactAssessment.ps1</code></td>
+                            <td>Environment assessment</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I2-UserCreation.ps1</code></td>
+                            <td>Bulk user creation</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I3-GroupConfiguration.ps1</code></td>
+                            <td>Security groups setup</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I4-AutopilotSetup.ps1</code></td>
+                            <td>Autopilot profile configuration</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I5-IntuneConfigurationProfiles.ps1</code></td>
+                            <td>Intune configuration profiles</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I6-IntuneAppDeployment.ps1</code></td>
+                            <td>Application deployment</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I7-CreateDeviceGroup.ps1</code></td>
+                            <td>Azure AD device group creation</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>I8-ImportAutopilotHashes.ps1</code></td>
+                            <td>Hardware hash import</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>Process-DeviceCSV.py</code></td>
+                            <td>Process hardware hash CSV</td>
+                            <td><code>1.impactFlooring/scripts/.Impact-Preparation/</code></td>
+                        </tr>
+                    </table>
+
+                    <h3>Master Orchestration</h3>
+                    <div class="script-reference">
+                        <strong>Script:</strong> <code>Run-ImpactPreparation.ps1</code><br>
+                        <strong>Purpose:</strong> Master orchestration script that executes all preparation steps in sequence<br>
+                        <strong>Location:</strong> <code>1.impactFlooring/scripts/.Impact-Preparation/</code>
+                    </div>
+                    <pre><code>.\Run-ImpactPreparation.ps1 `
+    -OutputPath ".\Output" `
+    -PinnacleDataPath ".\PinnacleData" `
+    -DryRun</code></pre>
+                </section>
+
+                <section id="contacts">
+                    <h2>9. Key Contacts</h2>
+                    <p>Primary administrators responsible for Windows device migration tasks.</p>
+                    
+                    <h3>Migration Administrators</h3>
+                    <table>
+                        <tr>
+                            <th>Name</th>
+                            <th>Organization</th>
+                            <th>Email</th>
+                            <th>Primary Responsibilities</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Suleman Manji</strong></td>
+                            <td>Impact Floors</td>
+                            <td><code>smanji@viyu.net</code></td>
+                            <td>
+                                <ul style="margin: 0; padding-left: 1.5rem;">
+                                    <li>Impact tenant preparation and configuration</li>
+                                    <li>User account creation and licensing</li>
+                                    <li>Autopilot profile setup</li>
+                                    <li>Hardware hash import</li>
+                                    <li>Intune configuration and policies</li>
+                                    <li>Device enrollment verification</li>
+                                    <li>Post-migration verification and cleanup</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Willie Dallas</strong></td>
+                            <td>ILG/Pinnacle</td>
+                            <td><code>willie.dallas@ilginc.com</code></td>
+                            <td>
+                                <ul style="margin: 0; padding-left: 1.5rem;">
+                                    <li>Hardware hash export from Pinnacle tenant</li>
+                                    <li>Autopilot configuration export</li>
+                                    <li>Intune configuration export</li>
+                                    <li>Device inventory and documentation</li>
+                                    <li>Device wipe coordination and execution</li>
+                                    <li>Data export coordination</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="alert alert-info">
+                        <strong>Coordination:</strong> Suleman Manji and Willie Dallas must coordinate during Phase 3 (Migration Execution) for device wipe timing and transfer verification. All other phases are performed independently by each administrator in their respective tenant.
+                    </div>
+                </section>
+            </main>
+
+            <footer>
+                <p><strong>ILG Windows Device Migration - Administrator Guide</strong></p>
+                <p>Version 1.0 | Last Updated: November 2025</p>
+                <p>Project: 3944169 - 365 Migration for Acquisition</p>
+                <p>For questions or support, contact the project team</p>
+            </footer>
+        </div>
+    </div>
+
+    <button class="back-to-top" id="backToTop" aria-label="Back to top" title="Back to top">↑</button>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            const button = document.getElementById('themeToggle');
+            button.textContent = newTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+            button.setAttribute('aria-pressed', newTheme === 'dark' ? 'true' : 'false');
+        }
+
+        // Load saved theme preference
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            const html = document.documentElement;
+            html.setAttribute('data-theme', savedTheme);
+            
+            const button = document.getElementById('themeToggle');
+            button.textContent = savedTheme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+            button.setAttribute('aria-pressed', savedTheme === 'dark' ? 'true' : 'false');
+        });
+
+        // Enhanced Navigation System
+        (function() {
+            'use strict';
+            
+            const SCROLL_OFFSET = 120; // Offset for fixed header and TOC
+            const SCROLL_THROTTLE = 50; // Throttle scroll events (ms)
+            const INTERSECTION_THRESHOLD = 0.3; // 30% of section must be visible
+            
+            let scrollTimeout;
+            let isScrolling = false;
+            
+            // Get all navigable elements (sections and subsections)
+            function getNavigableElements() {
+                const elements = [];
+                document.querySelectorAll('section[id], h3[id], h4[id]').forEach(el => {
+                    elements.push({
+                        element: el,
+                        id: el.id,
+                        top: el.getBoundingClientRect().top + window.pageYOffset
+                    });
+                    });
+                return elements.sort((a, b) => a.top - b.top);
+            }
+            
+            // Smooth scroll to element with proper offset
+            function scrollToElement(target, behavior = 'smooth') {
+                if (!target) return;
+                
+                isScrolling = true;
+                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - SCROLL_OFFSET;
+                    
+                    window.scrollTo({
+                    top: Math.max(0, targetPosition),
+                    behavior: behavior
+                });
+                
+                // Reset scrolling flag after animation
+                setTimeout(() => {
+                    isScrolling = false;
+                }, behavior === 'smooth' ? 800 : 100);
+            }
+            
+            // Update active TOC link
+            function updateActiveLink(activeId) {
+                const tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+                const activeLink = document.querySelector(`.toc a[href="#${activeId}"]`);
+                
+                tocLinks.forEach(link => {
+                    link.classList.remove('active', 'active-parent');
+                });
+                
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                    
+                    // Mark parent links as active-parent
+                    let parent = activeLink.parentElement;
+                    while (parent && parent !== document.querySelector('.toc')) {
+                        const parentLink = parent.querySelector('> a');
+                        if (parentLink && parentLink !== activeLink) {
+                            parentLink.classList.add('active-parent');
+                        }
+                        parent = parent.parentElement;
+                    }
+                    
+                    // Scroll TOC to show active link if needed
+                    scrollTOCToActive(activeLink);
+                }
+            }
+            
+            // Scroll TOC to show active link
+            function scrollTOCToActive(activeLink) {
+                const toc = document.querySelector('.toc');
+                if (!toc || !activeLink) return;
+                
+                const tocRect = toc.getBoundingClientRect();
+                const linkRect = activeLink.getBoundingClientRect();
+                const tocTop = tocRect.top;
+                const tocBottom = tocRect.bottom;
+                const linkTop = linkRect.top;
+                const linkBottom = linkRect.bottom;
+                
+                // Only scroll if link is outside visible area
+                if (linkTop < tocTop || linkBottom > tocBottom) {
+                    const scrollOffset = linkTop - tocTop - (tocRect.height / 2) + (linkRect.height / 2);
+                    toc.scrollBy({
+                        top: scrollOffset,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+            
+            // Use Intersection Observer for better performance
+            function setupIntersectionObserver() {
+                const navigableElements = getNavigableElements();
+                if (navigableElements.length === 0) return;
+                
+                const observerOptions = {
+                    root: null,
+                    rootMargin: `-${SCROLL_OFFSET}px 0px -${(window.innerHeight - SCROLL_OFFSET) * (1 - INTERSECTION_THRESHOLD)}px 0px`,
+                    threshold: [0, INTERSECTION_THRESHOLD, 0.5, 1]
+                };
+                
+                const observer = new IntersectionObserver((entries) => {
+                    if (isScrolling) return; // Don't update during programmatic scroll
+                    
+                    // Find the most visible section
+                    let mostVisible = null;
+                    let maxVisibility = 0;
+                    
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const visibility = entry.intersectionRatio;
+                            if (visibility > maxVisibility) {
+                                maxVisibility = visibility;
+                                mostVisible = entry.target;
+                            }
+                        }
+                    });
+                    
+                    if (mostVisible) {
+                        updateActiveLink(mostVisible.id);
+                    }
+                }, observerOptions);
+                
+                // Observe all navigable elements
+                navigableElements.forEach(item => {
+                    observer.observe(item.element);
+                });
+            }
+            
+            // Fallback scroll-based detection (for browsers without Intersection Observer)
+            function setupScrollFallback() {
+                const navigableElements = getNavigableElements();
+                
+                function findActiveSection() {
+                    if (isScrolling) return;
+                    
+                    const scrollPosition = window.pageYOffset + SCROLL_OFFSET;
+                    let activeId = null;
+                    
+                    // Find the section that contains the scroll position
+                    for (let i = navigableElements.length - 1; i >= 0; i--) {
+                        const item = navigableElements[i];
+                        const elementTop = item.element.getBoundingClientRect().top + window.pageYOffset;
+                        const elementBottom = elementTop + item.element.offsetHeight;
+                        
+                        if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+                            activeId = item.id;
+                            break;
+                        }
+                    }
+                    
+                    // If no section found, use the first section above scroll position
+                    if (!activeId) {
+                        for (let i = navigableElements.length - 1; i >= 0; i--) {
+                            const item = navigableElements[i];
+                            const elementTop = item.element.getBoundingClientRect().top + window.pageYOffset;
+                            if (scrollPosition >= elementTop) {
+                                activeId = item.id;
+                                break;
+                            }
+                        }
+                    }
+                    
+                    if (activeId) {
+                        updateActiveLink(activeId);
+                    }
+                }
+                
+                window.addEventListener('scroll', () => {
+                    if (scrollTimeout) {
+                        clearTimeout(scrollTimeout);
+                    }
+                    scrollTimeout = setTimeout(findActiveSection, SCROLL_THROTTLE);
+                }, { passive: true });
+                
+                findActiveSection();
+            }
+            
+            // Handle anchor link clicks
+            function setupAnchorLinks() {
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        const targetId = this.getAttribute('href');
+                        if (targetId === '#') return;
+                        
+                        const target = document.querySelector(targetId);
+                        if (target) {
+                            e.preventDefault();
+                            scrollToElement(target, 'smooth');
+                            updateActiveLink(targetId.substring(1));
+                    
+                    // Update URL without triggering scroll
+                    history.pushState(null, null, targetId);
+                }
+            });
+        });
+            }
+
+            // Back to top button
+            function setupBackToTop() {
+                const backToTopBtn = document.getElementById('backToTop');
+                if (!backToTopBtn) return;
+                
+                function toggleBackToTop() {
+                    if (window.pageYOffset > 300) {
+                        backToTopBtn.classList.add('visible');
+                    } else {
+                        backToTopBtn.classList.remove('visible');
+                    }
+                }
+                
+                window.addEventListener('scroll', toggleBackToTop, { passive: true });
+                toggleBackToTop();
+                
+                backToTopBtn.addEventListener('click', () => {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+            
+            // Keyboard navigation
+            function setupKeyboardNavigation() {
+                document.addEventListener('keydown', (e) => {
+                    // Only handle if not typing in input/textarea
+                    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+                    
+                    const navigableElements = getNavigableElements();
+                    if (navigableElements.length === 0) return;
+                    
+                    const currentScroll = window.pageYOffset + SCROLL_OFFSET;
+                    let currentIndex = -1;
+            
+                    // Find current section
+                    navigableElements.forEach((item, index) => {
+                        const elementTop = item.element.getBoundingClientRect().top + window.pageYOffset;
+                        if (currentScroll >= elementTop && currentIndex === -1) {
+                            currentIndex = index;
+                        }
+                    });
+                    
+                    if (currentIndex === -1) currentIndex = 0;
+                    
+                    // Arrow keys for navigation
+                    if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+                        e.preventDefault();
+                        const nextIndex = Math.min(currentIndex + 1, navigableElements.length - 1);
+                        scrollToElement(navigableElements[nextIndex].element);
+                        updateActiveLink(navigableElements[nextIndex].id);
+                    } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                        e.preventDefault();
+                        const prevIndex = Math.max(currentIndex - 1, 0);
+                        scrollToElement(navigableElements[prevIndex].element);
+                        updateActiveLink(navigableElements[prevIndex].id);
+                    } else if (e.key === 'Home') {
+                        e.preventDefault();
+                        scrollToElement(navigableElements[0].element);
+                        updateActiveLink(navigableElements[0].id);
+                    } else if (e.key === 'End') {
+                        e.preventDefault();
+                        const lastIndex = navigableElements.length - 1;
+                        scrollToElement(navigableElements[lastIndex].element);
+                        updateActiveLink(navigableElements[lastIndex].id);
+                }
+            });
+        }
+
+            // Handle browser back/forward buttons
+            function setupHistoryNavigation() {
+                window.addEventListener('popstate', () => {
+                    const hash = window.location.hash;
+                    if (hash) {
+                        const target = document.querySelector(hash);
+                        if (target) {
+                            scrollToElement(target, 'auto');
+                            updateActiveLink(hash.substring(1));
+                        }
+                    }
+                });
+                
+                // Handle initial hash in URL
+                if (window.location.hash) {
+                    setTimeout(() => {
+                        const target = document.querySelector(window.location.hash);
+                        if (target) {
+                            scrollToElement(target, 'auto');
+                            updateActiveLink(window.location.hash.substring(1));
+                        }
+                    }, 100);
+                }
+            }
+            
+            // Initialize everything when DOM is ready
+            document.addEventListener('DOMContentLoaded', () => {
+                setupAnchorLinks();
+                setupBackToTop();
+                setupKeyboardNavigation();
+                setupHistoryNavigation();
+                
+                // Use Intersection Observer if available, otherwise fallback
+                if ('IntersectionObserver' in window) {
+                    setupIntersectionObserver();
+                } else {
+                    setupScrollFallback();
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
