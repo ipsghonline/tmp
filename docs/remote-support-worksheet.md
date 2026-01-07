@@ -103,18 +103,58 @@ Record the following information at the start of each support call:
 
 - [ ] **WiFi SSID Recorded:** User identified currently connected WiFi network name
 
-**Current WiFi Network (SSID):** ********************\_\_********************
+**Current WiFi Network (SSID):** ********\*\*\*\*********\_\_********\*\*\*\*********
 
 {: .note }
 
 > **Why this matters:** After the device reset, the user will need to reconnect to WiFi during the OOBE setup. Having the exact SSID documented ensures a smooth reconnection, especially if there are multiple similar network names at the site.
 
+### Outlook Data Files Backup (OST/PST)
+
+{: .warning }
+
+> **IMPORTANT:** Outlook OST and PST files are NOT automatically backed up by OneDrive. These files contain locally cached emails and archived mail that could be lost during reset.
+
+> **Script:** "Before we verify OneDrive, we need to check for any Outlook data files on your computer. These are special files that store your email archives and won't sync automatically. Let me guide you through finding and moving them."
+
+#### Locate Outlook Data Files
+
+> **Script:** "Please open File Explorer and paste this path into the address bar: `%LOCALAPPDATA%\Microsoft\Outlook`. Press Enter. Do you see any files ending in .ost or .pst? If so, we need to copy those to your OneDrive Documents folder."
+
+**Default OST/PST Location:** `%LOCALAPPDATA%\Microsoft\Outlook`
+
+- [ ] **Checked Default Location:** User navigated to `%LOCALAPPDATA%\Microsoft\Outlook`
+- [ ] **OST Files Found:** **\_\_\_** OST file(s) found (cached mailbox data)
+- [ ] **PST Files Found:** **\_\_\_** PST file(s) found (archived mail)
+
+#### Move PST Files to OneDrive
+
+> **Script:** "For any PST files you found, please copy them to your OneDrive Documents folder. Right-click the file, select Copy, then navigate to your Documents folder and paste. OST files don't need to be moved - they'll be recreated automatically. But PST files contain your personal archives and must be backed up."
+
+{: .note }
+
+> **OST vs PST:**
+>
+> - **OST files** = Cached copy of your mailbox (will be recreated after migration)
+> - **PST files** = Personal archives YOU created (must be manually backed up)
+
+- [ ] **PST Files Moved:** All PST files copied to OneDrive Documents folder
+- [ ] **No PST Files:** User confirmed no PST files exist (skip if N/A)
+
+**PST Files Backed Up:**
+
+| Filename     | Size     | Moved to OneDrive |
+| ------------ | -------- | ----------------- |
+| **\_\_\_\_** | \_\_\_\_ | [ ] Yes           |
+| **\_\_\_\_** | \_\_\_\_ | [ ] Yes           |
+
 ### OneDrive Verification
 
-> **Script:** "This is very important - we need to make sure all your files are backed up to OneDrive. Please open a web browser and go to portal.office.com. Sign in and check your OneDrive. Can you confirm all your files show a green checkmark indicating they're synced? Great! We cannot proceed until OneDrive shows 100% complete."
+> **Script:** "Now let's make sure everything is backed up to OneDrive, including those Outlook files we just moved. Please open a web browser and go to portal.office.com. Sign in and check your OneDrive. Can you confirm all your files show a green checkmark indicating they're synced? Great! We cannot proceed until OneDrive shows 100% complete."
 
 - [ ] **OneDrive Known-Folder Backup:** Verified ON (Settings -> Account -> OneDrive -> Manage backup)
 - [ ] **OneDrive 100% Synced:** Verified at portal.office.com - all files show as synced
+- [ ] **PST Files Visible in OneDrive:** Confirmed PST files appear in OneDrive Documents (if applicable)
 
 {: .danger }
 
@@ -140,7 +180,7 @@ Record the following information at the start of each support call:
 
 - [ ] **Windows Serial Recorded:** Settings -> System -> About -> Device identifier
 
-**Windows Serial Number:** ****\*\*****\_\_****\*\***** (ALL CAPS, no spaces)
+**Windows Serial Number:** \***\*\*\*\*\***\_\_\***\*\*\*\*\*** (ALL CAPS, no spaces)
 
 ### iOS Device Information (If Applicable)
 
@@ -149,9 +189,9 @@ Record the following information at the start of each support call:
 - [ ] **iOS Serial Recorded:** Settings -> General -> About -> Serial Number
 - [ ] **iOS UDID Recorded:** Settings -> General -> About -> UDID (or Apple Configurator)
 
-**iOS Serial Number:** ****\*\*****\_\_****\*\*****
+**iOS Serial Number:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***
 
-**iOS UDID:** ****\*\*****\_\_****\*\*****
+**iOS UDID:** \***\*\*\*\*\***\_\_\***\*\*\*\*\***
 
 ### Submit Reset Request to Suleman
 
@@ -407,8 +447,8 @@ Complete this section to document successful remote migration support:
 
 | Field                | Value                                       |
 | -------------------- | ------------------------------------------- |
-| **Engineer Name**    | ****\*\*****\_\_****\*\*****                |
-| **Completion Date**  | ****\*\*****\_\_****\*\*****                |
+| **Engineer Name**    | \***\*\*\*\*\***\_\_\***\*\*\*\*\***        |
+| **Completion Date**  | \***\*\*\*\*\***\_\_\***\*\*\*\*\***        |
 | **Migration Status** | Successful / Partial / In Progress / Failed |
 
 ### Status Options
