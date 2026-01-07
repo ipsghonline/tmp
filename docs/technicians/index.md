@@ -5,79 +5,103 @@ nav_order: 3
 has_children: true
 ---
 
-# Technician Documentation
+# Technician Quick Reference
 
-Technical reference materials and procedures for migration support staff.
+Migration weekend support guide for January 16-17.
 
 ---
 
-<div style="background: #fff3cd; border-left: 4px solid #ffc107; padding: 1rem; border-radius: 4px; margin: 1.5rem 0;">
-<strong>Key User Migration:</strong> January 16-17, 2026. Review the <a href="../quick-reference.html">Quick Reference</a> for key dates and contacts.
+<div style="background: linear-gradient(135deg, #dc3545 0%, #fd7e14 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; text-align: center;">
+<h2 style="color: white; margin: 0 0 0.5rem 0;">Key User Migration Weekend</h2>
+<p style="font-size: 1.5rem; font-weight: bold; margin: 0;">Friday & Saturday, January 16-17</p>
+<p style="margin: 0.5rem 0 0 0;">55 users | 6 time slots | GO-Live: Monday, January 19</p>
 </div>
 
 ---
 
-## Technical Guides
+## Migration Workflow Quick Reference
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
-
-<div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem;">
-<span style="background: #6c757d; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">INFRASTRUCTURE</span>
-<h3 style="margin: 0.75rem 0 0.5rem;">Network Migration</h3>
-<p style="color: #6c757d; font-size: 0.9rem;">Complete 14-step network infrastructure migration procedure.</p>
-<p><strong>Duration:</strong> ~45 min read</p>
-<a href="guides/network-migration.html">View Guide →</a>
-</div>
-
-<div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem;">
-<span style="background: #dc3545; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">COORDINATION</span>
-<h3 style="margin: 0.75rem 0 0.5rem;">Onsite Coordination</h3>
-<p style="color: #6c757d; font-size: 0.9rem;">Multi-site deployment coordination and 22-site schedule.</p>
-<p><strong>Duration:</strong> ~60 min read</p>
-<a href="guides/onsite-coordination.html">View Guide →</a>
-</div>
-
-<div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem;">
-<span style="background: #17a2b8; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">ADMIN</span>
-<h3 style="margin: 0.75rem 0 0.5rem;">Administrator Guide</h3>
-<p style="color: #6c757d; font-size: 0.9rem;">Quick reference for device management and Dell pre-provisioning.</p>
-<p><strong>Duration:</strong> ~20 min read</p>
-<a href="guides/admin-guide.html">View Guide →</a>
-</div>
-
-</div>
+| Phase               | Duration     | Key Actions                                                   | Success Criteria      |
+| ------------------- | ------------ | ------------------------------------------------------------- | --------------------- |
+| **1. Pre-Backup**   | 15-20 min    | WiFi SSID, Browser sync/export, PST files, Printers, OneDrive | OneDrive 100% synced  |
+| **2. Submit Reset** | 5 min + wait | Send serials to Suleman via Teams                             | Confirmation received |
+| **3. OOBE**         | 30-60 min    | User signs in with @impactpropertysolutions.com               | ESP completes         |
+| **4. App Verify**   | 10 min       | Outlook, Teams, Chrome, Foxit, NinjaOne, OneDrive             | All 7 apps present    |
+| **5. 3-Point Test** | 10 min       | Internet → RFMS RDP → Printer                                 | All 3 pass            |
+| **6. Restore**      | 15-20 min    | Browser sign-in, bookmarks, passwords, extensions             | User confirms         |
 
 ---
 
-## Quick Resources
+## Critical Reminders
 
-| Resource                                                     | Description                 |
-| ------------------------------------------------------------ | --------------------------- |
-| [Troubleshooting](../troubleshooting.html)                   | Common issues and solutions |
-| [FAQ](../faq.html#technician-questions)                      | Technical FAQ               |
-| [Escalation Guide](../troubleshooting.html#escalation-guide) | When and how to escalate    |
-| [Glossary](../glossary.html)                                 | Technical terminology       |
+{: .warning }
 
----
+> **DO NOT proceed to OOBE** until reset confirmation received from Suleman
 
-## Escalation Matrix
+{: .danger }
 
-| Level         | Scope                          | Contact                      |
-| ------------- | ------------------------------ | ---------------------------- |
-| **Level 1**   | Basic troubleshooting (15 min) | Local IT Support             |
-| **Level 2**   | Complex enrollment issues      | Migration Support Team       |
-| **Level 3**   | Network/infrastructure         | Infrastructure Team          |
-| **Emergency** | Critical blockers              | Suleman Manji (469-364-6343) |
+> **DO NOT interrupt ESP screen** - User must not turn off device during app installation
+
+{: .important }
+
+> **We don't leave users hanging** - Stay connected until migration is complete
 
 ---
 
-## Admin Portal Access
+## Device Reset Submission
 
-| Portal            | URL                    | Purpose                  |
-| ----------------- | ---------------------- | ------------------------ |
-| **Intune**        | endpoint.microsoft.com | Device management        |
-| **Azure AD**      | portal.azure.com       | User/identity management |
-| **Microsoft 365** | admin.microsoft.com    | Licensing and services   |
+**Send to:** Suleman Manji via Microsoft Teams
+
+**Format:**
+
+```
+Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
+```
+
+**Get Serial:** Settings → System → About → Device identifier (ALL CAPS, no spaces)
+
+---
+
+## 3-Point Validation Test
+
+| Test         | How to Verify                           | Pass |
+| ------------ | --------------------------------------- | ---- |
+| **Internet** | Open browser → google.com               | [ ]  |
+| **RFMS RDP** | Remote Desktop → Connect to RFMS server | [ ]  |
+| **Printer**  | Notepad → Print test page               | [ ]  |
+
+---
+
+## Common Issues & Quick Fixes
+
+| Issue                     | Quick Fix                                 |
+| ------------------------- | ----------------------------------------- |
+| ESP stuck >60 min         | Check network, may need restart           |
+| OneDrive not syncing      | Wait 15 min, sign out/in, restart         |
+| Bookmarks won't import    | Verify .html format (not .json)           |
+| Apps missing after ESP    | Wait 10 min, check Intune portal          |
+| Printer not found         | Use screenshot from Phase 1, add manually |
+| Browser passwords missing | Import from CSV backup                    |
+
+---
+
+## Escalation Contacts
+
+<div style="background: #f8d7da; padding: 1rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #dc3545;">
+
+**Device Reset Issues / Emergency:**
+📞 **Suleman Manji - 469-364-6343** | Teams: smanji@viyu.net
+
+</div>
+
+| Issue Type          | Primary Contact | Teams/Email                          |
+| ------------------- | --------------- | ------------------------------------ |
+| Device Reset Delays | Suleman Manji   | smanji@viyu.net                      |
+| Network/Internet    | Landon Hill     | lhill@viyu.net                       |
+| RDP/RFMS Issues     | Brian Vaughan   | bvaughan@impactpropertysolutions.com |
+| Intune/iOS/ABM      | Suleman Manji   | smanji@viyu.net                      |
+
+**Support Line:** 817-662-7226
 
 ---
 
@@ -96,18 +120,42 @@ Get-IntuneDeviceCompliancePolicy
 
 ---
 
-## Full Documentation
+## Admin Portal Quick Access
 
-| Guide                                                              | Description                 | Audience          |
-| ------------------------------------------------------------------ | --------------------------- | ----------------- |
-| [Network Migration Reference](../network-migration-reference.html) | Complete network procedures | Network Engineers |
-| [Onsite Coordination Overview](../onsite-coordination-guide.html)  | Multi-site deployment       | Coordinators      |
-| [Administrator Guide](../admin-migration-guide.html)               | Device management           | IT Admins         |
+| Portal         | URL                    | Purpose           |
+| -------------- | ---------------------- | ----------------- |
+| **Intune**     | endpoint.microsoft.com | Device management |
+| **Entra ID**   | portal.azure.com       | User/identity     |
+| **M365 Admin** | admin.microsoft.com    | Licensing         |
 
 ---
 
-## Need Help?
+## Full Documentation
 
-**Migration Support Team:** support@impactfloors.com
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
 
-**Support Line:** 817-662-7226 | **Emergency:** Suleman Manji - 469-364-6343
+<a href="../remote-support-worksheet.html" style="display: block; padding: 1rem; background: #007bff; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+Full Migration Worksheet
+</a>
+
+<a href="../troubleshooting.html" style="display: block; padding: 1rem; background: #dc3545; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+Troubleshooting Guide
+</a>
+
+<a href="../faq.html#technician-questions" style="display: block; padding: 1rem; background: #6c757d; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+Technician FAQ
+</a>
+
+</div>
+
+---
+
+## Post-Session Checklist
+
+- [ ] All 7 required apps verified
+- [ ] 3-Point Test passed (Internet, RFMS, Printer)
+- [ ] Browser data restored
+- [ ] Sensitive backup files deleted (password CSVs!)
+- [ ] OneDrive syncing
+- [ ] User confirmed satisfied
+- [ ] Document any issues for follow-up

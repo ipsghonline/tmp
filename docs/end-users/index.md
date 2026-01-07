@@ -5,86 +5,108 @@ nav_order: 2
 has_children: true
 ---
 
-# End User Documentation
+# End User Quick Reference
 
-Everything you need to successfully complete your migration to the Impact environment.
+Your guide for the January 16-17 migration weekend.
 
 ---
 
-<div style="background: #e7f3ff; border-left: 4px solid #007bff; padding: 1rem; border-radius: 4px; margin: 1.5rem 0;">
-<strong>Key User?</strong> Don't forget to <a href="../key-user-migration.html">schedule your migration</a> before January 12!
+<div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 1.5rem; border-radius: 12px; margin: 1.5rem 0; text-align: center;">
+<h2 style="color: white; margin: 0 0 0.5rem 0;">Key User Migration Weekend</h2>
+<p style="font-size: 1.5rem; font-weight: bold; margin: 0;">Friday & Saturday, January 16-17</p>
+<p style="margin: 0.5rem 0 0 0;">55 users across 6 time slots | GO-Live: Monday, January 19</p>
 </div>
 
 ---
 
-## Migration Guides
+## Before Your Appointment
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+{: .important }
 
-<div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem;">
-<span style="background: #28a745; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">INTERACTIVE</span>
-<h3 style="margin: 0.75rem 0 0.5rem;">Remote Support Worksheet</h3>
-<p style="color: #6c757d; font-size: 0.9rem;">Track your progress through 8 migration phases with technician support.</p>
-<p><strong>Duration:</strong> ~2 hours</p>
-<a href="guides/remote-support.html">View Guide →</a>
-</div>
+> Have these items ready when your session begins:
 
-<div style="border: 1px solid #dee2e6; border-radius: 8px; padding: 1.25rem;">
-<span style="background: #007bff; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.75rem;">GUIDE</span>
-<h3 style="margin: 0.75rem 0 0.5rem;">Device Onboarding</h3>
-<p style="color: #6c757d; font-size: 0.9rem;">Setting up a new Windows device in the Impact environment.</p>
-<p><strong>Duration:</strong> ~90 minutes</p>
-<a href="guides/device-onboarding.html">View Guide →</a>
-</div>
-
-</div>
+| Item                          | Status                   |
+| ----------------------------- | ------------------------ |
+| Laptop with charger           | [ ] Ready                |
+| Stable internet connection    | [ ] Connected            |
+| Mobile device with charger    | [ ] Ready for Teams call |
+| 2 hours of uninterrupted time | [ ] Scheduled            |
 
 ---
 
-## Quick Resources
+## What Happens During Migration
 
-| Resource                                   | Description                       |
-| ------------------------------------------ | --------------------------------- |
-| [FAQ](../faq.html#end-user-questions)      | Common questions answered         |
-| [Quick Reference](../quick-reference.html) | Key dates, contacts, checklists   |
-| [Glossary](../glossary.html)               | Technical terms explained         |
-| [Troubleshooting](../troubleshooting.html) | Solutions if something goes wrong |
+| Step                       | Duration  | What You Do                                      |
+| -------------------------- | --------- | ------------------------------------------------ |
+| **1. Connect**             | 5 min     | Join Teams call on your mobile device            |
+| **2. Backup Verification** | 10-15 min | Confirm files synced, export bookmarks/passwords |
+| **3. Device Reset**        | 15-30 min | Wait while device is wiped (technician handles)  |
+| **4. Setup (OOBE)**        | 30-60 min | Sign in with @impactpropertysolutions.com email  |
+| **5. Validation**          | 10-15 min | Test internet, RFMS, and printing                |
+| **6. Restoration**         | 15-20 min | Restore bookmarks, passwords, sign into browsers |
 
----
-
-## What to Expect
-
-### Before Migration
-
-- Back up any critical local files
-- Have your laptop, charger, and mobile device ready
-- Schedule your migration appointment
-
-### During Migration (~2 hours)
-
-- Join Teams call from mobile device
-- Follow technician instructions
-- Device will be wiped and re-enrolled
-
-### After Migration
-
-- Wait until late Sunday for access
-- Test email, RFMS, and FloorSight
-- Report any issues to IT support
+**Total Time:** Up to 2 hours (we stay until you're done!)
 
 ---
 
-## Helpful Links
+## Your Data is Already Migrated!
 
-- [Schedule Migration](https://outlook.office.com/book/KeyUserMigration@ImpactFloors.com/?ismsaljsauthenabled)
-- [Key User Migration Info](../key-user-migration.html)
-- [Full Remote Support Worksheet](../remote-support-worksheet.html)
-- [Full Device Onboarding Guide](../device-onboarding-guide.html)
+{: .highlight }
+
+> **Good news!** Your email and OneDrive files were pre-migrated using BitTitan. Your data is already in the Impact environment.
+
+**Note:** Very recent files may take a few hours to appear. If anything is missing after 24 hours, contact support@impactpropertysolutions.com
+
+---
+
+## After Migration
+
+| When                     | What's Available              |
+| ------------------------ | ----------------------------- |
+| **During session**       | Internet, basic apps, browser |
+| **Late Sunday (Jan 18)** | RFMS, Email, FloorSight       |
+| **Monday (Jan 19)**      | Full access - GO-Live!        |
+
+### Post-Migration Checklist
+
+- [ ] Test email in Outlook
+- [ ] Verify RFMS Remote Desktop connection
+- [ ] Confirm FloorSight access
+- [ ] Test printer functionality
+- [ ] Report any issues to support
+
+---
+
+## Quick Links
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+
+<a href="../remote-support-worksheet.html" style="display: block; padding: 1rem; background: #007bff; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+Full Migration Worksheet
+</a>
+
+<a href="../faq.html#end-user-questions" style="display: block; padding: 1rem; background: #28a745; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+FAQ
+</a>
+
+<a href="../troubleshooting.html" style="display: block; padding: 1rem; background: #dc3545; color: white; text-decoration: none; border-radius: 8px; text-align: center; font-weight: bold;">
+Troubleshooting
+</a>
+
+</div>
 
 ---
 
 ## Need Help?
 
-Contact IT Support or reach out to your migration technician during your scheduled appointment.
+<div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
 
-**Support Line:** 817-662-7226 | support@impactpropertysolutions.com
+**During your session:** Your technician is on the Teams call with you
+
+**Support Line:** 📞 **817-662-7226**
+
+**Email:** support@impactpropertysolutions.com
+
+**Emergency:** Suleman Manji - 469-364-6343
+
+</div>
