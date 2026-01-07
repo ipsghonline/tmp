@@ -11,8 +11,10 @@
   const setTheme = (theme) => {
     if (theme === "dark") {
       document.documentElement.setAttribute("data-theme", "dark");
+      document.body.classList.add("dark-mode");
     } else {
       document.documentElement.removeAttribute("data-theme");
+      document.body.classList.remove("dark-mode");
     }
     localStorage.setItem("theme", theme);
   };
@@ -30,4 +32,10 @@
       setTheme(e.matches ? "dark" : "light");
     }
   });
+
+  // Apply saved theme on page load (for pages where head script hasn't run)
+  const savedTheme = localStorage.getItem("theme");
+  if (savedTheme === "dark") {
+    setTheme("dark");
+  }
 </script>
