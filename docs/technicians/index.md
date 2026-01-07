@@ -88,10 +88,8 @@ Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
 ## Escalation Contacts
 
 <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #dc3545;">
-
-**Device Reset Issues / Emergency:**
-📞 **Suleman Manji - 469-364-6343** | Teams: smanji@viyu.net
-
+<p><strong>Device Reset Issues / Emergency:</strong><br>
+📞 <strong>Suleman Manji - 469-364-6343</strong> | Teams: smanji@viyu.net</p>
 </div>
 
 | Issue Type          | Primary Contact | Teams/Email                          |

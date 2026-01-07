@@ -100,13 +100,8 @@ Troubleshooting
 ## Need Help?
 
 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
-
-**During your session:** Your technician is on the Teams call with you
-
-**Support Line:** 📞 **817-662-7226**
-
-**Email:** support@impactpropertysolutions.com
-
-**Emergency:** Suleman Manji - 469-364-6343
-
+<p><strong>During your session:</strong> Your technician is on the Teams call with you</p>
+<p><strong>Support Line:</strong> 📞 <strong>817-662-7226</strong></p>
+<p><strong>Email:</strong> support@impactpropertysolutions.com</p>
+<p><strong>Emergency:</strong> Suleman Manji - 469-364-6343</p>
 </div>
