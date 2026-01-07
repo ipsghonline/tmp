@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Key User Migration
-nav_order: 2
+nav_exclude: true
 ---
 
 # Key User Migration

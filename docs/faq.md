@@ -12,6 +12,20 @@ Find answers to common questions about the Impact environment migration.
 
 ## End User Questions
 
+### What is Key User Migration?
+
+Key Users are being migrated into the Impact environment ahead of the January 19th GO-Live date (January 16-17, 2026). This ensures critical personnel are fully operational to support the organization during the broader transition.
+
+**Key Details:**
+
+- **Migration Dates:** Friday & Saturday, January 16-17, 2026
+- **Booking Deadline:** End of business Monday, January 12
+- **Access Restored:** Late Sunday night, January 18
+
+If you are a Key User, please [schedule your migration appointment](https://outlook.office.com/book/KeyUserMigration@ImpactFloors.com/?ismsaljsauthenabled) and review the [complete Key User Migration information](key-user-migration.html).
+
+---
+
 ### What happens to my files during migration?
 
 Your files stored in OneDrive will be migrated to the new Impact environment. Local files on your device will be preserved during the Intune wipe and re-enrollment process. However, we recommend backing up any critical local files before your migration appointment.
