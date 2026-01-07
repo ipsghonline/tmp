@@ -79,17 +79,141 @@ Record the following information at the start of each support call:
 
 **Estimated Time:** 15-20 minutes
 
-### Browser Bookmarks Export
+### Browser Profile Data Backup
 
-> **Script:** "Before we reset your device, we need to backup your browser bookmarks. This ensures you won't lose any saved websites. Let's start with Chrome..."
+{: .important }
 
-- [ ] **Chrome Bookmarks:** User exported to Desktop (Menu -> Bookmarks -> Bookmark Manager -> ... -> Export)
-- [ ] **Edge Bookmarks:** User exported to Desktop (Settings -> Favorites -> Export)
-- [ ] **Firefox Bookmarks:** User exported to Desktop (if Firefox is used)
+> **Complete Browser Backup:** Modern browsers store much more than bookmarks - passwords, extensions, autofill data, and settings. This section ensures ALL critical browser data is either synced to the cloud or exported for restoration.
+
+> **Script:** "Before we reset your device, we need to backup your browser data. This includes your bookmarks, saved passwords, and other important settings. Let's go through each browser you use..."
+
+#### Step 1: Verify Browser Sync Status
+
+> **Script:** "First, let's check if your browsers are signed in and syncing. This is the best way to preserve your data because it will automatically restore after migration."
+
+**Google Chrome Sync:**
+
+> **Script:** "Open Chrome and click your profile picture in the top-right corner. Does it show your Google account email, or does it say 'Sign in to Chrome'? If you're signed in, click your profile picture and then 'Sync is on' - can you confirm sync is enabled for bookmarks, passwords, and extensions?"
+
+- [ ] **Chrome Signed In:** User confirmed signed into Google account
+- [ ] **Chrome Sync Enabled:** Settings → You and Google → Sync → Sync is ON
+- [ ] **Chrome Sync Items:** Verified syncing: Bookmarks, Passwords, Extensions, Settings
+
+**Microsoft Edge Sync:**
+
+> **Script:** "Now let's check Edge. Open Edge and click your profile picture in the top-right. Are you signed in with your Microsoft account? Click on your profile and check if sync is enabled."
+
+- [ ] **Edge Signed In:** User confirmed signed into Microsoft account
+- [ ] **Edge Sync Enabled:** Settings → Profiles → Sync → Sync is ON
+- [ ] **Edge Sync Items:** Verified syncing: Favorites, Passwords, Extensions, Settings
+
+**Firefox Sync (if used):**
+
+- [ ] **Firefox Signed In:** User signed into Firefox Account
+- [ ] **Firefox Sync Enabled:** Settings → Sync → Sync is ON
+- [ ] **N/A - Firefox Not Used**
+
+{: .highlight }
+
+> **If Sync is Enabled:** Most data will automatically restore when user signs back into the browser after migration. Still export bookmarks as backup.
+
+---
+
+#### Step 2: Export Bookmarks (All Browsers)
+
+> **Script:** "Even with sync enabled, let's export your bookmarks as a backup file. This gives us a safety net."
+
+**Chrome Bookmarks Export:**
+
+> **Script:** "In Chrome, press Ctrl+Shift+O to open Bookmark Manager. Click the three dots menu in the top-right of the Bookmark Manager, then click 'Export bookmarks'. Save the file to your Desktop as 'Chrome_Bookmarks.html'."
+
+- [ ] **Chrome Bookmarks Exported:** Ctrl+Shift+O → ⋮ Menu → Export bookmarks → Saved to Desktop
+
+**Edge Favorites Export:**
+
+> **Script:** "In Edge, press Ctrl+Shift+O to open Favorites. Click the three dots menu, then 'Export favorites'. Save to Desktop as 'Edge_Favorites.html'."
+
+- [ ] **Edge Favorites Exported:** Ctrl+Shift+O → ⋮ Menu → Export favorites → Saved to Desktop
+
+**Firefox Bookmarks Export (if used):**
+
+- [ ] **Firefox Bookmarks Exported:** Ctrl+Shift+O → Import/Export → Export to HTML → Saved to Desktop
+- [ ] **N/A - Firefox Not Used**
+
+---
+
+#### Step 3: Export Saved Passwords
+
+{: .warning }
+
+> **Security Note:** Password export files contain sensitive data in plain text. These MUST be deleted after migration is complete.
+
+> **Script:** "Now let's backup your saved passwords. This file will contain your passwords in readable form, so we'll delete it after migration. But it's important to have this backup in case sync doesn't restore everything."
+
+**Chrome Passwords Export:**
+
+> **Script:** "In Chrome, go to Settings, then click 'Passwords' or search for 'passwords' in the settings search. Click the three dots next to 'Saved Passwords' and select 'Export passwords'. You'll need to enter your Windows password. Save the file to your Desktop as 'Chrome_Passwords.csv'."
+
+- [ ] **Chrome Passwords Exported:** Settings → Passwords → ⋮ → Export passwords → Saved to Desktop as CSV
+- [ ] **No Saved Passwords in Chrome**
+
+**Edge Passwords Export:**
+
+> **Script:** "In Edge, go to Settings, then Passwords. Click the three dots next to 'Saved passwords' and select 'Export passwords'. Save to Desktop as 'Edge_Passwords.csv'."
+
+- [ ] **Edge Passwords Exported:** Settings → Passwords → ⋮ → Export passwords → Saved to Desktop as CSV
+- [ ] **No Saved Passwords in Edge**
+
+{: .danger }
+
+> **CRITICAL:** Password CSV files contain plain-text passwords. Remind user to DELETE these files after migration and empty Recycle Bin.
+
+---
+
+#### Step 4: Document Installed Extensions
+
+> **Script:** "Let's take a screenshot of your browser extensions so you know which ones to reinstall. Extensions don't always sync automatically."
+
+**Chrome Extensions:**
+
+> **Script:** "In Chrome, type 'chrome://extensions' in the address bar and press Enter. Take a screenshot of this page and save it to your Desktop as 'Chrome_Extensions.png'."
+
+- [ ] **Chrome Extensions Screenshot:** chrome://extensions → Screenshot saved to Desktop
+
+**Edge Extensions:**
+
+> **Script:** "In Edge, type 'edge://extensions' in the address bar. Take a screenshot and save as 'Edge_Extensions.png'."
+
+- [ ] **Edge Extensions Screenshot:** edge://extensions → Screenshot saved to Desktop
+
+---
+
+#### Step 5: Move Backup Files to OneDrive
+
+> **Script:** "Now let's move all these browser backup files to your OneDrive Documents folder so they're safely backed up before the reset."
+
+- [ ] **Bookmark Files Moved:** All bookmark HTML files moved to OneDrive Documents
+- [ ] **Password Files Moved:** All password CSV files moved to OneDrive Documents
+- [ ] **Extension Screenshots Moved:** All extension screenshots moved to OneDrive Documents
+
+**Browser Backup Files Checklist:**
+
+| File                  | Location | Moved to OneDrive |
+| --------------------- | -------- | ----------------- |
+| Chrome_Bookmarks.html | Desktop  | [ ] Yes           |
+| Edge_Favorites.html   | Desktop  | [ ] Yes           |
+| Chrome_Passwords.csv  | Desktop  | [ ] Yes           |
+| Edge_Passwords.csv    | Desktop  | [ ] Yes           |
+| Chrome_Extensions.png | Desktop  | [ ] Yes           |
+| Edge_Extensions.png   | Desktop  | [ ] Yes           |
 
 {: .note }
 
-> **Password Note:** "I should mention that browser passwords are encrypted and can't be easily transferred. You'll need to re-enter passwords for websites after migration. However, your Microsoft 365 passwords will sync automatically."
+> **What Will Auto-Restore vs Manual:**
+>
+> - **Auto-restore (if synced):** Bookmarks, passwords, some settings, browser history
+> - **Manual reinstall required:** Extensions, custom themes, site-specific settings
+> - **Cannot be transferred:** Cookies, active sessions (user will need to re-login to websites)
 
 ### Printer Configuration Backup
 
@@ -103,7 +227,7 @@ Record the following information at the start of each support call:
 
 - [ ] **WiFi SSID Recorded:** User identified currently connected WiFi network name
 
-**Current WiFi Network (SSID):** ********\*\*\*\*********\_\_********\*\*\*\*********
+**Current WiFi Network (SSID):** **\*\*\*\***\*\*\*\***\*\*\*\***\_\_**\*\*\*\***\*\*\*\***\*\*\*\***
 
 {: .note }
 
@@ -322,33 +446,139 @@ Windows Serial: ABC123XYZ | iOS Serial: DEF456UVW | iOS UDID: A1B2C3D4-E5F6-7890
 
 ---
 
-## Phase 6: Browser Bookmarks Restoration
+## Phase 6: Browser Profile Data Restoration
 
-**Estimated Time:** 10-15 minutes
+**Estimated Time:** 15-20 minutes
 
-> **Script:** "Now let's restore your browser bookmarks. Remember those files we saved to your Desktop earlier? We're going to import them back into your browsers."
+> **Script:** "Now let's restore your browser data. We backed up bookmarks, passwords, and documented your extensions. Let me guide you through getting everything back."
 
-### Chrome Bookmarks Restoration
+### Step 1: Sign Into Browser Accounts (Recommended First)
 
-> **Script:** "For Chrome, please open Chrome, then click the three dots menu in the top right. Go to Bookmarks -> Bookmark Manager. Now click the three dots again in the Bookmark Manager, and select 'Import bookmarks'. Navigate to your Desktop and find the file that starts with 'Chrome_Bookmarks' and has your name in it. Select it and click Open. Do you see your bookmarks appear? Great!"
+{: .highlight }
 
-- [ ] **Chrome Bookmarks:** Settings -> Bookmarks -> Bookmark Manager -> Import -> Selected Chrome*Bookmarks*[USERNAME].html from Desktop
+> **Best Approach:** If the user had browser sync enabled before migration, signing back in will automatically restore most data. Always try this first.
 
-### Edge Bookmarks Restoration
+> **Script:** "First, let's sign you back into your browsers. This should automatically restore most of your data if you had sync enabled before. Let's start with Chrome."
 
-> **Script:** "For Edge, please open Edge, then click the three dots menu. Go to Settings -> Profiles. Look for 'Import browser data' and click it. Select 'From an HTML file' and navigate to your Desktop. Find the file that starts with 'Edge_Bookmarks' and select it. Did your bookmarks import?"
+**Google Chrome Sign-In:**
 
-- [ ] **Edge Bookmarks:** Settings -> Profiles -> Import browser data -> Selected Edge*Bookmarks*[USERNAME].html
+> **Script:** "Open Chrome and click the profile icon in the top-right corner. Click 'Turn on sync' or 'Sign in'. Use your Google account - the same one you were using before the migration. After signing in, wait a minute for Chrome to sync your data. Do you see your bookmarks appearing automatically?"
 
-### Cleanup - Delete Backup Files
+- [ ] **Chrome Signed In:** User signed into Google account
+- [ ] **Chrome Sync Restoring:** Bookmarks, passwords, and settings syncing automatically
+- [ ] **N/A - Chrome Sync Not Used:** Skip if user wasn't using Chrome sync
 
-> **Script:** "Perfect! Now, for security, please delete those backup files from your Desktop. They contain sensitive information. Just right-click each file and select Delete. Make sure to empty your Recycle Bin too. Have you done that? Good!"
+**Microsoft Edge Sign-In:**
 
-- [ ] **Backup Files Deleted:** User deleted all bookmark/password files from Desktop (contains sensitive data)
+> **Script:** "Now let's do the same for Edge. Open Edge, click the profile icon, and sign in with your Microsoft account - that's usually your @impactpropertysolutions.com email or your personal Microsoft account. Wait a moment for sync to complete."
+
+- [ ] **Edge Signed In:** User signed into Microsoft account
+- [ ] **Edge Sync Restoring:** Favorites, passwords, and settings syncing automatically
+- [ ] **N/A - Edge Sync Not Used:** Skip if user wasn't using Edge sync
+
+---
+
+### Step 2: Import Bookmarks from Backup Files
+
+{: .note }
+
+> **If sync restored bookmarks:** You can skip this step. Only import from backup files if sync didn't restore bookmarks or if user wants to merge/restore from the backup.
+
+> **Script:** "Let's import your bookmarks from the backup files we saved. Even if sync restored them, this ensures nothing was missed."
+
+**Chrome Bookmarks Import:**
+
+> **Script:** "In Chrome, press Ctrl+Shift+O to open Bookmark Manager. Click the three dots menu in the top-right of the Bookmark Manager, then click 'Import bookmarks'. Navigate to your OneDrive Documents folder and find 'Chrome_Bookmarks.html'. Select it and click Open."
+
+- [ ] **Chrome Bookmarks Imported:** OneDrive Documents → Chrome_Bookmarks.html → Imported
+- [ ] **Skipped - Sync Restored:** Bookmarks already restored via sync
+
+**Edge Favorites Import:**
+
+> **Script:** "In Edge, press Ctrl+Shift+O to open Favorites. Click the three dots menu, select 'Import favorites', choose 'Favorites or bookmarks HTML file'. Navigate to OneDrive Documents and select 'Edge_Favorites.html'."
+
+- [ ] **Edge Favorites Imported:** OneDrive Documents → Edge_Favorites.html → Imported
+- [ ] **Skipped - Sync Restored:** Favorites already restored via sync
+
+---
+
+### Step 3: Import Saved Passwords (If Needed)
 
 {: .warning }
 
-> **Password Reminder:** Remind user that browser passwords cannot be bulk-restored. They'll need to re-enter passwords manually or use password recovery for important sites. Microsoft 365 passwords will sync automatically.
+> **Sync Preferred:** If browser sync is working, passwords should restore automatically. Only use the CSV import if passwords didn't sync or if user exported passwords for sites not in sync.
+
+> **Script:** "Let's check if your saved passwords came back. In Chrome, go to Settings and click 'Passwords'. Do you see your saved passwords listed? If not, we can import them from the backup file."
+
+**Chrome Passwords Import:**
+
+> **Script:** "In Chrome, go to Settings → Passwords. Click the three dots next to 'Saved Passwords' and select 'Import'. Navigate to OneDrive Documents, select 'Chrome_Passwords.csv', and import."
+
+- [ ] **Chrome Passwords Restored via Sync:** Passwords already present - no import needed
+- [ ] **Chrome Passwords Imported from CSV:** OneDrive Documents → Chrome_Passwords.csv → Imported
+- [ ] **N/A - No Password Backup:** User had no saved passwords
+
+**Edge Passwords Import:**
+
+> **Script:** "In Edge, go to Settings → Passwords. Click the three dots and select 'Import passwords'. Choose the CSV file from OneDrive Documents."
+
+- [ ] **Edge Passwords Restored via Sync:** Passwords already present - no import needed
+- [ ] **Edge Passwords Imported from CSV:** OneDrive Documents → Edge_Passwords.csv → Imported
+- [ ] **N/A - No Password Backup:** User had no saved passwords
+
+---
+
+### Step 4: Reinstall Browser Extensions
+
+> **Script:** "Now let's check your browser extensions. If you had sync enabled, some extensions may have restored automatically. Let's open your extensions page and compare to the screenshot we took."
+
+**Chrome Extensions:**
+
+> **Script:** "In Chrome, type 'chrome://extensions' in the address bar. Compare what you see to the screenshot in your OneDrive Documents folder - 'Chrome_Extensions.png'. For any missing extensions, you'll need to reinstall them from the Chrome Web Store."
+
+- [ ] **Chrome Extensions Checked:** Compared current extensions to screenshot
+- [ ] **Chrome Extensions Reinstalled:** Any missing critical extensions reinstalled
+- [ ] **N/A - No Extensions Used:** User had no important extensions
+
+**Edge Extensions:**
+
+> **Script:** "In Edge, type 'edge://extensions' in the address bar. Compare to 'Edge_Extensions.png' and reinstall any missing extensions."
+
+- [ ] **Edge Extensions Checked:** Compared current extensions to screenshot
+- [ ] **Edge Extensions Reinstalled:** Any missing critical extensions reinstalled
+- [ ] **N/A - No Extensions Used:** User had no important extensions
+
+---
+
+### Step 5: Secure Cleanup - Delete Sensitive Files
+
+{: .danger }
+
+> **CRITICAL SECURITY STEP:** Password CSV files contain plain-text passwords. These MUST be permanently deleted after restoration.
+
+> **Script:** "Now, very important for security - we need to delete those password backup files since they contain sensitive information. Let's go to your OneDrive Documents folder and delete the password CSV files, then empty your Recycle Bin."
+
+**Delete Password Files:**
+
+- [ ] **Chrome_Passwords.csv Deleted:** File deleted from OneDrive Documents
+- [ ] **Edge_Passwords.csv Deleted:** File deleted from OneDrive Documents
+- [ ] **Recycle Bin Emptied:** User confirmed Recycle Bin emptied
+- [ ] **N/A - No Password Files:** User didn't export passwords
+
+{: .note }
+
+> **Keep These Files (Optional):** Bookmark HTML files and extension screenshots don't contain sensitive data and can be kept as backup. Password CSV files MUST be deleted.
+
+**Browser Restoration Checklist:**
+
+| Item                          | Status                       |
+| ----------------------------- | ---------------------------- |
+| **Chrome signed in & synced** | [ ] Yes [ ] N/A              |
+| **Edge signed in & synced**   | [ ] Yes [ ] N/A              |
+| **Bookmarks restored**        | [ ] Sync [ ] Import [ ] Both |
+| **Passwords restored**        | [ ] Sync [ ] Import [ ] N/A  |
+| **Extensions reinstalled**    | [ ] Yes [ ] N/A              |
+| **Password files deleted**    | [ ] Yes [ ] N/A              |
 
 ---
 
@@ -385,8 +615,8 @@ Windows Serial: ABC123XYZ | iOS Serial: DEF456UVW | iOS UDID: A1B2C3D4-E5F6-7890
 
 - [ ] **All Applications Verified:** Outlook, Teams, Chrome, Foxit, NinjaOne all present and working
 - [ ] **3-Point Test Passed:** Internet, RFMS, and Printer all tested and working
-- [ ] **Bookmarks Restored:** User confirmed bookmarks are back in browsers
-- [ ] **Desktop Cleanup:** Backup files deleted from Desktop
+- [ ] **Browser Data Restored:** User confirmed bookmarks, passwords, and extensions restored
+- [ ] **Sensitive Files Deleted:** Password CSV files deleted from OneDrive Documents
 - [ ] **OneDrive Syncing:** OneDrive is syncing files (check taskbar icon)
 - [ ] **User Satisfied:** User confirmed device is working and ready for use
 
@@ -435,7 +665,7 @@ Document any issues encountered, items that need follow-up, or special notes abo
 | Phase 3 (OOBE)          | 30-60 minutes (mostly waiting) |
 | Phase 4 (Verification)  | 10-15 minutes                  |
 | Phase 5 (Validation)    | 10-15 minutes                  |
-| Phase 6 (Restoration)   | 10-15 minutes                  |
+| Phase 6 (Restoration)   | 15-20 minutes                  |
 | Phase 7 (iOS)           | 15-20 minutes (if applicable)  |
 | **Total Active Time**   | **60-90 minutes**              |
 
