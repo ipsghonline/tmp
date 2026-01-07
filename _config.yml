@@ -1,0 +1,21 @@
+title: Impact Floors Public Documentation
+description: Documentation for End Users and Technicians
+
+remote_theme: just-the-docs/just-the-docs
+
+# Theme settings
+color_scheme: light
+search_enabled: true
+
+# Navigation
+nav_enabled: true
+nav_sort: case_insensitive
+
+# Footer
+gh_edit_link: false
+
+# Exclude from processing
+exclude:
+  - .git
+  - .gitignore
+  - README.md
