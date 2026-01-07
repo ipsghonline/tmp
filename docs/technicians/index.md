@@ -67,7 +67,7 @@ Technical reference materials and procedures for migration support staff.
 | **Level 1**   | Basic troubleshooting (15 min) | Local IT Support             |
 | **Level 2**   | Complex enrollment issues      | Migration Support Team       |
 | **Level 3**   | Network/infrastructure         | Infrastructure Team          |
-| **Emergency** | Critical blockers              | Brian Vaughan (720-289-4924) |
+| **Emergency** | Critical blockers              | Suleman Manji (469-364-6343) |
 
 ---
 
@@ -110,4 +110,4 @@ Get-IntuneDeviceCompliancePolicy
 
 **Migration Support Team:** support@impactfloors.com
 
-**Emergency Contact:** Brian Vaughan - 720-289-4924
+**Support Line:** 817-662-7226 | **Emergency:** Suleman Manji - 469-364-6343

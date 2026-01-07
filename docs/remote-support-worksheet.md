@@ -640,7 +640,7 @@ Document any issues encountered, items that need follow-up, or special notes abo
 
 | Contact                 | Details                                               |
 | ----------------------- | ----------------------------------------------------- |
-| **Device Reset Issues** | Suleman Manji - 281-904-1969 - Teams: smanji@viyu.net |
+| **Device Reset Issues** | Suleman Manji - 469-364-6343 - Teams: smanji@viyu.net |
 | **iOS Enrollment Help** | Suleman Manji - Teams (has DEM credentials)           |
 | **Network Issues**      | Site Contact (check dispatch ticket)                  |
 

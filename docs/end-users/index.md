@@ -87,4 +87,4 @@ Everything you need to successfully complete your migration to the Impact enviro
 
 Contact IT Support or reach out to your migration technician during your scheduled appointment.
 
-**Emergency Contact:** Brian Vaughan - 720-289-4924
+**Support Line:** 817-662-7226 | support@impactpropertysolutions.com

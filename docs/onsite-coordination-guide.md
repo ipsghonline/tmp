@@ -304,7 +304,7 @@ High-level overview of the migration process:
 
 ### Important Contacts
 
-- **Device Reset Issues:** Suleman Manji | 281-904-1969 | Teams
+- **Device Reset Issues:** Suleman Manji | 469-364-6343 | Teams
 - **iOS Enrollment Help:** Suleman Manji | Teams (has DEM credentials)
 - **Network Issues:** Site Contact (check dispatch ticket)
 

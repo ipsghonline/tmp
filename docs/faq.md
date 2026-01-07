@@ -28,11 +28,19 @@ If you are a Key User, please [schedule your migration appointment](https://outl
 
 ### What happens to my files during migration?
 
-Your files stored in OneDrive will be migrated to the new Impact environment. Local files on your device will be preserved during the Intune wipe and re-enrollment process. However, we recommend backing up any critical local files before your migration appointment.
+Your email and OneDrive files have already been pre-migrated to the Impact environment using BitTitan. This means your data is already in the new system before your device migration appointment.
+
+{: .note }
+
+> **Recent Files:** Files created or modified very recently may take a few hours to appear in the new environment. If any files are missing after more than 24 hours, please contact support@impactpropertysolutions.com.
 
 ### How long will the migration take?
 
-The migration process takes **up to 2 hours**. During this time, a technician will guide you through the device wipe, re-enrollment, and initial setup in the new Impact environment.
+We have allotted **up to 2 hours** for each user support session. During this time, a technician will guide you through the device wipe, re-enrollment, and initial setup in the new Impact environment.
+
+{: .highlight }
+
+> **We won't leave you hanging!** While we've scheduled 2-hour blocks, our technicians will stay connected with you until the migration is complete and your device is fully functional.
 
 ### Can I work during the migration?
 
@@ -105,10 +113,22 @@ If the migration fails during any phase:
 
 **Escalation Matrix:**
 
-1. **Level 1** - Local IT Support (first 15 minutes)
-2. **Level 2** - Migration Support Team (unresolved after troubleshooting)
-3. **Level 3** - Network/Infrastructure Team (connectivity or network issues)
-4. **Emergency** - Contact Brian Vaughan (VP Technology) for critical blockers
+1. **Level 1** - Migration Support Team (Reasat, Trevor, Sean, Doug, Marcus, Suleman*, Brian* via Microsoft Teams)
+2. **Level 2** - Infrastructure/Network/Migration Team (Brian Vaughan, Landon Hill, Suleman Manji via dedicated Microsoft Teams channel)
+3. **Emergency** - Suleman Manji @ 469-364-6343
+
+---
+
+### Support Escalation Contacts
+
+| Issue Type              | Primary Contact | Escalation Chain                                | Contact Information                                                                    |
+| ----------------------- | --------------- | ----------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Device Reset Delays     | Suleman Manji   | → Willie Day → Raymond Rodriguez                | smanji@viyu.net, rrodriguez@ilginc.com, wdallas@ilginc.com                             |
+| Network/Internet Issues | Landon Hill     | → Nick Christian → Imran Saleem → Goutham Reddy | lhill@viyu.net, nchristian@viyu.net, imran.saleem@ilginc.com, goutham.reddy@ilginc.com |
+| RDP/RFMS Issues         | Brian Vaughan   | Primary escalation point                        | bvaughan@impactpropertysolutions.com, MS Teams                                         |
+| Printer Issues          | Brian Vaughan   | → Suleman Manji → Brett McGolrick → Sean Skeels | bvaughan@impactpropertysolutions.com, smanji@viyu.net                                  |
+| Intune/iOS/ABM Issues   | Suleman Manji   | Primary escalation point                        | smanji@viyu.net, wdallas@ilginc.com                                                    |
+| User Data/Identity      | Suleman Manji   | → Raymond Rodriguez                             | smanji@viyu.net (MS Teams), rrodriguez@ilginc.com                                      |
 
 ### What are the success criteria for each migration phase?
 
@@ -134,4 +154,10 @@ Document the non-standard configuration and consult the [Administrator Guide](..
 
 ## Still Have Questions?
 
-Contact your IT support team or reach out to the Migration Support Team for assistance.
+Contact the Migration Support Team for assistance.
+
+**Support Line:** 817-662-7226
+
+**Email:** support@impactpropertysolutions.com
+
+**Emergency:** Suleman Manji - 469-364-6343

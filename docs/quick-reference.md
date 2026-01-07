@@ -36,12 +36,12 @@ At-a-glance information for the Impact environment migration.
 
 ---
 
-## Emergency Contacts
+## Support Contacts
 
-| Role                  | Name            | Phone        | Email                                |
-| --------------------- | --------------- | ------------ | ------------------------------------ |
-| **VP Technology**     | Brian Vaughan   | 720-289-4924 | bvaughan@impactpropertysolutions.com |
-| **Migration Support** | IT Support Team | —            | support@impactfloors.com             |
+| Role             | Name          | Phone        | Email                               |
+| ---------------- | ------------- | ------------ | ----------------------------------- |
+| **Support Line** | IPS Support   | 817-662-7226 | support@impactpropertysolutions.com |
+| **Emergency**    | Suleman Manji | 469-364-6343 | smanji@viyu.net                     |
 
 ---
 
@@ -132,4 +132,4 @@ Book Your Time Slot →
 
 **Before or after:** Email support@impactfloors.com or contact IT Support
 
-**Emergency:** Brian Vaughan - 720-289-4924
+**Support Line:** 817-662-7226 | **Emergency:** Suleman Manji - 469-364-6343

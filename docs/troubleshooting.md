@@ -285,9 +285,9 @@ If troubleshooting doesn't resolve the issue:
 
 ### Emergency Escalation
 
-- **Contact:** Brian Vaughan, VP Technology
+- **Contact:** Suleman Manji, Migration Team
 - **When:** Critical blockers affecting GO-Live
-- **Phone:** 720-289-4924
+- **Phone:** 469-364-6343
 
 ---
 

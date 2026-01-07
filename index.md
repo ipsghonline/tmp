@@ -105,11 +105,11 @@ Schedule Now →
 
 ---
 
-## Emergency Contact
+## Support Contact
 
-**Brian Vaughan** - VP Technology
-📞 720-289-4924
-📧 bvaughan@impactpropertysolutions.com
+**Impact Property Solutions Support Line**
+📞 817-662-7226
+📧 support@impactpropertysolutions.com
 
 ---
 
