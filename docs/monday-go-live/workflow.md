@@ -52,6 +52,10 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 
 ## Quick Reference Contacts
 
+{: .important }
+
+> **Go-Live Operations Call:** Teams call open **6:00 AM CST Monday 1/19** for duration of operations. Direct invite only.
+
 | Issue               | Contact       | Phone/Method                         |
 | ------------------- | ------------- | ------------------------------------ |
 | Device Reset Issues | Suleman Manji | 469-364-6222 / Teams                 |

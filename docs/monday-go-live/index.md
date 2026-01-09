@@ -23,6 +23,12 @@ Comprehensive coordination guide for the January 19, 2026 migration go-live.
 
 <div style="background: #f8f9fa; border: 2px solid #1e3c72; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
 
+<div style="background: linear-gradient(135deg, #6f42c1 0%, #5a32a3 100%); color: white; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; text-align: center;">
+<strong style="font-size: 1.1em;">📞 Go-Live Operations Call</strong><br>
+<span style="font-size: 1.2em; font-weight: bold;">Teams Call Open 6:00 AM CST - Duration of Operations</span><br>
+<span style="font-size: 0.9em; opacity: 0.9;">Monday, January 19, 2026 | Direct Invite Only</span>
+</div>
+
 <h3 style="margin-top: 0; color: #1e3c72; border-bottom: 2px solid #1e3c72; padding-bottom: 0.5rem;">Emergency Contacts</h3>
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
