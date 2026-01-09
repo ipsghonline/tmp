@@ -44,7 +44,7 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 |       | _(Wait for Reset)_  | 15-30 min | **→ Work on next user's Phase 1**                     |
 | 3     | OOBE                | 30-90 min | Windows setup, Autopilot ESP, app installation        |
 | 4     | User Validation     | 10-15 min | 3-point test: Internet, RDP, Printing                 |
-| 5     | Browser Restoration | 10-15 min | Import bookmarks, passwords, cleanup                  |
+| 5     | Browser Restoration | 5-10 min  | Verify sync restored data, cleanup                    |
 
 **Total Active Time:** 75-120 minutes per user (parallel processing reduces wall-clock time significantly)
 
@@ -421,53 +421,66 @@ After ESP completes, verify these applications:
 
 {: .note }
 
-> **Estimated Time:** 10-15 minutes | Import bookmarks and passwords from OneDrive backup.
+> **Estimated Time:** 5-10 minutes | Verify browser sync restored data; manual import only if needed.
 
 ---
 
 ### Opening Script
 
-> "Now let's restore your browser bookmarks and passwords. Remember those files we saved to OneDrive earlier? We're going to import them back into your browsers."
+> "Now let's get your browser set up. Since we enabled sync earlier, your bookmarks and passwords should restore automatically when you sign in. Let's verify that worked."
 
 ---
 
-### Chrome Restoration
+### Step 1: Sign Into Browser
 
-**Step 1:** Open Chrome → Menu (⋮) → Bookmarks → Bookmark Manager
+| Browser     | Sign-In Steps                                                |
+| ----------- | ------------------------------------------------------------ |
+| **Chrome**  | Menu (⋮) → Settings → Turn on sync → Sign in with INGINC.com |
+| **Edge**    | Menu (···) → Settings → Profiles → Sign in with INGINC.com   |
+| **Firefox** | Menu (☰) → Settings → Sync → Sign in                        |
 
-**Step 2:** Click ⋮ → Import bookmarks
+**Wait 1-2 minutes** for initial sync to complete.
 
-**Step 3:** Navigate to OneDrive → Documents → BrowserBackup
-
-**Step 4:** Select your Chrome bookmarks file
-
-**Step 5:** For passwords: Settings → Passwords → ⋮ → Import → Select CSV file
-
-> **Script:** "Open Chrome, go to the three-dot menu, then Bookmarks, then Bookmark Manager. Click the three dots again and select Import. Navigate to your OneDrive Documents folder, then BrowserBackup, and select your bookmarks file."
+> **Script:** "Open Chrome and sign in with your INGINC.com account. Your bookmarks and passwords should sync automatically - let's wait a minute and check."
 
 ---
 
-### Edge Restoration
+### Step 2: Verify Sync Restored Data
 
-**Step 1:** Open Edge → Settings → Profiles → Import browser data
+| Check      | Where to Look                                   |
+| ---------- | ----------------------------------------------- |
+| Bookmarks  | Menu → Bookmarks (should see your folders)      |
+| Passwords  | Settings → Passwords (should list saved sites)  |
+| Extensions | Menu → Extensions (should show your extensions) |
 
-**Step 2:** Select "Favorites or bookmarks HTML file"
+{: .important }
 
-**Step 3:** Navigate to OneDrive → Documents → BrowserBackup
-
-**Step 4:** Select your Edge favorites file
-
-**Step 5:** For passwords: Settings → Passwords → ⋮ → Import
+> **If sync worked:** Skip to Cleanup section. No manual import needed.
 
 ---
 
-### Firefox Restoration (if used)
+### Step 3: Manual Import (Only If Sync Failed)
 
-**Step 1:** Menu (☰) → Bookmarks → Manage Bookmarks
+{: .warning }
 
-**Step 2:** Import and Backup → Import Bookmarks from HTML
+> **Only use if Step 2 verification failed.** Most users won't need this.
 
-**Step 3:** Select your Firefox bookmarks file from OneDrive
+**Chrome:**
+
+1. Menu (⋮) → Bookmarks → Bookmark Manager → ⋮ → Import bookmarks
+2. Navigate to OneDrive → Documents → BrowserBackup
+3. For passwords: Settings → Passwords → ⋮ → Import → Select CSV
+
+**Edge:**
+
+1. Settings → Profiles → Import browser data
+2. Select "Favorites or bookmarks HTML file"
+3. Navigate to OneDrive → Documents → BrowserBackup
+
+**Firefox:**
+
+1. Menu (☰) → Bookmarks → Manage Bookmarks
+2. Import and Backup → Import Bookmarks from HTML
 
 ---
 
@@ -475,7 +488,7 @@ After ESP completes, verify these applications:
 
 {: .warning }
 
-> **Security:** Delete all backup files from OneDrive after restoration is confirmed. These files contain sensitive password data.
+> **Security:** Delete backup files from OneDrive. These contain sensitive password data.
 
 **Step 1:** Open OneDrive → Documents → BrowserBackup
 
@@ -483,14 +496,15 @@ After ESP completes, verify these applications:
 
 **Step 3:** Empty Recycle Bin
 
+> **Script:** "Great, your browser is set up. Now let's delete those backup files we created earlier since you don't need them anymore. They contain your passwords so we want to remove them."
+
 ---
 
 ### Phase 5 Checklist
 
-- [ ] Chrome bookmarks restored
-- [ ] Chrome passwords imported (if exported)
-- [ ] Edge favorites restored (if used)
-- [ ] Firefox bookmarks restored (if used)
+- [ ] Browser signed in with INGINC.com account
+- [ ] Bookmarks verified (via sync OR manual import)
+- [ ] Passwords verified (via sync OR manual import)
 - [ ] Backup files deleted from OneDrive
 
 {: .important }
