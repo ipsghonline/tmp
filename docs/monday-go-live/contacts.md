@@ -24,13 +24,13 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 
 ## Support Teams
 
-| Team                       | Members                                   | Responsibility                                            |
-| -------------------------- | ----------------------------------------- | --------------------------------------------------------- |
-| **Impact Help Desk**       | Riasat, Trevor, Brian Vaughan, Jim Norman | User support, Help desk tickets, Go-live day support      |
-| **ILG IT**                 | Brent, Jish, Willie                       | Autopilot removal, Device wipes, ILG tenant operations    |
-| **Viyu Network Solutions** | Doug, Marcus, Suleman                     | Escalation support for AMSYS technicians                  |
-| **AMSYS Field Services**   | Colin, Alice + remote hands               | Saturday on-site at 6 large sites; Monday go-live support |
-| **Verizon/iOS**            | Bradley (ILG), Lana (Impact), Trevor      | iOS device ABM transfer coordination                      |
+| Team                       | Members                                   | Responsibility                                           |
+| -------------------------- | ----------------------------------------- | -------------------------------------------------------- |
+| **Impact Help Desk**       | Riasat, Trevor, Brian Vaughan, Jim Norman | User support, Help desk tickets, Go-live day support     |
+| **ILG IT**                 | Brent, Jish, Willie                       | Autopilot removal, Device wipes, ILG tenant operations   |
+| **Viyu Network Solutions** | Doug, Marcus, Suleman                     | Remote end user migrations (6 sites); Escalation support |
+| **AMSYS Field Services**   | Colin, Alice + remote hands               | On-site technician support for Monday go-live            |
+| **Verizon/iOS**            | Bradley (ILG), Lana (Impact), Trevor      | iOS device ABM transfer coordination                     |
 
 ---
 
@@ -87,22 +87,14 @@ Primary escalation point for RDP, RFMS, Floorsight, and printer issues
 
 ## Go-Live Day Support Structure
 
-### Saturday On-Site (January 17, 2026)
-
-| Role                   | Coverage                  | Locations                                                         |
-| ---------------------- | ------------------------- | ----------------------------------------------------------------- |
-| AMSYS Field Services   | 6 large sites (10+ users) | Union City, Chula Vista, Sacramento, Auburn, La Mirada, Milwaukie |
-| Impact IT              | Remote support            | All systems                                                       |
-| Viyu Network Solutions | Escalation support        | Remote                                                            |
-
 ### Monday Go-Live (January 19, 2026)
 
-| Role                   | Coverage           | Notes                          |
-| ---------------------- | ------------------ | ------------------------------ |
-| AMSYS Remote Hands     | All 22 sites       | On-site technician support     |
-| Impact Help Desk       | User support       | Help desk tickets              |
-| Viyu Network Solutions | Escalation support | Technical escalations          |
-| ILG IT                 | Device wipes       | Autopilot removal coordination |
+| Role                   | Coverage                                                                 | Notes                          |
+| ---------------------- | ------------------------------------------------------------------------ | ------------------------------ |
+| Viyu Network Solutions | Remote migrations: Tucson, Tampa, Raleigh, Orlando, Jacksonville, Fresno | Starting 6:00 AM CST           |
+| AMSYS Remote Hands     | Remaining sites                                                          | On-site technician support     |
+| Impact Help Desk       | User support                                                             | Help desk tickets              |
+| ILG IT                 | Device wipes                                                             | Autopilot removal coordination |
 
 ---
 

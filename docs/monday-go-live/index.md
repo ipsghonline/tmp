@@ -90,7 +90,7 @@ Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
 | [Site Directory](sites.html)           | All 27 sites organized by timezone             |
 | [Network Status](network-status.html)  | Network migration status for all sites         |
 | [Prerequisites](prerequisites.html)    | Pre-visit checklists, user communication       |
-| [Migration Workflow](workflow.html)    | 6-phase migration process                      |
+| [Migration Workflow](workflow.html)    | 5-phase migration process                      |
 | [Contacts & Escalation](contacts.html) | Stakeholders, support teams, escalation matrix |
 
 ---
