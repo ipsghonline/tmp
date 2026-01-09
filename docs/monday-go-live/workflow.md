@@ -11,13 +11,37 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 
 ---
 
+## Parallel Processing Strategy
+
+{: .important }
+
+> **Technicians handle up to 5 users simultaneously.** The phases below are per-user workflows. During wait periods (sync, reset, ESP), move to another user. Never sit idle waiting for one device.
+
+**Recommended Approach:**
+
+1. Set up multiple laptops in a conference room on a table
+2. Walk around the table working on devices in rotation
+3. When one device is waiting (sync, ESP, reset), start the next device
+4. Track each user's current phase to avoid confusion
+
+**Example Flow (5 users):**
+
+- 0:00 - Start User A Phase 1 (backup)
+- 0:05 - Start User B Phase 1 while A syncs
+- 0:10 - Start User C Phase 1 while A/B sync
+- 0:15 - User A sync complete → Submit reset (Phase 2)
+- 0:20 - Start User D Phase 1, User B ready for Phase 2
+- _(Continue rotating through users)_
+
+---
+
 ## Workflow Overview
 
 | Phase | Name                | Time Est. | Description                                           |
 | ----- | ------------------- | --------- | ----------------------------------------------------- |
 | 1     | Backup              | 20-30 min | OneDrive setup, browser profile, printers, iOS backup |
 | 2     | Document & Submit   | 5-10 min  | Serial numbers, submit reset request to Suleman       |
-|       | _(Wait for Reset)_  | 15-30 min | Help next user during wait period                     |
+|       | _(Wait for Reset)_  | 15-30 min | **→ Work on next user's Phase 1**                     |
 | 3     | OOBE                | 30-90 min | Windows setup, Autopilot ESP, app installation        |
 | 4     | User Validation     | 10-15 min | 3-point test: Internet, RDP, Printing                 |
 | 5     | Browser Restoration | 10-15 min | Import bookmarks, passwords, cleanup                  |
@@ -101,7 +125,8 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 
 - OneDrive icon shows sync arrows while uploading
 - Large folders may take 15-30 minutes
-- **DO NOT proceed until sync completes**
+- **While waiting:** Move to next user's Phase 1
+- Return to verify green checkmark before this user's Phase 2
 
 **Step 5: Verify Completion**
 
@@ -190,7 +215,7 @@ Before proceeding to Phase 2:
 
 {: .important }
 
-> **Checkpoint:** Do not request device reset until ALL items above are complete. Data loss cannot be recovered after reset.
+> **Checkpoint:** Do not request THIS USER's device reset until ALL items above are complete for THIS USER. While waiting for sync, start another user's Phase 1. Data loss cannot be recovered after reset.
 
 ---
 
@@ -298,6 +323,10 @@ Windows Serial: ABC123XYZ | iOS Serial: DEF456UVW | iOS UDID: A1B2C3D4-E5F6-7890
 {: .important }
 
 > **DO NOT INTERRUPT:** The device will show "Setting up your device" with app installation progress. This takes 30-60 minutes. Do not power off, disconnect, or close this screen.
+
+{: .note }
+
+> **While ESP runs:** This is the longest wait period (30-60 min). Work on other users' Phase 1-2 or validate completed devices.
 
 **Step 1:** Wait for ESP to complete
 
