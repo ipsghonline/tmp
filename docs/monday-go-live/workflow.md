@@ -60,17 +60,91 @@ Complete 6-phase migration process for Windows devices and iOS backup verificati
 
 {: .important }
 
-> Follow your dispatch ticket timing. Complete all backups BEFORE proceeding.
+> **Estimated Time: 15-20 minutes** | Complete all backups BEFORE requesting device reset. This is a one-way process.
 
-### Checklist
+---
 
-- [ ] Screenshot printer mappings (Save to Desktop as `PrinterBackup.png`)
-- [ ] Verify OneDrive Known-Folder Backup is ON (Settings > Account > OneDrive)
-- [ ] **CHROME:** Menu → Bookmarks → Bookmark Manager → Export → Desktop
-- [ ] **EDGE:** Settings → Favorites → Export → Desktop
-- [ ] **FIREFOX:** Bookmarks → Manage → Import → Export → Desktop
-- [ ] **iOS:** Verify recent backup exists using [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k)
-- [ ] **CRITICAL:** Verify OneDrive 100% synced ([portal.office.com](https://portal.office.com)) BEFORE proceeding
+### Opening Script (Remote Support)
+
+> "Before we reset your device, we need to backup your browser profile and verify your files are synced to the cloud. This ensures you won't lose any saved websites, passwords, or browsing history. Let's start with your browser..."
+
+---
+
+### Browser Profile Backup
+
+{: .note }
+
+> **Primary Method:** Enable browser sync with your INGINC.com account. This automatically backs up bookmarks, passwords, history, and settings to the cloud.
+
+#### Step 1: Enable Browser Sync
+
+| Browser     | Steps                                                                         | Verify                 |
+| ----------- | ----------------------------------------------------------------------------- | ---------------------- |
+| **Chrome**  | Menu (⋮) → Settings → You and Google → Turn on sync → Sign in with INGINC.com | "Sync is on" displays  |
+| **Edge**    | Menu (···) → Settings → Profiles → Sync → Turn on sync                        | "Sync is on" displays  |
+| **Firefox** | Menu (☰) → Settings → Sync → Sign in                                         | "Syncing" status shows |
+
+#### Step 2: Export Profile Data (Backup Copy)
+
+Save all exports to: `OneDrive > Documents > BrowserBackup`
+
+**Chrome:**
+
+- [ ] **Bookmarks:** Menu → Bookmarks → Bookmark Manager → ⋮ → Export bookmarks
+- [ ] **Passwords:** Menu → Settings → Passwords → ⋮ → Export passwords (CSV)
+- [ ] **History:** Menu → History → Export (or use extension)
+
+**Edge:**
+
+- [ ] **Favorites:** Menu → Favorites → ⋮ → Export favorites
+- [ ] **Passwords:** Menu → Settings → Passwords → ⋮ → Export passwords (CSV)
+
+**Firefox (if used):**
+
+- [ ] **Bookmarks:** Menu → Bookmarks → Manage → Import/Export → Export to HTML
+
+{: .warning }
+
+> **Password Security:** Exported password CSV files contain sensitive data. Delete from OneDrive after restoration is confirmed.
+
+---
+
+### Printer Configuration Backup
+
+- [ ] Open Settings → Devices → Printers & scanners
+- [ ] Screenshot all mapped printers
+- [ ] Save to `OneDrive > Documents > PrinterBackup.png`
+
+> **Script:** "Now let's backup your printer settings. Open Settings, then Devices, then Printers & scanners. Take a screenshot showing all your printers and save it to your OneDrive Documents folder."
+
+---
+
+### OneDrive Verification
+
+{: .important }
+
+> **DO NOT PROCEED** until OneDrive shows 100% sync completion. This is critical for data safety.
+
+- [ ] Verify OneDrive Known-Folder Backup is ON (Settings → Account → Manage backup)
+- [ ] Check OneDrive icon in taskbar shows green checkmark (synced)
+- [ ] Verify at [portal.office.com](https://portal.office.com) → OneDrive → All files present
+
+> **Script:** "This is very important - we need to make sure all your files are backed up to OneDrive. Check the OneDrive icon in your taskbar - it should show a green checkmark. Can you confirm all your files are synced? We cannot proceed until OneDrive shows 100% complete."
+
+---
+
+### iOS Backup Verification
+
+{: .note }
+
+> **Scope:** End user migration verifies backup only. iOS device reset/restore/ABM enrollment is handled separately.
+
+- [ ] Connect iOS device via USB
+- [ ] Open [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k)
+- [ ] Verify recent backup exists (within last 24-48 hours)
+- [ ] If no backup exists, create one now
+
+> **Script:** "If you have an iPhone or iPad, let's verify your backup. Connect it via USB and open the Apple Devices app. Check the backup date - it should be recent. If there's no backup, we'll create one now."
 
 ---
 
