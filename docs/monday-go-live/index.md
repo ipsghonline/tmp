@@ -19,6 +19,64 @@ Comprehensive coordination guide for the January 19, 2026 migration go-live.
 
 ---
 
+## Quick Reference Card
+
+<div style="background: #f8f9fa; border: 2px solid #1e3c72; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
+
+<h3 style="margin-top: 0; color: #1e3c72; border-bottom: 2px solid #1e3c72; padding-bottom: 0.5rem;">Emergency Contacts</h3>
+
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+
+<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #dc3545;">
+<strong style="color: #dc3545;">Device Reset / Wipes</strong><br>
+<strong>Suleman Manji</strong><br>
+469-364-6222<br>
+<code>smanji@viyu.net</code> (Teams)
+</div>
+
+<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #fd7e14;">
+<strong style="color: #fd7e14;">RFMS / Floorsight / Printers</strong><br>
+<strong>Brian Vaughan</strong><br>
+<code>bvaughan@impactpropertysolutions.com</code>
+</div>
+
+<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #007bff;">
+<strong style="color: #007bff;">Network / VPN / IPsec</strong><br>
+<strong>Landon Hill</strong><br>
+<code>lhill@viyu.net</code>
+</div>
+
+<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #28a745;">
+<strong style="color: #28a745;">Support Line</strong><br>
+<strong>817-662-7226</strong><br>
+<code>support@impactpropertysolutions.com</code>
+</div>
+
+</div>
+
+<h4 style="margin-bottom: 0.5rem;">Device Reset Submission Format</h4>
+<code style="background: #e9ecef; padding: 0.5rem; display: block; border-radius: 4px; font-size: 0.9em;">
+Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
+</code>
+<p style="margin: 0.5rem 0 0 0; font-size: 0.85em; color: #666;">Send to Suleman Manji via Microsoft Teams</p>
+
+</div>
+
+---
+
+## Quick Navigation
+
+| Section                                | Description                                    |
+| -------------------------------------- | ---------------------------------------------- |
+| [Schedule & Calendar](schedule.html)   | Visual calendar, pre-migration timeline        |
+| [Site Directory](sites.html)           | All 27 sites organized by timezone             |
+| [Network Status](network-status.html)  | Network migration status for all sites         |
+| [Prerequisites](prerequisites.html)    | Pre-visit checklists, user communication       |
+| [Migration Workflow](workflow.html)    | 6-phase migration process                      |
+| [Contacts & Escalation](contacts.html) | Stakeholders, support teams, escalation matrix |
+
+---
+
 ## Phased Migration Strategy
 
 This guide reflects the **phased migration approach**:
@@ -94,64 +152,6 @@ This guide reflects the **phased migration approach**:
 {: .important }
 
 > **Timeline Impact:** Parallel processing is essential for the January 19, 2026 deployment. Without it, sites would take 1.5-2x longer and require multiple days.
-
----
-
-## Quick Navigation
-
-| Section                                | Description                                    |
-| -------------------------------------- | ---------------------------------------------- |
-| [Schedule & Calendar](schedule.html)   | Visual calendar, pre-migration timeline        |
-| [Site Directory](sites.html)           | All 27 sites organized by timezone             |
-| [Network Status](network-status.html)  | Network migration status for all sites         |
-| [Prerequisites](prerequisites.html)    | Pre-visit checklists, user communication       |
-| [Migration Workflow](workflow.html)    | 6-phase migration process                      |
-| [Contacts & Escalation](contacts.html) | Stakeholders, support teams, escalation matrix |
-
----
-
-## Quick Reference Card
-
-<div style="background: #f8f9fa; border: 2px solid #1e3c72; border-radius: 12px; padding: 1.5rem; margin: 1rem 0;">
-
-<h3 style="margin-top: 0; color: #1e3c72; border-bottom: 2px solid #1e3c72; padding-bottom: 0.5rem;">Emergency Contacts</h3>
-
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
-
-<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #dc3545;">
-<strong style="color: #dc3545;">Device Reset / Wipes</strong><br>
-<strong>Suleman Manji</strong><br>
-469-364-6222<br>
-<code>smanji@viyu.net</code> (Teams)
-</div>
-
-<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #fd7e14;">
-<strong style="color: #fd7e14;">RFMS / Floorsight / Printers</strong><br>
-<strong>Brian Vaughan</strong><br>
-<code>bvaughan@impactpropertysolutions.com</code>
-</div>
-
-<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #007bff;">
-<strong style="color: #007bff;">Network / VPN / IPsec</strong><br>
-<strong>Landon Hill</strong><br>
-<code>lhill@viyu.net</code>
-</div>
-
-<div style="background: white; padding: 1rem; border-radius: 8px; border-left: 4px solid #28a745;">
-<strong style="color: #28a745;">Support Line</strong><br>
-<strong>817-662-7226</strong><br>
-<code>support@impactpropertysolutions.com</code>
-</div>
-
-</div>
-
-<h4 style="margin-bottom: 0.5rem;">Device Reset Submission Format</h4>
-<code style="background: #e9ecef; padding: 0.5rem; display: block; border-radius: 4px; font-size: 0.9em;">
-Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
-</code>
-<p style="margin: 0.5rem 0 0 0; font-size: 0.85em; color: #666;">Send to Suleman Manji via Microsoft Teams</p>
-
-</div>
 
 ---
 
