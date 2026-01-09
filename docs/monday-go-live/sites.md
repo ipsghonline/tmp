@@ -172,7 +172,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 ## Detailed Site Information
 
-<details>
+<details markdown="1">
 <summary><strong>Albuquerque, NM</strong> - 4 users</summary>
 
 | Field              | Value                                       |
@@ -187,7 +187,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Atlanta, GA</strong> - 6 users (NEW)</summary>
 
 | Field       | Value        |
@@ -199,7 +199,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Austin, TX</strong> - 4 users</summary>
 
 | Field              | Value                                        |
@@ -214,7 +214,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Charlotte, NC</strong> - 3 users (NEW)</summary>
 
 | Field       | Value        |
@@ -226,7 +226,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Dallas, TX</strong> - 5 users</summary>
 
 | Field              | Value                                     |
@@ -241,7 +241,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Denver, CO</strong> - 4 users</summary>
 
 | Field              | Value                      |
@@ -256,7 +256,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>El Paso, TX</strong> - 3 users</summary>
 
 | Field              | Value                                |
@@ -271,7 +271,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Fresno, CA</strong> - 1 user</summary>
 
 | Field       | Value                       |
@@ -284,7 +284,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Houston, TX</strong> - 7 users (Call Center)</summary>
 
 | Field              | Value                                    |
@@ -300,7 +300,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Jacksonville, FL</strong> - 1 user</summary>
 
 | Field              | Value                                                    |
@@ -315,7 +315,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Las Vegas, NV</strong> - 6 users</summary>
 
 | Field              | Value                                   |
@@ -330,7 +330,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Los Angeles, CA</strong> - 20 users (Call Center)</summary>
 
 | Field              | Value                            |
@@ -346,7 +346,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Milwaukie, OR</strong> - 23 users (Call Center)</summary>
 
 | Field              | Value                                       |
@@ -362,7 +362,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Orlando, FL</strong> - 3 users</summary>
 
 | Field              | Value                                     |
@@ -377,7 +377,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Phoenix, AZ</strong> - 5 users</summary>
 
 | Field              | Value                              |
@@ -392,7 +392,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Portland, OR</strong> - 7 users (NEW)</summary>
 
 | Field       | Value        |
@@ -404,7 +404,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Providence, RI</strong> - 3 users</summary>
 
 | Field              | Value                         |
@@ -420,7 +420,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Raleigh, NC</strong> - 3 users (NEW)</summary>
 
 | Field       | Value |
@@ -432,7 +432,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Reno, NV</strong> - 3 users</summary>
 
 | Field              | Value                            |
@@ -448,7 +448,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Sacramento, CA</strong> - 13 users</summary>
 
 | Field       | Value                                    |
@@ -461,7 +461,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Salt Lake City, UT</strong> - 3 users</summary>
 
 | Field              | Value                                            |
@@ -476,7 +476,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>San Diego, CA</strong> - 10 users (Call Center)</summary>
 
 | Field              | Value                                 |
@@ -492,7 +492,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>San Francisco, CA</strong> - 11 users</summary>
 
 | Field       | Value                                 |
@@ -506,7 +506,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Seattle, WA</strong> - 18 users</summary>
 
 | Field              | Value                     |
@@ -522,7 +522,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Tampa, FL</strong> - 3 users</summary>
 
 | Field              | Value                         |
@@ -536,7 +536,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Tucson, AZ</strong> - 1 user</summary>
 
 | Field              | Value                           |
@@ -551,7 +551,7 @@ All 27 physical sites + Remote users organized by onsite resource allocation and
 
 </details>
 
-<details>
+<details markdown="1">
 <summary><strong>Washington DC</strong> - 12 users (Call Center) (NEW)</summary>
 
 | Field       | Value        |

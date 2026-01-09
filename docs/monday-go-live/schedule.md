@@ -15,7 +15,7 @@ Visual calendar and detailed timeline for the January 2026 migration.
 
 {: .note }
 
-> **Schedule Overview:** 22 sites | ~200 users | Communication begins Jan 5 | Data sync Jan 15 | RFMS cutover Jan 17-18 | **Go-Live: Monday, January 19, 2026**
+> **Schedule Overview:** 27 sites + Remote | 216 users | Communication begins Jan 5 | Data sync Jan 15 | RFMS cutover Jan 17-18 | **Go-Live: Monday, January 19, 2026**
 
 ### Week 1: January 5-10
 
@@ -74,6 +74,15 @@ Visual calendar and detailed timeline for the January 2026 migration.
 
 > **Key User Migration Weekend:** Friday-Saturday for sales team and remote users. Schedule via Microsoft Bookings.
 
+**Registration Status (as of Jan 5):**
+
+| Metric                  | Count   |
+| ----------------------- | ------- |
+| Key Users Communicated  | 55      |
+| Registered for Timeslot | 48      |
+| Registration Rate       | 87%     |
+| Timeslot Window         | Fri-Sat |
+
 | Date     | Day | Activity                                         | Owner            | Notes                                                       |
 | -------- | --- | ------------------------------------------------ | ---------------- | ----------------------------------------------------------- |
 | 01-16-26 | Fri | Begin migrating key user machines in offices     | Viyu / Impact IT | Sales team and remote users schedule via Microsoft Bookings |
@@ -101,12 +110,12 @@ Visual calendar and detailed timeline for the January 2026 migration.
 ### Go-Live: Monday, January 19, 2026
 
 <div style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%); color: white; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
-<strong>GO-LIVE DAY</strong> - Remote hands on-site at all 22 locations
+<strong>GO-LIVE DAY</strong> - Remote hands on-site at all 27 locations
 </div>
 
 | Date     | Day | Activity                                                        | Owner                    | Notes                              |
 | -------- | --- | --------------------------------------------------------------- | ------------------------ | ---------------------------------- |
-| 01-19-26 | Mon | Remote hands on-site at all 22 locations                        | AMSYS / Viyu / Impact IT | Work with users to migrate devices |
+| 01-19-26 | Mon | Remote hands on-site at all 27 locations                        | AMSYS / Viyu / Impact IT | Work with users to migrate devices |
 | 01-19-26 | Mon | ILG initiates device wipes; users login with Impact credentials | ILG / Users              | 5-min wait after wipe + reboot     |
 
 ---
@@ -116,6 +125,21 @@ Visual calendar and detailed timeline for the January 2026 migration.
 | Date      | Day  | Activity                          | Owner            | Notes                            |
 | --------- | ---- | --------------------------------- | ---------------- | -------------------------------- |
 | 01-20-26+ | Tue+ | Remote support for mobile devices | Impact IT / Viyu | Backup → Wipe → Enroll → Restore |
+
+---
+
+### Remote Users Scheduling
+
+{: .note }
+
+> **34 Remote Users** will be contacted to schedule their migration appointments via Microsoft Bookings, similar to the Key User process.
+
+| Metric       | Count                  |
+| ------------ | ---------------------- |
+| Remote Users | 34                     |
+| Pilot Group  | 15                     |
+| Not Pilot    | 19                     |
+| Scheduling   | Via Microsoft Bookings |
 
 ---
 
@@ -131,5 +155,5 @@ Visual calendar and detailed timeline for the January 2026 migration.
 | **January 16, 2026 7PM Pacific** | RFMS & Floorsight shutdown                                |
 | **January 17, 2026**             | Saturday on-site (6 large sites), RFMS/Floorsight restore |
 | **January 18, 2026**             | System validation, final go/no-go checks                  |
-| **January 19, 2026**             | **GO-LIVE - All 22 sites**                                |
+| **January 19, 2026**             | **GO-LIVE - All 27 sites**                                |
 | **January 20, 2026+**            | Remote mobile device support                              |
