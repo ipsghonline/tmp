@@ -25,7 +25,7 @@ This guide provides comprehensive instructions for onsite device migration from 
 ### Migration Goals
 
 - **Windows Devices:** Migrate to Impact Autopilot & Intune with full data restoration
-- **iOS Devices:** Release from Pinnacle ABM and enroll in Impact ABM
+- **iOS Devices:** Verify recent backup exists (backup verification only - no reset/restore/enrollment)
 - **Data Preservation:** Backup all user data, settings, and configurations
 - **Business Continuity:** Ensure minimal downtime and user impact
 
@@ -261,8 +261,7 @@ User Cutover follows a **phased approach** with pre-migration Dec 1-3 and main d
 
 ### Before Every Onsite Visit
 
-- [ ] **Apple Configurator App** - Installed on iOS devices (for ABM enrollment)
-- [ ] **Device Enrollment Manager (DEM) Credentials** - Obtained from Suleman Manji
+- [ ] **Apple Devices App** - Installed on Windows PC (for iOS backup verification)
 - [ ] **VPN Access** - Verified and tested
 - [ ] **MS Teams Account** - Active and ready for serial number submissions
 - [ ] **Network Connection Tools** - Ping/network diagnostic tools available
@@ -289,14 +288,13 @@ User Cutover follows a **phased approach** with pre-migration Dec 1-3 and main d
 
 High-level overview of the migration process:
 
-| Phase                                  | Description                                                                      |
-| -------------------------------------- | -------------------------------------------------------------------------------- |
-| Phase 1: Backup (Before Reset)         | Printer mappings, OneDrive verification, browser bookmarks/passwords, iOS backup |
-| Phase 2: Document & Submit             | Record serial numbers, submit to Suleman via Teams, wait for reset confirmation  |
-| Phase 3: OOBE (Windows Setup)          | Boot device, Autopilot enrollment, verify applications installed                 |
-| Phase 4: User Validation               | 3-point test with user present: Internet, RDP, Printing                          |
-| Phase 5: Post-OOBE Browser Restoration | Import bookmarks and passwords for Chrome, Edge, Firefox                         |
-| Phase 6: iOS Enrollment                | ABM enrollment via Apple Configurator, iOS restoration from backup               |
+| Phase                                  | Description                                                                                   |
+| -------------------------------------- | --------------------------------------------------------------------------------------------- |
+| Phase 1: Backup (Before Reset)         | Printer mappings, OneDrive verification, browser bookmarks/passwords, iOS backup verification |
+| Phase 2: Document & Submit             | Record serial numbers, submit to Suleman via Teams, wait for reset confirmation               |
+| Phase 3: OOBE (Windows Setup)          | Boot device, Autopilot enrollment, verify applications installed                              |
+| Phase 4: User Validation               | 3-point test with user present: Internet, RDP, Printing                                       |
+| Phase 5: Post-OOBE Browser Restoration | Import bookmarks and passwords for Chrome, Edge, Firefox                                      |
 
 ---
 
@@ -305,7 +303,6 @@ High-level overview of the migration process:
 ### Important Contacts
 
 - **Device Reset Issues:** Suleman Manji | 469-364-6343 | Teams
-- **iOS Enrollment Help:** Suleman Manji | Teams (has DEM credentials)
 - **Network Issues:** Site Contact (check dispatch ticket)
 
 ### Step 1: Phase 1 - Backup (Before Reset)
@@ -317,7 +314,7 @@ Follow your dispatch ticket timing:
 - [ ] **CHROME:** Menu → Bookmarks → Bookmark Manager → Export → Desktop
 - [ ] **EDGE:** Settings → Favorites → Export → Desktop
 - [ ] **FIREFOX:** Bookmarks → Manage → Import → Export → Desktop
-- [ ] **iOS:** Connect via USB → [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k?hl=en-US&gl=US) → Click Backup → Wait to complete
+- [ ] **iOS Backup Verification:** Connect via USB → [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k?hl=en-US&gl=US) → Verify recent backup exists (create new backup if none within last week)
 - [ ] **CRITICAL:** Verify OneDrive 100% synced ([portal.office.com](https://portal.office.com)) BEFORE proceeding
 
 ### Step 2: Phase 2 - Document & Submit
@@ -396,41 +393,11 @@ Follow your dispatch ticket timing:
 
 ---
 
-## iOS Device Migration
-
-### Step 6: Phase 6 - iOS Enrollment (After Windows Validation)
-
-**Prerequisites:**
-
-- [ ] Apple Devices app installed on Windows PC
-- [ ] Apple Configurator available
-- [ ] DEM credentials from Suleman
-
-**Enrollment Steps:**
-
-- [ ] Connect iOS device via USB
-- [ ] Open Apple Configurator
-- [ ] Sign in with DEM account (Suleman provides)
-- [ ] Select device → Click "Enroll"
-- [ ] Follow ABM enrollment workflow (device will restart)
-- [ ] Do NOT disconnect USB during enrollment
-- [ ] Wait 5-10 minutes for Intune sync after enrollment completes
-- [ ] Device shows "Managed by Impact Property Solutions" on lock screen
-
-**iOS Restoration:**
-
-- [ ] Apple Devices app → Click "Restore" → Select backup from Phase 1
-- [ ] Choose what to restore (app data, photos, settings)
-- [ ] Wait for completion (device may restart)
-- [ ] Ensure content especially Text Messages, Pictures and Contacts are present
-
----
-
 ## Post-Migration Validation Checklist
 
 {: .note }
 
-> **Primary Validation:** Phase 4 User Validation (3-Point Test) must be completed with user present before proceeding to browser restoration or iOS enrollment.
+> **Primary Validation:** Phase 4 User Validation (3-Point Test) must be completed with user present before proceeding to browser restoration.
 
 ### Phase 4: User Validation (3-Point Test)
 
@@ -442,14 +409,13 @@ Follow your dispatch ticket timing:
 
 ### Additional Validation Items
 
-| Item              | Device  | Validation Step                                  | Status |
-| ----------------- | ------- | ------------------------------------------------ | ------ |
-| OneDrive Sync     | Windows | Check sync status in File Explorer               | [ ]    |
-| Outlook           | Windows | Verify can send/receive email                    | [ ]    |
-| Teams             | Windows | Send test message                                | [ ]    |
-| Browser Bookmarks | Windows | Verify bookmarks restored (Phase 5)              | [ ]    |
-| Intune Status     | iOS     | Check device in Intune portal                    | [ ]    |
-| iOS Restoration   | iOS     | Verify Text Messages, Pictures, Contacts present | [ ]    |
+| Item              | Device  | Validation Step                     | Status |
+| ----------------- | ------- | ----------------------------------- | ------ |
+| OneDrive Sync     | Windows | Check sync status in File Explorer  | [ ]    |
+| Outlook           | Windows | Verify can send/receive email       | [ ]    |
+| Teams             | Windows | Send test message                   | [ ]    |
+| Browser Bookmarks | Windows | Verify bookmarks restored (Phase 5) | [ ]    |
+| iOS Backup        | iOS     | Verify recent backup exists         | [ ]    |
 
 ---
 
@@ -547,15 +513,6 @@ The organization has 500+ iOS devices across the fleet:
 - [ ] Try signing out and signing back in
 - [ ] Document and escalate if persistent
 
-### iOS Enrollment Issues
-
-**iOS Device Not Appearing in Intune**
-
-- [ ] Wait 10-15 minutes (normal cloud sync delay)
-- [ ] Verify device signed in with Impact Apple ID
-- [ ] Check Intune portal for device status
-- [ ] If still missing after 15 min: Contact Suleman immediately
-
 ### Device-Specific Troubleshooting
 
 **HP EliteBook/Desktop Issues**
@@ -574,10 +531,9 @@ The organization has 500+ iOS devices across the fleet:
 
 **iPad/iPhone Issues**
 
-- [ ] WiFi vs. Cellular: If WiFi enrollment fails, try cellular data
-- [ ] Face ID/Touch ID: May need to configure after ABM enrollment
-- [ ] Backup Restoration: May prompt user to restore from backup during setup
-- [ ] App Installation: Wait 10+ minutes for initial app deployment after enrollment
+- [ ] WiFi connectivity: Ensure device connected to WiFi for backup verification
+- [ ] Backup status: Check Apple Devices app for last backup date
+- [ ] USB connection: If device not recognized, try different USB cable/port
 
 ---
 

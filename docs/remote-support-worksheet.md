@@ -25,7 +25,7 @@ Service Engineer Guide for Small Site Migrations (<5 users)
 
 ## Overview
 
-This worksheet guides service engineers through the complete remote migration process for Impact Property Solutions devices. The process consists of 8 phases and typically takes 60-90 minutes of active time.
+This worksheet guides service engineers through the complete remote migration process for Impact Property Solutions devices. The process consists of 7 phases and typically takes 60-90 minutes of active time.
 
 {: .note }
 
@@ -284,13 +284,17 @@ Record the following information at the start of each support call:
 
 > **DO NOT PROCEED** until OneDrive shows 100% sync completion. This is critical for data safety.
 
-### iOS Device Backup (If Applicable)
+### iOS Device Backup Verification (If Applicable)
 
-> **Script:** "If you have an iPhone or iPad, we need to backup that too. First, please install the 'Apple Devices' app from the Microsoft Store if you don't have it. Then connect your iOS device via USB cable. When prompted, tap 'Trust' on your device. Then in the Apple Devices app, click 'Backup' and wait for it to complete."
+{: .note }
 
-- [ ] **iOS Device Present:** User has iOS device that needs migration
+> **Important:** For End User Migration, we are only verifying a recent backup exists - we are NOT performing iOS reset, restore, or ABM enrollment.
+
+> **Script:** "If you have an iPhone or iPad, we need to verify you have a recent backup. First, please install the 'Apple Devices' app from the Microsoft Store if you don't have it. Connect your iOS device via USB cable. When prompted, tap 'Trust' on your device. In the Apple Devices app, check when your last backup was created. If there's no recent backup (within the last week), let's create one now by clicking 'Back Up Now'."
+
+- [ ] **iOS Device Present:** User has iOS device
 - [ ] **Apple Devices App:** Installed on Windows PC (Microsoft Store)
-- [ ] **iOS Backup Complete:** Connected via USB, Apple Devices app -> Backup -> Completed
+- [ ] **iOS Backup Verified:** Recent backup confirmed in Apple Devices app (created new backup if needed)
 
 ---
 
@@ -582,28 +586,7 @@ Windows Serial: ABC123XYZ | iOS Serial: DEF456UVW | iOS UDID: A1B2C3D4-E5F6-7890
 
 ---
 
-## Phase 7: iOS Device Enrollment (If Applicable)
-
-**Estimated Time:** 15-20 minutes (if applicable)
-
-{: .note }
-
-> **Note:** iOS enrollment requires Apple Configurator and DEM credentials. This may need to be scheduled separately or completed on-site if user doesn't have access to Apple Configurator.
-
-> **Script:** "For your iPhone or iPad, we need to enroll it in our management system. This requires Apple Configurator, which is a free app from the Mac App Store. Do you have a Mac available? [If yes, proceed. If no, schedule on-site visit or provide alternative instructions]. We'll also need to connect your device via USB and use special credentials I'll provide."
-
-- [ ] **iOS Enrollment Required:** User has iOS device that needs enrollment
-- [ ] **Apple Configurator Available:** User has Apple Configurator installed or can install it
-- [ ] **DEM Credentials Obtained:** Engineer obtained DEM credentials from Suleman
-- [ ] **iOS Enrollment Complete:** Device enrolled via Apple Configurator, shows "Managed by Impact Property Solutions"
-
-{: .warning }
-
-> **iOS Enrollment Limitation:** If user doesn't have Apple Configurator access, iOS enrollment may need to be scheduled for on-site visit or alternative method. Document this in notes.
-
----
-
-## Phase 8: Final Verification & Sign-Off
+## Phase 7: Final Verification & Sign-Off
 
 {: .highlight }
 
@@ -627,7 +610,6 @@ Document any issues encountered, items that need follow-up, or special notes abo
 **Follow-Up Options:**
 
 - No follow-up needed
-- iOS enrollment scheduled
 - Printer configuration needed
 - Application installation issue
 - Other (see notes)
@@ -641,7 +623,6 @@ Document any issues encountered, items that need follow-up, or special notes abo
 | Contact                 | Details                                               |
 | ----------------------- | ----------------------------------------------------- |
 | **Device Reset Issues** | Suleman Manji - 469-364-6343 - Teams: smanji@viyu.net |
-| **iOS Enrollment Help** | Suleman Manji - Teams (has DEM credentials)           |
 | **Network Issues**      | Site Contact (check dispatch ticket)                  |
 
 ### Remote Support Troubleshooting
@@ -658,16 +639,16 @@ Document any issues encountered, items that need follow-up, or special notes abo
 
 ### Time Estimates
 
-| Phase                   | Duration                       |
-| ----------------------- | ------------------------------ |
-| Phase 1 (Backup)        | 15-20 minutes                  |
-| Phase 2 (Documentation) | 5-10 minutes + 15-30 min wait  |
-| Phase 3 (OOBE)          | 30-60 minutes (mostly waiting) |
-| Phase 4 (Verification)  | 10-15 minutes                  |
-| Phase 5 (Validation)    | 10-15 minutes                  |
-| Phase 6 (Restoration)   | 15-20 minutes                  |
-| Phase 7 (iOS)           | 15-20 minutes (if applicable)  |
-| **Total Active Time**   | **60-90 minutes**              |
+| Phase                        | Duration                       |
+| ---------------------------- | ------------------------------ |
+| Phase 1 (Backup)             | 15-20 minutes                  |
+| Phase 2 (Documentation)      | 5-10 minutes + 15-30 min wait  |
+| Phase 3 (OOBE)               | 30-60 minutes (mostly waiting) |
+| Phase 4 (Verification)       | 10-15 minutes                  |
+| Phase 5 (Validation)         | 10-15 minutes                  |
+| Phase 6 (Restoration)        | 15-20 minutes                  |
+| Phase 7 (Final Verification) | 5-10 minutes                   |
+| **Total Active Time**        | **60-90 minutes**              |
 
 ---
 

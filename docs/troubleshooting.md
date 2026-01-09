@@ -195,19 +195,36 @@ Common issues and solutions during the Impact environment migration.
 
 ## iOS/Mobile Device Issues
 
-### iPhone not enrolling in ABM
+### iOS device not recognized in Apple Devices app
 
 **Symptoms:**
 
-- "Remote Management" prompt not appearing
-- Device stuck in setup
+- iPhone/iPad not appearing when connected via USB
+- Apple Devices app shows no devices
 
 **Solutions:**
 
-1. Ensure device was purchased through Apple Business
-2. Factory reset device completely
-3. Connect to stable WiFi during setup
-4. Contact IT if device isn't registered
+1. Try a different USB cable (use Apple-certified cable)
+2. Try a different USB port on the computer
+3. On the iOS device, tap "Trust" when prompted
+4. Restart both the iOS device and computer
+5. Update Apple Devices app from Microsoft Store
+
+---
+
+### Cannot verify iOS backup status
+
+**Symptoms:**
+
+- Apple Devices app doesn't show backup date
+- Backup appears incomplete
+
+**Solutions:**
+
+1. Ensure sufficient storage on computer for backup
+2. Keep device connected until backup completes
+3. Check that device is unlocked during backup
+4. If backup fails, try backing up to iCloud instead
 
 ---
 

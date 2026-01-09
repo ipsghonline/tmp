@@ -23,20 +23,19 @@ Open Interactive Worksheet →
 
 ## Overview
 
-This interactive worksheet guides you through your migration appointment with a support technician. Track your progress through 8 phases as your device is migrated to the Impact environment.
+This interactive worksheet guides you through your migration appointment with a support technician. Track your progress through 7 phases as your device is migrated to the Impact environment.
 
-## The 8 Phases
+## The 7 Phases
 
-| Phase                 | Description                                   | Duration |
-| --------------------- | --------------------------------------------- | -------- |
-| **1. Backup**         | Verify OneDrive sync, identify critical files | ~15 min  |
-| **2. Device Reset**   | Initiate Intune wipe                          | ~10 min  |
-| **3. OOBE Setup**     | Initial Windows configuration                 | ~15 min  |
-| **4. Enrollment**     | Autopilot registration                        | ~20 min  |
-| **5. ESP**            | App installation and policy application       | ~30 min  |
-| **6. Verification**   | Confirm apps and access                       | ~15 min  |
-| **7. iOS Enrollment** | Mobile device setup (if applicable)           | ~15 min  |
-| **8. Handoff**        | Final confirmation and support close          | ~10 min  |
+| Phase               | Description                                   | Duration |
+| ------------------- | --------------------------------------------- | -------- |
+| **1. Backup**       | Verify OneDrive sync, identify critical files | ~15 min  |
+| **2. Device Reset** | Initiate Intune wipe                          | ~10 min  |
+| **3. OOBE Setup**   | Initial Windows configuration                 | ~15 min  |
+| **4. Enrollment**   | Autopilot registration                        | ~20 min  |
+| **5. ESP**          | App installation and policy application       | ~30 min  |
+| **6. Verification** | Confirm apps and access                       | ~15 min  |
+| **7. Handoff**      | Final confirmation and support close          | ~10 min  |
 
 ## Features
 
