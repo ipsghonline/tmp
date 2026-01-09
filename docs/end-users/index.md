@@ -103,5 +103,5 @@ Troubleshooting
 <p><strong>During your session:</strong> Your technician is on the Teams call with you</p>
 <p><strong>Support Line:</strong> 📞 <strong>817-662-7226</strong></p>
 <p><strong>Email:</strong> support@impactpropertysolutions.com</p>
-<p><strong>Emergency:</strong> Suleman Manji - 469-364-6343</p>
+<p><strong>Emergency:</strong> Suleman Manji - 469-364-6222</p>
 </div>

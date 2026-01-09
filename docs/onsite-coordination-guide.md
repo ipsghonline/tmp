@@ -302,7 +302,7 @@ High-level overview of the migration process:
 
 ### Important Contacts
 
-- **Device Reset Issues:** Suleman Manji | 469-364-6343 | Teams
+- **Device Reset Issues:** Suleman Manji | 469-364-6222 | Teams
 - **Network Issues:** Site Contact (check dispatch ticket)
 
 ### Step 1: Phase 1 - Backup (Before Reset)

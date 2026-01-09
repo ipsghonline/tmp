@@ -41,7 +41,7 @@ At-a-glance information for the Impact environment migration.
 | Role             | Name          | Phone        | Email                               |
 | ---------------- | ------------- | ------------ | ----------------------------------- |
 | **Support Line** | IPS Support   | 817-662-7226 | support@impactpropertysolutions.com |
-| **Emergency**    | Suleman Manji | 469-364-6343 | smanji@viyu.net                     |
+| **Emergency**    | Suleman Manji | 469-364-6222 | smanji@viyu.net                     |
 
 ---
 
@@ -132,4 +132,4 @@ Book Your Time Slot →
 
 **Before or after:** Email support@impactfloors.com or contact IT Support
 
-**Support Line:** 817-662-7226 | **Emergency:** Suleman Manji - 469-364-6343
+**Support Line:** 817-662-7226 | **Emergency:** Suleman Manji - 469-364-6222

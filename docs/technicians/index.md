@@ -89,7 +89,7 @@ Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
 
 <div style="background: #f8d7da; padding: 1rem; border-radius: 8px; margin: 1rem 0; border-left: 4px solid #dc3545;">
 <p><strong>Device Reset Issues / Emergency:</strong><br>
-📞 <strong>Suleman Manji - 469-364-6343</strong> | Teams: smanji@viyu.net</p>
+📞 <strong>Suleman Manji - 469-364-6222</strong> | Teams: smanji@viyu.net</p>
 </div>
 
 | Issue Type          | Primary Contact | Teams/Email                          |

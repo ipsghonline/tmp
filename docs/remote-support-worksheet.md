@@ -622,7 +622,7 @@ Document any issues encountered, items that need follow-up, or special notes abo
 
 | Contact                 | Details                                               |
 | ----------------------- | ----------------------------------------------------- |
-| **Device Reset Issues** | Suleman Manji - 469-364-6343 - Teams: smanji@viyu.net |
+| **Device Reset Issues** | Suleman Manji - 469-364-6222 - Teams: smanji@viyu.net |
 | **Network Issues**      | Site Contact (check dispatch ticket)                  |
 
 ### Remote Support Troubleshooting
