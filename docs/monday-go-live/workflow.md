@@ -33,6 +33,12 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 - 0:20 - Start User D Phase 1, User B ready for Phase 2
 - _(Continue rotating through users)_
 
+**Technician Schedule:**
+
+- Arrive: 7:00 AM local time
+- Standard hours: 7:00 AM - 5:00 PM
+- Overtime available if needed (time-and-a-half after 5:00 PM)
+
 ---
 
 ## Workflow Overview
@@ -80,6 +86,7 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 | User can't find settings | Not familiar with Win 11 | Windows key + I opens Settings                        |
 | RFMS RDP fails           | Network or DNS issue     | Verify VPN; contact Brian Vaughan                     |
 | Chrome profile issues    | Sync conflict            | Create new profile, import bookmarks fresh            |
+| Device won't reboot      | Hardware issue           | Use thumb drive for forced reboot (shipped to site)   |
 
 ---
 

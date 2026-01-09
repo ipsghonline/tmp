@@ -120,18 +120,18 @@ This guide reflects the **phased migration approach**:
 
 ## Timeline Overview
 
-| Date       | Day     | Activity                                                |
-| ---------- | ------- | ------------------------------------------------------- |
-| Jan 5      | Mon     | Communication begins, identify key users                |
-| Jan 12     | Mon     | Reminder email, ILG removes devices from Autopilot      |
-| Jan 13     | Tue     | iOS email setup instructions                            |
-| Jan 15     | Wed     | Data sync start (BitTitan), Verizon/ABM migration       |
-| Jan 16     | Fri     | Key user migration begins                               |
-| Jan 16     | Fri     | **7:00 PM Pacific - RFMS & Floorsight shutdown**        |
-| Jan 17     | Sat     | AMSYS on-site at 6 large sites, RFMS/Floorsight restore |
-| Jan 18     | Sun     | System validation and final checks                      |
-| **Jan 19** | **Mon** | **GO-LIVE - Remote hands at all 27 sites**              |
-| Jan 20+    | Tue+    | Remote mobile device support                            |
+| Date       | Day     | Activity                                                  |
+| ---------- | ------- | --------------------------------------------------------- |
+| Jan 5      | Mon     | Communication begins, identify key users                  |
+| Jan 12     | Mon     | Reminder email, ILG removes devices from Autopilot        |
+| Jan 13     | Tue     | iOS email setup instructions                              |
+| Jan 15     | Wed     | Data sync start (BitTitan), Verizon/ABM migration         |
+| Jan 16     | Fri     | **3:00 PM Central - Key User migration activities begin** |
+| Jan 16     | Fri     | **7:00 PM Pacific - RFMS & Floorsight shutdown**          |
+| Jan 17     | Sat     | RFMS/Floorsight restore                                   |
+| Jan 18     | Sun     | System validation and final checks                        |
+| **Jan 19** | **Mon** | **GO-LIVE - Remote hands at all 27 sites**                |
+| Jan 20+    | Tue+    | Remote mobile device support                              |
 
 ---
 

@@ -31,6 +31,14 @@ Pre-visit checklists, user communication, and remote scheduling requirements.
 
 ---
 
+## Equipment
+
+| Item         | Status               | Notes                                                     |
+| ------------ | -------------------- | --------------------------------------------------------- |
+| Thumb drives | Shipped to each site | Backup tool for forced reboots if devices don't cooperate |
+
+---
+
 ## User Communication - January 12, 2026
 
 {: .important }

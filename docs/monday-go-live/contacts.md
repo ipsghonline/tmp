@@ -29,7 +29,7 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 | **Impact Help Desk**       | Riasat, Trevor, Brian Vaughan, Jim Norman | User support, Help desk tickets, Go-live day support     |
 | **ILG IT**                 | Brent, Jish, Willie                       | Autopilot removal, Device wipes, ILG tenant operations   |
 | **Viyu Network Solutions** | Doug, Marcus, Suleman                     | Remote end user migrations (6 sites); Escalation support |
-| **AMSYS Field Services**   | Colin, Alice + remote hands               | On-site technician support for Monday go-live            |
+| **AMSYS Field Services**   | Colin, Alice + remote hands               | On-site support; Arrive 7:00 AM local time               |
 | **Verizon/iOS**            | Bradley (ILG), Lana (Impact), Trevor      | iOS device ABM transfer coordination                     |
 
 ---
@@ -95,6 +95,22 @@ Primary escalation point for RDP, RFMS, Floorsight, and printer issues
 | AMSYS Remote Hands     | Remaining sites                                                          | On-site technician support     |
 | Impact Help Desk       | User support                                                             | Help desk tickets              |
 | ILG IT                 | Device wipes                                                             | Autopilot removal coordination |
+
+---
+
+## Pre-Migration Technical Calls
+
+{: .note }
+
+> **Schedule:** Tuesday, Wednesday, or Thursday at 9:00 AM (avoiding Friday due to 3:00 PM Central migration start)
+
+Technical resource pre-migration calls will cover:
+
+- Workflow review and Q&A
+- Escalation procedures
+- Site-specific requirements
+
+Calendar invite to be sent through Viyu admin once AMSYS provides onsite contact info.
 
 ---
 
