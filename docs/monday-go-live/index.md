@@ -54,7 +54,19 @@ Comprehensive coordination guide for the January 19, 2026 migration go-live.
 
 </div>
 
-<h4 style="margin-bottom: 0.5rem;">Device Reset Submission Format</h4>
+<h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1e3c72;">Escalation Matrix</h4>
+
+| Issue Type           | Primary Contact | Escalation Chain       |
+| -------------------- | --------------- | ---------------------- |
+| Device Reset/Wipes   | Suleman Manji   | ILG (Willie) for wipes |
+| Autopilot Removal    | ILG IT Team     | Willie, Brett          |
+| RDP/RFMS/Floorsight  | Brian Vaughan   | Primary escalation     |
+| Network/VPN/IPsec    | Landon Hill     | Nick Christian → Imran |
+| Verizon/iOS ABM      | Trevor          | Bradley (ILG) → Lana   |
+| Intune/Autopilot/ABM | Suleman Manji   | Primary escalation     |
+| BitTitan/Email       | Suleman Manji   | Primary escalation     |
+
+<h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Device Reset Submission Format</h4>
 <code style="background: #e9ecef; padding: 0.5rem; display: block; border-radius: 4px; font-size: 0.9em;">
 Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
 </code>

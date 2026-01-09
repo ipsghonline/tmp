@@ -13,23 +13,46 @@ Complete 6-phase migration process for Windows devices and iOS backup verificati
 
 ## Workflow Overview
 
-| Phase | Name                    | Description                                                                      |
-| ----- | ----------------------- | -------------------------------------------------------------------------------- |
-| 1     | Backup                  | Printer mappings, OneDrive verification, browser bookmarks/passwords, iOS backup |
-| 2     | Document & Submit       | Record serial numbers, submit to Suleman via Teams, wait for reset confirmation  |
-| 3     | OOBE                    | Boot device, Autopilot enrollment, verify applications installed                 |
-| 4     | User Validation         | 3-point test with user present: Internet, RDP, Printing                          |
-| 5     | Browser Restoration     | Import bookmarks and passwords for Chrome, Edge, Firefox                         |
-| 6     | iOS Backup Verification | Verify recent backup exists using Apple Devices app                              |
+| Phase | Name                    | Time Est. | Description                                                                      |
+| ----- | ----------------------- | --------- | -------------------------------------------------------------------------------- |
+| 1     | Backup                  | 15-20 min | Printer mappings, OneDrive verification, browser bookmarks/passwords, iOS backup |
+| 2     | Document & Submit       | 5-10 min  | Record serial numbers, submit to Suleman via Teams, wait for reset confirmation  |
+|       | _(Wait for Reset)_      | 15-30 min | Use this time to help next user with backup phase                                |
+| 3     | OOBE                    | 30-60 min | Boot device, Autopilot enrollment, verify applications installed                 |
+| 4     | User Validation         | 10-15 min | 3-point test with user present: Internet, RDP, Printing                          |
+| 5     | Browser Restoration     | 10-15 min | Import bookmarks and passwords for Chrome, Edge, Firefox                         |
+| 6     | iOS Backup Verification | 5-10 min  | Verify recent backup exists using Apple Devices app                              |
+
+**Total Active Time:** 60-90 minutes per user (parallel processing reduces wall-clock time significantly)
 
 ---
 
 ## Quick Reference Contacts
 
-| Issue               | Contact       | Phone/Method          |
-| ------------------- | ------------- | --------------------- |
-| Device Reset Issues | Suleman Manji | 281-904-1969 / Teams  |
-| Network Issues      | Site Contact  | Check dispatch ticket |
+| Issue               | Contact       | Phone/Method                         |
+| ------------------- | ------------- | ------------------------------------ |
+| Device Reset Issues | Suleman Manji | 469-364-6222 / Teams                 |
+| RFMS/Floorsight     | Brian Vaughan | bvaughan@impactpropertysolutions.com |
+| Network/VPN Issues  | Landon Hill   | lhill@viyu.net                       |
+
+---
+
+## Troubleshooting Quick Reference
+
+{: .warning }
+
+> **Common issues and quick fixes during migration.**
+
+| Issue                    | Likely Cause             | Quick Fix                                             |
+| ------------------------ | ------------------------ | ----------------------------------------------------- |
+| ESP taking >60 min       | Network/bandwidth issues | Check connectivity; may need device restart and retry |
+| Bookmarks won't import   | Wrong file format        | Verify exported as .html (not .json)                  |
+| OneDrive not syncing     | Initial sync delay       | Wait 15-30 min; try sign out/in                       |
+| Printer not appearing    | Driver not deployed      | Use Phase 1 screenshot, add manually via Settings     |
+| Apps missing after ESP   | Deployment delay         | Wait 10 min, check Intune portal for status           |
+| User can't find settings | Not familiar with Win 11 | Windows key + I opens Settings                        |
+| RFMS RDP fails           | Network or DNS issue     | Verify VPN; contact Brian Vaughan                     |
+| Chrome profile issues    | Sync conflict            | Create new profile, import bookmarks fresh            |
 
 ---
 

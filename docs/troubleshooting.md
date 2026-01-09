@@ -279,6 +279,92 @@ Common issues and solutions during the Impact environment migration.
 
 ---
 
+## Remote Support Troubleshooting
+
+Issues specific to remote migration support sessions.
+
+---
+
+### User can't find Windows Settings
+
+**Symptoms:**
+
+- User unfamiliar with Windows 11 interface
+- Can't locate settings when guided verbally
+
+**Solutions:**
+
+1. Press **Windows key + I** to open Settings directly
+2. Or type "Settings" in the search bar (Windows key)
+3. Use screen sharing to guide visually if available
+
+---
+
+### User confused during migration steps
+
+**Symptoms:**
+
+- User overwhelmed by multiple steps
+- Steps being skipped or done out of order
+
+**Solutions:**
+
+1. Break down into smaller, numbered steps
+2. Confirm each step completion before proceeding
+3. Use screen share for visual confirmation
+4. Take notes on completed phases in case session pauses
+
+---
+
+### User needs to pause the migration
+
+**Symptoms:**
+
+- User has meeting or other commitment
+- Migration incomplete but must stop
+
+**Solutions:**
+
+1. Document current phase clearly
+2. Note which steps completed vs. pending
+3. Schedule callback appointment
+4. If mid-OOBE: Do NOT power off during Autopilot ESP
+5. If stuck in reset wait: Reset can be retriggered later
+
+---
+
+### Screen sharing issues
+
+**Symptoms:**
+
+- Can't see user's screen
+- User can't share screen
+
+**Solutions:**
+
+1. Verify Teams or screen share tool permissions
+2. User may need to click "Share screen" button
+3. Ask user to share specific window vs. entire screen
+4. As fallback: use verbal guidance with numbered steps
+
+---
+
+### Remote Desktop to RFMS fails
+
+**Symptoms:**
+
+- RDP connection times out
+- "Cannot connect to remote computer" error
+
+**Solutions:**
+
+1. Verify VPN connection is active (if required)
+2. Check RFMS server address is correct
+3. Try IP address instead of hostname
+4. Contact Brian Vaughan for RFMS/Floorsight issues
+
+---
+
 ## Escalation Guide
 
 If troubleshooting doesn't resolve the issue:
