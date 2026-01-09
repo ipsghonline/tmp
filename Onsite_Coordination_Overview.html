@@ -262,20 +262,24 @@
         }
 
         .contact-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-left: 4px solid #1e3c72;
+            color: #333;
             padding: 20px;
-            border-radius: 8px;
+            border-radius: 4px;
             margin: 15px 0;
         }
 
         .contact-card h4 {
-            color: white;
+            color: #1e3c72;
             margin-top: 0;
+            font-size: 1.1em;
         }
 
         .contact-card p {
             margin: 8px 0;
+            color: #555;
         }
 
         .schedule-table {
@@ -400,77 +404,293 @@
                 margin: 20px 0;
             }
         }
+
+        /* Visual Calendar Styles */
+        .calendar-container {
+            margin: 25px 0;
+        }
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+            background: #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        .calendar-header {
+            background: #1e3c72;
+            color: white;
+            padding: 12px 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85em;
+        }
+        .calendar-day {
+            background: white;
+            padding: 10px 8px;
+            min-height: 100px;
+            font-size: 0.85em;
+            position: relative;
+        }
+        .calendar-day.inactive {
+            background: #f5f5f5;
+            color: #999;
+        }
+        .calendar-day .day-number {
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        .calendar-day.highlight-blue {
+            background: #e3f2fd;
+            border-left: 3px solid #2a5298;
+        }
+        .calendar-day.highlight-yellow {
+            background: #fff3cd;
+            border-left: 3px solid #ffc107;
+        }
+        .calendar-day.highlight-red {
+            background: #f8d7da;
+            border-left: 3px solid #dc3545;
+        }
+        .calendar-day.highlight-green {
+            background: #d4edda;
+            border-left: 3px solid #28a745;
+        }
+        .calendar-day.highlight-purple {
+            background: #e8daef;
+            border-left: 3px solid #8e44ad;
+        }
+        .calendar-day .event {
+            font-size: 0.8em;
+            padding: 2px 4px;
+            margin: 2px 0;
+            border-radius: 3px;
+            line-height: 1.3;
+        }
+        .calendar-day .event.comm { background: #bbdefb; }
+        .calendar-day .event.tech { background: #c8e6c9; }
+        .calendar-day .event.critical { background: #ffcdd2; font-weight: 600; }
+        .calendar-day .event.golive { background: #a5d6a7; font-weight: 700; }
+        .calendar-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .calendar-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .calendar-legend-item .swatch {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+        }
+
+        /* Collapsible Site Card Styles */
+        .site-cards-container {
+            margin: 20px 0;
+        }
+        .site-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin: 8px 0;
+            overflow: hidden;
+            background: white;
+        }
+        .site-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .site-card-header:hover {
+            background: #f0f0f0;
+        }
+        .site-card-header .site-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .site-card-header .site-name {
+            font-weight: 600;
+            color: #1e3c72;
+            min-width: 150px;
+        }
+        .site-card-header .state-badge {
+            background: #2a5298;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8em;
+        }
+        .site-card-header .user-count {
+            color: #666;
+            font-size: 0.9em;
+        }
+        .site-card-header .contact-name {
+            color: #555;
+            font-size: 0.9em;
+        }
+        .site-card-header .saturday-badge {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+        }
+        .site-card-header .toggle-icon {
+            font-size: 0.8em;
+            color: #666;
+            transition: transform 0.2s;
+        }
+        .site-card.expanded .toggle-icon {
+            transform: rotate(90deg);
+        }
+        .site-card-details {
+            display: none;
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            background: white;
+        }
+        .site-card.expanded .site-card-details {
+            display: block;
+        }
+        .site-card-details .detail-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .site-card-details .detail-item {
+            font-size: 0.9em;
+        }
+        .site-card-details .detail-item strong {
+            color: #1e3c72;
+            display: block;
+            margin-bottom: 3px;
+        }
+        .site-card-details .site-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .site-card-details .site-link:hover {
+            text-decoration: underline;
+        }
+        .timezone-header {
+            background: #1e3c72;
+            color: white;
+            padding: 10px 15px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <header>
         <h1>Impact Property Solutions</h1>
         <p>Windows & iOS Device Migration - Onsite Coordination Guide</p>
-        <p style="font-size: 0.9em; margin-top: 10px;">For Onsite Technicians & Support Engineers</p>
+        <p style="font-size: 0.9em; margin-top: 10px;">For Onsite Technicians, Support Engineers & Stakeholders</p>
+        <p style="font-size: 1.1em; margin-top: 15px; background: rgba(255,255,255,0.2); padding: 10px; border-radius: 5px;"><strong>Go-Live Date: Monday, January 19, 2026</strong></p>
     </header>
 
     <div class="container">
-        <button class="print-btn" onclick="window.print()">🖨️ Print Guide</button>
+        <button class="print-btn" onclick="window.print()">Print Guide</button>
 
         <nav>
             <h2>Quick Navigation</h2>
             <ul>
                 <li><a href="#overview">Overview</a></li>
-                <li><a href="#schedule">Migration Schedule</a></li>
-                <li><a href="#network-dependencies">Network Dependencies</a></li>
-                <li><a href="#prerequisites">Prerequisites</a></li>
-                <li><a href="#workflow">Workflow</a></li>
-                <li style="margin-left: 20px;"><a href="#windows-migration">Windows Migration</a></li>
-                <li style="margin-left: 20px;"><a href="#ios-migration">iOS Migration</a></li>
-                <li style="margin-left: 20px;"><a href="#validation">Validation</a></li>
-                <li><a href="#expected-devices">Device Models</a></li>
-                <li><a href="#troubleshooting">Troubleshooting</a></li>
-                <li><a href="#contacts">Contact Info</a></li>
-                <li><a href="#documentation">Documentation</a></li>
+                <li><a href="#schedule">Schedule & Sites</a></li>
+                <li><a href="#network-dependencies">Network Status</a></li>
+                <li><a href="#workflow">Migration Workflow</a></li>
+                <li><a href="#contacts">Contacts & Escalation</a></li>
             </ul>
         </nav>
 
         <!-- OVERVIEW SECTION -->
         <section id="overview">
             <div class="success-box" style="margin-bottom: 20px;">
-                <strong>✅ PHASED MIGRATION STRATEGY </strong><br>
-                This guide reflects the <strong>phased migration approach</strong> with pre-migration starting December 1-3, 2025, and main deployment on December 15, 2025.
-                Pre-migration of select machines at each location (Thursday-Friday before main deployment) allows operations teams to maintain functionality while reducing network congestion.
+                <strong>PHASED MIGRATION STRATEGY - JANUARY 2026</strong><br>
+                This guide reflects the <strong>phased migration approach</strong> with preparation starting January 5, 2026, key user pre-migration on January 16-17, RFMS/Floorsight cutover on January 17-18, and full go-live on <strong>Monday, January 19, 2026</strong>.
                 <br><br>
-                <strong>📊 Key Metrics:</strong> 22 sites | 142 users | Pre-migration Dec 1-3 | Main deployment Dec 15+ | Phased approach to maintain operations
+                <strong>Key Metrics:</strong> 22 sites | ~200 users | Key user pre-migration Jan 16-17 | RFMS cutover Jan 17-18 | <strong>Go-Live: January 19, 2026</strong>
             </div>
 
-            <h2>📋 Overview</h2>
-            <p>This guide provides comprehensive instructions for onsite device migration from the Pinnacle tenant to Impact Property Solutions' Microsoft 365 environment. Each technician visit will handle device backups, reset, and enrollment to the Impact tenant.</p>
+            <!-- Stakeholder Quick Reference -->
+            <div class="info-box">
+                <strong>For Stakeholders (Brian, Landon, Alysha):</strong>
+                <p style="margin-top: 8px; margin-bottom: 0;">Quick links: <a href="#schedule">Visual Calendar & Sites</a> | <a href="#network-dependencies">Network Status</a> | <a href="#contacts">Contacts & Escalation</a></p>
+            </div>
+
+            <h2>Overview</h2>
+            <p>This guide provides comprehensive instructions for onsite device migration from the ILG (Pinnacle) tenant to Impact Property Solutions' Microsoft 365 environment. Each technician visit will handle device backups, reset, and enrollment to the Impact tenant.</p>
 
             <h3>Migration Goals</h3>
             <ul style="margin-left: 20px; margin-top: 15px;">
                 <li><strong>Windows Devices:</strong> Migrate to Impact Autopilot & Intune with full data restoration</li>
-                <li><strong>iOS Devices:</strong> Release from Pinnacle ABM and enroll in Impact ABM</li>
+                <li><strong>iOS Devices:</strong> Release from ILG ABM and enroll in Impact ABM via Verizon transfer</li>
                 <li><strong>Data Preservation:</strong> Backup all user data, settings, and configurations</li>
-                <li><strong>Business Continuity:</strong> Ensure minimal downtime and user impact</li>
+                <li><strong>Business Continuity:</strong> RFMS/Floorsight cutover during weekend to minimize operational impact</li>
+                <li><strong>Remote User Support:</strong> Microsoft Bookings for scheduled migration appointments</li>
             </ul>
 
-            <h3>Timeline </h3>
+            <h3>Timeline</h3>
             <div class="success-box">
-                <strong>✅ Phased Migration Strategy:</strong> Pre-migration of select machines begins December 1-3, 2025 (3:00 PM) to ensure operations continuity. All sites complete full migration on December 15, 2025.
+                <strong>Go-Live: Monday, January 19, 2026</strong> | RFMS/Floorsight systems migrate over the weekend (Jan 17-18) with remote hands on-site Monday for device migrations.
             </div>
             <div class="timeline">
                 <div class="timeline-item">
-                    <strong>Pre-Migration Phase: December 1-3, 2025 (3:00 PM)</strong><br>
-                    Select machines at 7 sites migrate early to maintain operations functionality and reduce network congestion during main deployment
+                    <strong>Monday, January 5, 2026</strong><br>
+                    Impact & ILG begin user communication. Identify key users and schedule times for Friday 1/16 or Saturday 1/17 pre-migration. Consider remote hands at key markets with customer service on Saturday.
                 </div>
                 <div class="timeline-item">
-                    <strong>Main Deployment: December 15, 2025</strong><br>
-                    All 22 sites complete full migration - All remaining devices migrate simultaneously
+                    <strong>Monday, January 12, 2026</strong><br>
+                    Send migration reminder email. Users leave computers at workstations with sticky notes to identify devices. Set expectation: report to office on 1/19 or schedule remote support via <code>support@impactpropertysolutions.com</code>. ILG removes devices from Autopilot.
                 </div>
                 <div class="timeline-item">
-                    <strong>✅ Completion: December 15, 2025</strong><br>
-                    All 142 users migrated (16 days before Dec 31 deadline)
+                    <strong>Tuesday, January 13, 2026</strong><br>
+                    Send iOS email setup instructions so users can access email on iPhone/iPad when not in office.
+                </div>
+                <div class="timeline-item">
+                    <strong>Wednesday, January 15, 2026</strong><br>
+                    Start final email/OneDrive/SharePoint data sync (BitTitan MigrationWiz). Kick off Verizon device account migration. Migrate iOS devices from ILG ABM to Impact ABM.
+                </div>
+                <div class="timeline-item">
+                    <strong>Friday, January 16, 2026</strong><br>
+                    Begin migrating key user machines in offices. <strong>7:00 PM Pacific</strong> - Shut down access to RFMS and Floorsight.
+                </div>
+                <div class="timeline-item">
+                    <strong>Saturday, January 17, 2026</strong><br>
+                    AMSYS remote hands at key locations (10+ users). Restore RFMS database backup to Impact environment. Start RFMS services. Verify Twilio account/services. Restore Floorsight. Verify DNS settings. Test printing and IPsec tunnels.
+                </div>
+                <div class="timeline-item">
+                    <strong>Sunday, January 18, 2026</strong><br>
+                    System validation and final checks. Verify all RFMS/Floorsight services operational.
+                </div>
+                <div class="timeline-item">
+                    <strong style="color: #28a745;">Monday, January 19, 2026 - GO-LIVE</strong><br>
+                    Remote hands on-site at all locations. Work with users to migrate devices. ILG wipes device → User logs in with Impact credentials.
+                </div>
+                <div class="timeline-item">
+                    <strong>Tuesday, January 20, 2026+</strong><br>
+                    Remote support for mobile devices. Backup → Wipe → Enroll/Provision → Restore user backup.
                 </div>
             </div>
 
-            <h3 style="margin-top: 30px;">⏱️ Time Estimates (Parallel Processing)</h3>
+            <h3 style="margin-top: 30px;">Time Estimates (Parallel Processing)</h3>
             <div class="grid">
                 <div class="card">
                     <h4>Per User Average</h4>
@@ -494,414 +714,936 @@
             </div>
 
             <div class="success-box" style="margin-top: 20px;">
-                <strong>Timeline Impact:</strong> Parallel processing is essential for the single-day December 15, 2025 deployment. Without it, sites would take 1.5-2x longer and require multiple days.
+                <strong>Timeline Impact:</strong> Parallel processing is essential for the January 19, 2026 deployment. Without it, sites would take 1.5-2x longer and require multiple days.
             </div>
 
             <div class="info-box" style="margin-top: 15px;">
-                <strong>💡 Setup Strategy:</strong> Set up multiple laptops in a conference room on a table. Technician walks around the table working on devices simultaneously. This parallel approach is critical for meeting the deployment timeline.
+                <strong>Setup Strategy:</strong> Set up multiple laptops in a conference room on a table. Technician walks around the table working on devices simultaneously. This parallel approach is critical for meeting the deployment timeline.
             </div>
         </section>
 
         <!-- SCHEDULE SECTION -->
         <section id="schedule">
-            <h2>📅 Migration Schedule </h2>
+            <h2>Migration Schedule</h2>
             <div class="info-box">
-                <strong>📋 Schedule Overview:</strong> 22 sites, 142 users, pre-migration Dec 1-3 (3:00 PM), main deployment Dec 15-26 (8:00 AM) with extended dates for larger sites
+                <strong>Schedule Overview:</strong> 22 sites | ~200 users | Communication begins Jan 5 | Data sync Jan 15 | RFMS cutover Jan 17-18 | <strong>Go-Live: Monday, January 19, 2026</strong>
             </div>
 
+            <!-- Visual Calendar -->
+            <h3>Visual Calendar - January 2026</h3>
+            <div class="calendar-container">
+                <div class="calendar-grid">
+                    <!-- Header Row -->
+                    <div class="calendar-header">Sun</div>
+                    <div class="calendar-header">Mon</div>
+                    <div class="calendar-header">Tue</div>
+                    <div class="calendar-header">Wed</div>
+                    <div class="calendar-header">Thu</div>
+                    <div class="calendar-header">Fri</div>
+                    <div class="calendar-header">Sat</div>
+
+                    <!-- Week 1: Dec 28 - Jan 3 (mostly inactive) -->
+                    <div class="calendar-day inactive"><div class="day-number">28</div></div>
+                    <div class="calendar-day inactive"><div class="day-number">29</div></div>
+                    <div class="calendar-day inactive"><div class="day-number">30</div></div>
+                    <div class="calendar-day inactive"><div class="day-number">31</div></div>
+                    <div class="calendar-day inactive"><div class="day-number">1</div><span style="font-size:0.75em;">New Year</span></div>
+                    <div class="calendar-day inactive"><div class="day-number">2</div></div>
+                    <div class="calendar-day inactive"><div class="day-number">3</div></div>
+
+                    <!-- Week 2: Jan 4 - Jan 10 -->
+                    <div class="calendar-day"><div class="day-number">4</div></div>
+                    <div class="calendar-day highlight-blue">
+                        <div class="day-number">5</div>
+                        <div class="event comm">Communication Begins</div>
+                        <div class="event tech">Identify Key Users</div>
+                    </div>
+                    <div class="calendar-day"><div class="day-number">6</div></div>
+                    <div class="calendar-day"><div class="day-number">7</div></div>
+                    <div class="calendar-day"><div class="day-number">8</div></div>
+                    <div class="calendar-day"><div class="day-number">9</div></div>
+                    <div class="calendar-day"><div class="day-number">10</div></div>
+
+                    <!-- Week 3: Jan 11 - Jan 17 -->
+                    <div class="calendar-day"><div class="day-number">11</div></div>
+                    <div class="calendar-day highlight-blue">
+                        <div class="day-number">12</div>
+                        <div class="event comm">Reminder Email</div>
+                        <div class="event tech">ILG Autopilot Removal</div>
+                    </div>
+                    <div class="calendar-day highlight-blue">
+                        <div class="day-number">13</div>
+                        <div class="event comm">iOS Email Setup</div>
+                    </div>
+                    <div class="calendar-day"><div class="day-number">14</div></div>
+                    <div class="calendar-day highlight-purple">
+                        <div class="day-number">15</div>
+                        <div class="event tech">Data Sync Start</div>
+                        <div class="event tech">Verizon/ABM Migration</div>
+                    </div>
+                    <div class="calendar-day highlight-yellow">
+                        <div class="day-number">16</div>
+                        <div class="event tech">Key User Migration</div>
+                        <div class="event critical">7PM: RFMS Shutdown</div>
+                    </div>
+                    <div class="calendar-day highlight-red">
+                        <div class="day-number">17</div>
+                        <div class="event critical">AMSYS On-Site</div>
+                        <div class="event critical">RFMS/Floorsight Restore</div>
+                    </div>
+
+                    <!-- Week 4: Jan 18 - Jan 24 -->
+                    <div class="calendar-day highlight-yellow">
+                        <div class="day-number">18</div>
+                        <div class="event tech">System Validation</div>
+                        <div class="event tech">Final Checks</div>
+                    </div>
+                    <div class="calendar-day highlight-green">
+                        <div class="day-number">19</div>
+                        <div class="event golive">GO-LIVE</div>
+                        <div class="event golive">All Sites On-Site</div>
+                    </div>
+                    <div class="calendar-day highlight-blue">
+                        <div class="day-number">20</div>
+                        <div class="event tech">Remote Support</div>
+                        <div class="event tech">Mobile Devices</div>
+                    </div>
+                    <div class="calendar-day"><div class="day-number">21</div></div>
+                    <div class="calendar-day"><div class="day-number">22</div></div>
+                    <div class="calendar-day"><div class="day-number">23</div></div>
+                    <div class="calendar-day"><div class="day-number">24</div></div>
+                </div>
+
+                <div class="calendar-legend">
+                    <div class="calendar-legend-item"><div class="swatch" style="background: #bbdefb;"></div> Communication</div>
+                    <div class="calendar-legend-item"><div class="swatch" style="background: #c8e6c9;"></div> Technical Prep</div>
+                    <div class="calendar-legend-item"><div class="swatch" style="background: #e8daef;"></div> Data Sync</div>
+                    <div class="calendar-legend-item"><div class="swatch" style="background: #ffcdd2;"></div> Critical (RFMS Cutover)</div>
+                    <div class="calendar-legend-item"><div class="swatch" style="background: #a5d6a7;"></div> Go-Live</div>
+                </div>
+            </div>
+
+            <h3>Pre-Migration Week Timeline</h3>
             <table class="schedule-table">
                 <thead>
                     <tr>
                         <th>Date</th>
-                        <th>Site</th>
-                        <th>Time</th>
-                        <th>Contact</th>
-                        <th>Users</th>
+                        <th>Day</th>
+                        <th>Activity</th>
+                        <th>Owner</th>
                         <th>Notes</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- PRE-MIGRATION: December 1-3, 2025 (Select Machines) -->
                     <tr style="background-color: #e3f2fd;">
-                        <td colspan="6"><strong>🔄 PRE-MIGRATION PHASE: December 1-3, 2025 (3:00 PM) - Select Machines</strong></td>
+                        <td colspan="5"><strong>PREPARATION PHASE: January 5-14, 2026</strong></td>
                     </tr>
-                    <tr><td>12-01-25</td><td>Tucson, AZ</td><td>3:00 PM MST</td><td>Jose Meza</td><td>2</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-15-25</td></tr>
-                    <tr><td>12-01-25</td><td>Fresno, CA</td><td>3:00 PM PST</td><td>Tabitha Thomas</td><td>1</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-15-25</td></tr>
-                    <tr><td>12-01-25</td><td>La Mirada, CA</td><td>3:00 PM PST</td><td>Lorraine Arroyas</td><td>19</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-20-25</td></tr>
-                    <tr><td>12-02-25</td><td>Auburn, WA</td><td>3:00 PM PST</td><td>Jared Merryman</td><td>18</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-23-25</td></tr>
-                    <tr><td>12-02-25</td><td>Sacramento, CA</td><td>3:00 PM PST</td><td>Tabitha Thomas</td><td>12</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-15-25</td></tr>
-                    <tr><td>12-02-25</td><td>Union City, CA</td><td>3:00 PM PST</td><td>Josue Maldonado</td><td>10</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-18-25</td></tr>
-                    <tr><td>12-02-25</td><td>Chula Vista, CA</td><td>3:00 PM PST</td><td>Rosemary Ruckle</td><td>11</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-19-25</td></tr>
-                    <tr><td>12-03-25</td><td>Milwaukie, OR</td><td>3:00 PM PST</td><td>Josh Hill</td><td>26</td><td><strong>Pre-Migration</strong> - M365 Deploy: 12-26-25</td></tr>
-
-                    <!-- MAIN DEPLOYMENT: December 15, 2025 -->
+                    <tr>
+                        <td>01-05-26</td>
+                        <td>Monday</td>
+                        <td><strong>Begin user communication</strong></td>
+                        <td>Impact / ILG</td>
+                        <td>Joint communication to all applicable users</td>
+                    </tr>
+                    <tr>
+                        <td>01-05-26</td>
+                        <td>Monday</td>
+                        <td>Identify key users for early migration (Fri 1/16 or Sat 1/17)</td>
+                        <td>Brian Vaughan / Alisha</td>
+                        <td>Consider customer service locations for Saturday</td>
+                    </tr>
+                    <tr>
+                        <td>01-12-26</td>
+                        <td>Monday</td>
+                        <td>Send migration reminder email to all users</td>
+                        <td>Brian Vaughan / Alisha</td>
+                        <td>Users: leave computers at workstations with sticky notes</td>
+                    </tr>
+                    <tr>
+                        <td>01-12-26</td>
+                        <td>Monday</td>
+                        <td>ILG removes Windows devices from Autopilot</td>
+                        <td>ILG (Brent/Jish)</td>
+                        <td>Requires serial numbers or computer names</td>
+                    </tr>
+                    <tr>
+                        <td>01-13-26</td>
+                        <td>Tuesday</td>
+                        <td>Send iOS email setup instructions</td>
+                        <td>Brian Vaughan</td>
+                        <td>Ensure users can access email on iPhone/iPad</td>
+                    </tr>
+                    <tr style="background-color: #e8daef;">
+                        <td>01-15-26</td>
+                        <td>Wednesday</td>
+                        <td><strong>Start final email/OneDrive/SharePoint data sync</strong></td>
+                        <td>Suleman Manji</td>
+                        <td>BitTitan MigrationWiz - ensures data consistency before cutover</td>
+                    </tr>
+                    <tr>
+                        <td>01-15-26</td>
+                        <td>Wednesday</td>
+                        <td>Kick off Verizon device account migration</td>
+                        <td>Trevor / Bradley (ILG) / Lana (Impact)</td>
+                        <td>Migrate iOS devices from ILG ABM to Impact ABM</td>
+                    </tr>
+                    <tr style="background-color: #fff3cd;">
+                        <td colspan="5"><strong>🔄 KEY USER PRE-MIGRATION: January 16-17, 2026</strong></td>
+                    </tr>
+                    <tr>
+                        <td>01-16-26</td>
+                        <td>Friday</td>
+                        <td>Begin migrating key user machines in offices</td>
+                        <td>Viyu / Impact IT</td>
+                        <td>Sales team and remote users schedule via Microsoft Bookings</td>
+                    </tr>
+                    <tr style="background-color: #f8d7da;">
+                        <td>01-16-26</td>
+                        <td>Friday</td>
+                        <td><strong>7:00 PM Pacific - RFMS & Floorsight SHUTDOWN</strong></td>
+                        <td>Impact IT</td>
+                        <td>No computer system access Saturday</td>
+                    </tr>
+                    <tr style="background-color: #fff3cd;">
+                        <td colspan="5"><strong>SYSTEM CUTOVER WEEKEND: January 17-18, 2026</strong></td>
+                    </tr>
+                    <tr>
+                        <td>01-17-26</td>
+                        <td>Saturday</td>
+                        <td>AMSYS remote hands at key locations (10+ users)</td>
+                        <td>Colin / AMSYS / Alice</td>
+                        <td>Union City, Chula Vista, Sacramento, Auburn, La Mirada, Milwaukie</td>
+                    </tr>
+                    <tr>
+                        <td>01-17-26</td>
+                        <td>Saturday</td>
+                        <td>Restore RFMS database backup into Impact environment</td>
+                        <td>Impact IT</td>
+                        <td>Start RFMS services after restore</td>
+                    </tr>
+                    <tr>
+                        <td>01-17-26</td>
+                        <td>Saturday</td>
+                        <td>Verify Twilio account and services</td>
+                        <td>Impact IT</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>01-17-26</td>
+                        <td>Saturday</td>
+                        <td>Restore Floorsight; verify DNS settings</td>
+                        <td>Impact IT</td>
+                        <td>Test all Floorsight URLs</td>
+                    </tr>
+                    <tr>
+                        <td>01-17-26</td>
+                        <td>Saturday</td>
+                        <td>Test printing and IPsec tunnels</td>
+                        <td>Impact IT / Viyu</td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>01-18-26</td>
+                        <td>Sunday</td>
+                        <td>System validation and final checks</td>
+                        <td>Impact IT / Viyu</td>
+                        <td>Verify RFMS/Floorsight operational; final go/no-go decision</td>
+                    </tr>
                     <tr style="background-color: #d4edda;">
-                        <td colspan="6"><strong>🚀 MAIN DEPLOYMENT: December 15, 2025 (8:00 AM) - All Sites Go Live</strong></td>
+                        <td colspan="5"><strong>GO-LIVE: Monday, January 19, 2026</strong></td>
                     </tr>
-                    <tr><td>12-15-25</td><td>Carrollton, TX</td><td>8:00 AM CST</td><td>Albert Rodarte</td><td>5</td><td>Central time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>El Paso, TX</td><td>8:00 AM CST</td><td>Jose Contreras</td><td>3</td><td>Central time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Austin, TX</td><td>8:00 AM CST</td><td>Nicole Strong</td><td>5</td><td>Central time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Houston, TX</td><td>8:00 AM CST</td><td>Erica Castillo</td><td>8</td><td>Central time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Tampa, FL</td><td>8:00 AM EST</td><td>Marcelo Maluf</td><td>4</td><td>Eastern time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Jacksonville, FL</td><td>8:00 AM EST</td><td>Craig Johnson</td><td>2</td><td>Eastern time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Orlando, FL</td><td>8:00 AM EST</td><td>Hector Rivera</td><td>4</td><td>Eastern time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Pawtucket, RI</td><td>8:00 AM EST</td><td>Steven Giardini</td><td>3</td><td>Eastern time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Albuquerque, NM</td><td>8:00 AM MST</td><td>Patrick Poland</td><td>5</td><td>Mountain time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Denver, CO</td><td>8:00 AM MST</td><td>Solomon Cariker</td><td>4</td><td>Mountain time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Tucson, AZ</td><td>8:00 AM MST</td><td>Jose Meza</td><td>2</td><td>Mountain time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-15-25</td><td>Phoenix, AZ</td><td>8:00 AM MST</td><td>Joe Wright</td><td>6</td><td>Mountain time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Salt Lake City, UT</td><td>8:00 AM MST</td><td>Susan Miller</td><td>3</td><td>Mountain time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Las Vegas, NV</td><td>8:00 AM PST</td><td>Lidia Guzman</td><td>5</td><td>Pacific time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Sparks, NV</td><td>8:00 AM PST</td><td>John Hill</td><td>4</td><td>Pacific time zone - Main deployment</td></tr>
-                    <tr><td>12-15-25</td><td>Fresno, CA</td><td>8:00 AM PST</td><td>Tabitha Thomas</td><td>1</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-15-25</td><td>Sacramento, CA</td><td>8:00 AM PST</td><td>Tabitha Thomas</td><td>12</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-18-25</td><td>Union City, CA</td><td>8:00 AM PST</td><td>Josue Maldonado</td><td>10</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-19-25</td><td>Chula Vista, CA</td><td>8:00 AM PST</td><td>Rosemary Ruckle</td><td>11</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-20-25</td><td>La Mirada, CA</td><td>8:00 AM PST</td><td>Lorraine Arroyas</td><td>19</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-23-25</td><td>Auburn, WA</td><td>8:00 AM PST</td><td>Jared Merryman</td><td>18</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-                    <tr><td>12-26-25</td><td>Milwaukie, OR</td><td>8:00 AM PST</td><td>Josh Hill</td><td>26</td><td>Pacific time zone - Main deployment (pre-migrated machines active)</td></tr>
-
-                    <!-- COMPLETION -->
-                    <tr style="background-color: #28a745; color: white;">
-                        <td colspan="6"><strong>✅ COMPLETION: December 26, 2025 - ALL 142 USERS MIGRATED (5 days before Dec 31 deadline)</strong></td>
+                    <tr>
+                        <td>01-19-26</td>
+                        <td>Monday</td>
+                        <td>Remote hands on-site at all 22 locations</td>
+                        <td>AMSYS / Viyu / Impact IT</td>
+                        <td>Work with users to migrate devices</td>
+                    </tr>
+                    <tr>
+                        <td>01-19-26</td>
+                        <td>Monday</td>
+                        <td>ILG initiates device wipes; users login with Impact credentials</td>
+                        <td>ILG / Users</td>
+                        <td>5-min wait after wipe + reboot</td>
+                    </tr>
+                    <tr style="background-color: #e3f2fd;">
+                        <td colspan="5"><strong>POST GO-LIVE: January 20+, 2026</strong></td>
+                    </tr>
+                    <tr>
+                        <td>01-20-26+</td>
+                        <td>Tuesday+</td>
+                        <td>Remote support for mobile devices</td>
+                        <td>Impact IT / Viyu</td>
+                        <td>Backup → Wipe → Enroll → Restore</td>
                     </tr>
                 </tbody>
             </table>
+
+            <h3 style="margin-top: 30px;">Site Deployment Schedule - January 19, 2026</h3>
+            <p style="margin-bottom: 15px; color: #666;">Click any site to expand details. Sites sorted by go-live time (Eastern → Pacific).</p>
+
+            <!-- SATURDAY ON-SITE SITES -->
+            <div class="warning-box" style="margin-bottom: 10px;">
+                <strong>SATURDAY ON-SITE (10+ Users) - January 17, 2026</strong> - AMSYS technicians pre-positioned at large sites
+            </div>
+            <div class="site-cards-container">
+                <!-- Union City -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Union City</span>
+                            <span class="state-badge">CA</span>
+                            <span class="user-count">10 users</span>
+                            <span class="contact-name">Josue Maldonado</span>
+                            <span class="saturday-badge">SAT ON-SITE</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>1765 Atlantic St, Union City, CA</div>
+                            <div class="detail-item"><strong>Contact</strong>Josue Maldonado<br>510-441-9422<br>JosueMaldonado@interiorlogicgroup.com</div>
+                            <div class="detail-item"><strong>Time Zone</strong>Pacific</div>
+                            <div class="detail-item"><strong>Notes</strong>Multi-day site - Parallel user enrollment needed</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Union_City_CA.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Chula Vista -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Chula Vista</span>
+                            <span class="state-badge">CA</span>
+                            <span class="user-count">11 users</span>
+                            <span class="contact-name">Rosemary Ruckle</span>
+                            <span class="saturday-badge">SAT ON-SITE</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>629 Marsat Ct Ste B, Chula Vista, CA</div>
+                            <div class="detail-item"><strong>Contact</strong>Rosemary Ruckle<br>858-496-5222<br>RosemaryRuckle@interiorlogicgroup.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.172.12<br>Serial: 15041307</div>
+                            <div class="detail-item"><strong>Notes</strong>Back-to-back CA sites - Parallel processing recommended</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Chula_Vista_CA.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Sacramento -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Sacramento</span>
+                            <span class="state-badge">CA</span>
+                            <span class="user-count">12 users</span>
+                            <span class="contact-name">Tabitha Thomas</span>
+                            <span class="saturday-badge">SAT ON-SITE</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>815 Professor Ln Ste 150, Sacramento, CA</div>
+                            <div class="detail-item"><strong>Contact</strong>Tabitha Thomas<br>916-858-8200<br>tabitha.thomas@ilginc.com</div>
+                            <div class="detail-item"><strong>Time Zone</strong>Pacific</div>
+                            <div class="detail-item"><strong>Notes</strong>Multi-day - Requires 2 teams - PARALLEL PROCESSING CRITICAL</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Sacramento_CA.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Auburn -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Auburn</span>
+                            <span class="state-badge">WA</span>
+                            <span class="user-count">18 users</span>
+                            <span class="contact-name">Jared Merryman</span>
+                            <span class="saturday-badge">SAT ON-SITE</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>875 A St NW, Auburn, WA</div>
+                            <div class="detail-item"><strong>Contact</strong>Jared Merryman<br>253-395-9271<br>jared.merryman@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.230.8.4<br>Serial: 35060783</div>
+                            <div class="detail-item"><strong>Notes</strong>Very Large - Requires sustained 2-team effort</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Auburn_WA.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- La Mirada -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">La Mirada</span>
+                            <span class="state-badge">CA</span>
+                            <span class="user-count">19 users</span>
+                            <span class="contact-name">Lorraine Arroyas</span>
+                            <span class="saturday-badge">SAT ON-SITE</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>14830 Desman Rd, La Mirada, CA</div>
+                            <div class="detail-item"><strong>Contact</strong>Lorraine Arroyas<br>562-222-2382<br>lorraine.arroyas@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.162.14<br>Serial: 35061803</div>
+                            <div class="detail-item"><strong>Notes</strong>Very Large - Surge support required</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_La_Mirada_CA.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Milwaukie -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Milwaukie</span>
+                            <span class="state-badge">OR</span>
+                            <span class="user-count">26 users</span>
+                            <span class="contact-name">Josh Hill</span>
+                            <span class="saturday-badge">SAT ON-SITE</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>4500 SE Criterion Ct Ste 100, Milwaukie, OR</div>
+                            <div class="detail-item"><strong>Contact</strong>Josh Hill<br>503-654-0206<br>josh.hill@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.160.18<br>Serial: 35064784</div>
+                            <div class="detail-item"><strong>Notes</strong>MASSIVE - ALL HANDS - 3 concurrent subgroups</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Milwaukie_OR.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MONDAY GO-LIVE SITES -->
+            <div class="success-box" style="margin-top: 25px; margin-bottom: 10px;">
+                <strong>ALL SITES GO-LIVE - Monday, January 19, 2026 (8:00 AM local)</strong>
+            </div>
+
+            <!-- Eastern Time Zone -->
+            <div class="timezone-header">Eastern Time Zone (EST) - Go-Live 8:00 AM</div>
+            <div class="site-cards-container">
+                <!-- Pawtucket -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Pawtucket</span>
+                            <span class="state-badge">RI</span>
+                            <span class="user-count">3 users</span>
+                            <span class="contact-name">Steven Giardini</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>404 Walcott St, Pawtucket, RI</div>
+                            <div class="detail-item"><strong>Contact</strong>Steven Giardini<br>401-386-8266<br>steven.giardini@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.214.11<br>Serial: 25187512</div>
+                            <div class="detail-item"><strong>Notes</strong>Northeast site</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Pawtucket_RI.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Tampa -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Tampa</span>
+                            <span class="state-badge">FL</span>
+                            <span class="user-count">4 users</span>
+                            <span class="contact-name">Marcelo Maluf</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>4719 Oak Fair Blvd, Tampa, FL</div>
+                            <div class="detail-item"><strong>Contact</strong>Marcelo Maluf<br>813-588-5321</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.28.11<br>Serial: 1504199000</div>
+                            <div class="detail-item"><strong>Notes</strong>Florida cluster</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Tampa_FL.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Jacksonville -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Jacksonville</span>
+                            <span class="state-badge">FL</span>
+                            <span class="user-count">2 users</span>
+                            <span class="contact-name">Craig Johnson</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>5570 Florida Mining Blvd Ste 204 & 205, Jacksonville, FL</div>
+                            <div class="detail-item"><strong>Contact</strong>Craig Johnson<br>904-787-7901<br>craig.johnson@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.0.15<br>Serial: 25024880</div>
+                            <div class="detail-item"><strong>Notes</strong>FL back-to-back</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Jacksonville_FL.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Orlando -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Orlando</span>
+                            <span class="state-badge">FL</span>
+                            <span class="user-count">4 users</span>
+                            <span class="contact-name">Hector Rivera</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>10850 Lee Vista Blvd Ste 103, Orlando, FL</div>
+                            <div class="detail-item"><strong>Contact</strong>Hector Rivera<br>407-412-9122<br>hector.rivera@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.30.18<br>Serial: 25030500</div>
+                            <div class="detail-item"><strong>Notes</strong>FL back-to-back</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Orlando_FL.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Central Time Zone -->
+            <div class="timezone-header">Central Time Zone (CST) - Go-Live 8:00 AM</div>
+            <div class="site-cards-container">
+                <!-- Carrollton -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Carrollton</span>
+                            <span class="state-badge">TX</span>
+                            <span class="user-count">5 users</span>
+                            <span class="contact-name">Albert Rodarte</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>1605 Crescent Cir Ste 250, Carrollton, TX</div>
+                            <div class="detail-item"><strong>Contact</strong>Albert Rodarte<br>972-695-5580</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.174.12<br>Serial: 25060389</div>
+                            <div class="detail-item"><strong>Notes</strong>Texas cluster</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Carrollton_TX.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- El Paso -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">El Paso</span>
+                            <span class="state-badge">TX</span>
+                            <span class="user-count">3 users</span>
+                            <span class="contact-name">Jose Contreras</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>11 Founder Blvd Ste 200, El Paso, TX</div>
+                            <div class="detail-item"><strong>Contact</strong>Jose Contreras<br>915-320-4728<br>jose.contreras@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.166.11<br>Serial: 25023890</div>
+                            <div class="detail-item"><strong>Notes</strong>Back-to-back TX sites</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_El_Paso_TX.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Austin -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Austin</span>
+                            <span class="state-badge">TX</span>
+                            <span class="user-count">5 users</span>
+                            <span class="contact-name">Nicole Strong</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>1340 Airport Commerce Dr Ste 360, Austin, TX</div>
+                            <div class="detail-item"><strong>Contact</strong>Nicole Strong<br>512-520-2559<br>nicole.strong@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.164.11<br>Serial: 95079284</div>
+                            <div class="detail-item"><strong>Notes</strong>Back-to-back TX sites</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Austin_TX.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Houston -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Houston</span>
+                            <span class="state-badge">TX</span>
+                            <span class="user-count">8 users</span>
+                            <span class="contact-name">Erica Castillo</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>7807 Bluff Point Dr Ste 100, Houston, TX</div>
+                            <div class="detail-item"><strong>Contact</strong>Erica Castillo<br>713-462-7999<br>erica.castillo@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.168.12<br>Serial: 25047320</div>
+                            <div class="detail-item"><strong>Notes</strong>Larger TX site</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Houston_TX.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mountain Time Zone -->
+            <div class="timezone-header">Mountain Time Zone (MST) - Go-Live 8:00 AM</div>
+            <div class="site-cards-container">
+                <!-- Albuquerque -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Albuquerque</span>
+                            <span class="state-badge">NM</span>
+                            <span class="user-count">5 users</span>
+                            <span class="contact-name">Patrick Poland</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>2601 Princeton Dr NE Ste B, Albuquerque, NM</div>
+                            <div class="detail-item"><strong>Contact</strong>Patrick Poland<br>505-344-0890<br>patrick.poland@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.182.11<br>Serial: 95106169</div>
+                            <div class="detail-item"><strong>Notes</strong>Mountain cluster</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Albuquerque_NM.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Denver -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Denver</span>
+                            <span class="state-badge">CO</span>
+                            <span class="user-count">4 users</span>
+                            <span class="contact-name">Solomon Cariker</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>4897 Moline St, Denver, CO</div>
+                            <div class="detail-item"><strong>Contact</strong>Solomon Cariker<br>303-341-0600<br>solomon.cariker@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.192.11<br>Serial: 25138325</div>
+                            <div class="detail-item"><strong>Notes</strong>Mountain cluster</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Denver_CO.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Tucson -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Tucson</span>
+                            <span class="state-badge">AZ</span>
+                            <span class="user-count">2 users</span>
+                            <span class="contact-name">Jose Meza</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>750 E Ohio St Ste 1, Tucson, AZ</div>
+                            <div class="detail-item"><strong>Contact</strong>Jose Meza<br>520-790-0740<br>jose.meza@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.72.11<br>Serial: 35062263</div>
+                            <div class="detail-item"><strong>Notes</strong>Small site</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Tucson_AZ.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Phoenix -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Phoenix</span>
+                            <span class="state-badge">AZ</span>
+                            <span class="user-count">6 users</span>
+                            <span class="contact-name">Joe Wright</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>2125 S 7th St Ste 100, Phoenix, AZ</div>
+                            <div class="detail-item"><strong>Contact</strong>Joe Wright<br>602-453-9660<br>JWright1@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.16.83<br>Serial: 75282160H6XNT</div>
+                            <div class="detail-item"><strong>Notes</strong>Back-to-back AZ sites</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Phoenix_AZ.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Salt Lake City -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Salt Lake City</span>
+                            <span class="state-badge">UT</span>
+                            <span class="user-count">3 users</span>
+                            <span class="contact-name">Susan Miller</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>5570 West 1730 South Ste 400, Salt Lake City, UT</div>
+                            <div class="detail-item"><strong>Contact</strong>Susan Miller<br>385-350-8004<br>susan.miller@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.114.11<br>Serial: 35062123</div>
+                            <div class="detail-item"><strong>Notes</strong>Mountain/Pacific nexus</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Salt_Lake_City_UT.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pacific Time Zone -->
+            <div class="timezone-header">Pacific Time Zone (PST) - Go-Live 8:00 AM</div>
+            <div class="site-cards-container">
+                <!-- Las Vegas -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Las Vegas</span>
+                            <span class="state-badge">NV</span>
+                            <span class="user-count">5 users</span>
+                            <span class="contact-name">Lidia Guzman</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>1660 E Helm Ave Ste 1000, Las Vegas, NV</div>
+                            <div class="detail-item"><strong>Contact</strong>Lidia Guzman<br>702-458-6550<br>lidia.guzman@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.176.12<br>Serial: 35060703</div>
+                            <div class="detail-item"><strong>Notes</strong>Pacific cluster</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Las_Vegas_NV.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Sparks -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Sparks</span>
+                            <span class="state-badge">NV</span>
+                            <span class="user-count">4 users</span>
+                            <span class="contact-name">John Hill</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>1395 Greg St Ste 109, Sparks, NV</div>
+                            <div class="detail-item"><strong>Contact</strong>John Hill<br>775-241-8341<br>john.hill1@ilginc.com</div>
+                            <div class="detail-item"><strong>Printer</strong>IP: 10.15.2.11<br>Serial: 15074998</div>
+                            <div class="detail-item"><strong>Notes</strong>Back-to-back NV sites</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Sparks_NV.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+
+                <!-- Fresno -->
+                <div class="site-card">
+                    <div class="site-card-header" onclick="this.parentElement.classList.toggle('expanded')">
+                        <div class="site-info">
+                            <span class="site-name">Fresno</span>
+                            <span class="state-badge">CA</span>
+                            <span class="user-count">1 user</span>
+                            <span class="contact-name">Tabitha Thomas</span>
+                        </div>
+                        <span class="toggle-icon">▶</span>
+                    </div>
+                    <div class="site-card-details">
+                        <div class="detail-grid">
+                            <div class="detail-item"><strong>Address</strong>4055 W Shaw Ave, Fresno, CA</div>
+                            <div class="detail-item"><strong>Contact</strong>Tabitha Thomas<br>559-840-2561<br>tabitha.thomas@ilginc.com</div>
+                            <div class="detail-item"><strong>Time Zone</strong>Pacific</div>
+                            <div class="detail-item"><strong>Notes</strong>Micro site - quick completion</div>
+                        </div>
+                        <a href="AMSYS Site References/Site_Technician_Guide_Fresno_CA.html" class="site-link">View Full Site Guide →</a>
+                    </div>
+                </div>
+            </div>
 
             <h3 style="margin-top: 30px;">Migration Strategy</h3>
             <div class="info-box">
                 <strong>Phased Approach Benefits:</strong>
                 <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
-                    <li><strong>Operations Continuity:</strong> Pre-migrating select machines (Dec 1-3) ensures operations teams have functioning computers during main deployment</li>
-                    <li><strong>Network Congestion Management:</strong> Staggering device migrations prevents overwhelming network infrastructure with simultaneous driver/update downloads</li>
-                    <li><strong>Reduced Downtime:</strong> Phased approach prevents shutting down entire operations for 2-3 hours, allowing jobs to continue processing</li>
-                    <li><strong>Call Center Backup:</strong> 2-3 backup laptops at each of four call centers serve as loaner devices with temporary admin access to all stores and printers. Call center staff can process orders and print to any warehouse printer, ensuring business continuity. These loaner devices can be shipped back after migration or left on-site as backup.</li>
+                    <li><strong>Operations Continuity:</strong> RFMS/Floorsight cutover happens over the weekend (Jan 17-18) when locations are closed, minimizing user impact</li>
+                    <li><strong>Key User Pre-Migration:</strong> Friday-Saturday (Jan 16-17) migration of key users ensures critical operations have functioning devices Monday morning</li>
+                    <li><strong>Remote User Scheduling:</strong> Microsoft Bookings allows remote/sales users to schedule 10-15 minute slots, controlling support queue and avoiding 30+ simultaneous requests</li>
+                    <li><strong>Network Congestion Management:</strong> Staggered device migrations prevent overwhelming network infrastructure with simultaneous driver/update downloads</li>
+                    <li><strong>Call Center Backup:</strong> Backup laptops at call centers serve as loaner devices during transition</li>
                 </ul>
             </div>
+
+            <h4 style="margin-top: 20px;">Small Sites Strategy (1-4 Users)</h4>
+            <div class="success-box">
+                <strong>Decision: AMSYS On-Site for ALL Sites</strong>
+                <p style="margin-top: 10px;">After cost analysis (Dec 4, 2025 planning session), the team decided to use AMSYS on-site technicians for <strong>all 22 sites</strong>, including those with 1-4 users.</p>
+                <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
+                    <li><strong>Remote Migration Cost:</strong> 3-4 hours per user (1:1 support ratio)</li>
+                    <li><strong>On-Site Migration Cost:</strong> ~1 hour per user (technician can handle 3 machines simultaneously = 3:1 efficiency)</li>
+                    <li><strong>Project Capacity:</strong> 685 total hours budgeted, only 93 consumed - plenty of capacity for full on-site coverage</li>
+                    <li><strong>Benefit:</strong> On-site approach provides 3:1 cost reduction vs remote support</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Result:</strong> Small sites (El Paso 3 users, Jacksonville 2 users, Tucson 2 users, etc.) will have AMSYS technicians on-site Monday January 19, 2026.</p>
+            </div>
             <div class="warning-box">
-                <strong>⚠️ Pre-Migration Sites:</strong> Six to seven sites have been identified for pre-migration strategy. Manual setup on ImpactPropertySolution devices will be required for migrated devices to restore user access (excluding RMS and historical email/OneDrive data).
+                <strong>Remote User Process:</strong> Remote users who cannot come to the office on 1/19 should email <code>support@impactpropertysolutions.com</code> or book a time via Microsoft Bookings. Process: Schedule time → ILG pushes wipe → Wait 5 min + reboot → User logs in with Impact credentials and proceeds with remaining migration tasks as outlined in <a href="#workflow">Migration Workflow</a>.
             </div>
             <div class="info-box" style="margin-top: 15px;">
-                <strong>Network Congestion Considerations:</strong> Pre-migration helps distribute network load by avoiding simultaneous downloads of drivers and updates across all devices. This prevents network bottlenecks during main deployment.
+                <strong>Per-Device Migration Process:</strong>
+                <p style="margin: 10px 0; font-size: 0.95em;">Each device follows the complete workflow detailed in the <a href="#workflow">Migration Workflow</a> section:</p>
+                <ol style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
+                    <li><strong>Pre-Migration Backup</strong> - Printer mappings, OneDrive sync verification, browser bookmarks/passwords, iOS backup</li>
+                    <li><strong>Serial Number Submission</strong> - Submit to Suleman via Teams; ILG removes from Autopilot</li>
+                    <li><strong>Windows OOBE Setup</strong> - Device reset, Autopilot enrollment, app installation (30-60 min)</li>
+                    <li><strong>User Validation</strong> - 3-Point Test: Internet, RFMS RDP, Printing</li>
+                    <li><strong>Browser Restoration</strong> - Import bookmarks for Chrome, Edge, Firefox</li>
+                    <li><strong>iOS Enrollment</strong> - ABM enrollment via Apple Configurator (if applicable)</li>
+                </ol>
+                <p style="font-size: 0.9em; color: #555;">See <a href="#workflow">Migration Workflow</a> for detailed step-by-step procedures.</p>
             </div>
 
             <h3 style="margin-top: 30px;">Key Dates & Milestones</h3>
             <ul style="margin-left: 20px; font-size: 0.95em;">
-                <li><strong>December 1, 2025 (3:00 PM):</strong> 🚀 Pre-migration begins - Tucson, Fresno, La Mirada (select machines)</li>
-                <li><strong>December 2, 2025 (3:00 PM):</strong> Pre-migration continues - Auburn, Sacramento, Union City, Chula Vista (select machines)</li>
-                <li><strong>December 3, 2025 (3:00 PM):</strong> Pre-migration continues - Milwaukie (select machines)</li>
-                <li><strong>December 15, 2025:</strong> 🚀 Main deployment - All 22 sites complete full migration simultaneously</li>
-                <li><strong>December 15, 2025:</strong> ✅ All 142 users migrated (16 days before Dec 31 deadline)</li>
-                <li><strong>December 16-31, 2025:</strong> Buffer/validation days (if needed)</li>
+                <li><strong>Monday, January 5, 2026:</strong> Begin user communication (Impact & ILG joint); identify key users</li>
+                <li><strong>Monday, January 12, 2026:</strong> Send migration reminder email; ILG removes devices from Autopilot</li>
+                <li><strong>Wednesday, January 15, 2026:</strong> Start data sync (BitTitan); Verizon/ABM device migration</li>
+                <li><strong>Friday, January 16, 2026:</strong> Key user pre-migration begins; <strong>7:00 PM Pacific - RFMS/Floorsight shutdown</strong></li>
+                <li><strong>Saturday, January 17, 2026:</strong> AMSYS on-site at 6 key locations; RFMS/Floorsight restore and validation</li>
+                <li><strong>Sunday, January 18, 2026:</strong> System validation and final go/no-go checks</li>
+                <li><strong style="color: #28a745;">Monday, January 19, 2026:</strong> <strong>GO-LIVE</strong> - Remote hands at all 22 sites; device migrations</li>
+                <li><strong>Tuesday, January 20, 2026+:</strong> Remote mobile device support</li>
             </ul>
         </section>
 
         <!-- NETWORK MIGRATION DEPENDENCIES SECTION -->
         <section id="network-dependencies">
-            <h2>🌐 Network Migration Dependencies</h2>
+            <h2>Network Migration Dependencies</h2>
 
-            <div class="error-box">
-                <strong>⚠️ CRITICAL PREREQUISITE:</strong> Network infrastructure migration must be completed BEFORE M365 on-site deployment begins. All affected sites require network validation before technician visit.
+            <div class="success-box">
+                <strong>NETWORK MIGRATIONS COMPLETE:</strong> All network infrastructure migrations were completed in November 2025, providing 50+ days of stabilization before the January 19, 2026 M365 deployment.
             </div>
 
-            <h3>Network Migration Schedule - All 22 Sites</h3>
-            <p>Network infrastructure migration schedule spans November 18 - November 26, 2025. Complete site-by-site breakdown:</p>
+            <h3>Network Migration Status - All 22 Sites</h3>
+            <p>Network infrastructure migrations were completed November 18-26, 2025. All sites have been validated and stable.</p>
 
             <table class="schedule-table">
                 <thead>
                     <tr>
                         <th>Site</th>
                         <th>State</th>
-                        <th>Network Migration Date</th>
-                        <th>M365 Deployment Date</th>
+                        <th>Network Migration</th>
+                        <th>M365 Go-Live</th>
                         <th>Buffer Days</th>
                         <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Already Migrated -->
                     <tr style="background-color: #d4edda;">
-                        <td colspan="6"><strong>✅ COMPLETED: Already Migrated</strong></td>
+                        <td colspan="6"><strong>ALL NETWORK MIGRATIONS COMPLETE - Ready for January 19, 2026</strong></td>
                     </tr>
-                    <tr>
-                        <td><strong>Carrollton</strong></td>
-                        <td>TX</td>
-                        <td>November 18, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>27 days</td>
-                        <td>✅ Complete</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tampa</strong></td>
-                        <td>FL</td>
-                        <td>November 20, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>25 days</td>
-                        <td>✅ Complete</td>
-                    </tr>
-
-                    <!-- November 24 Migration -->
+                    <tr><td>Carrollton</td><td>TX</td><td>Nov 18, 2025</td><td>Jan 19, 2026</td><td>62 days</td><td>Complete</td></tr>
+                    <tr><td>Tampa</td><td>FL</td><td>Nov 20, 2025</td><td>Jan 19, 2026</td><td>60 days</td><td>Complete</td></tr>
+                    <tr><td>Albuquerque</td><td>NM</td><td>Nov 24, 2025</td><td>Jan 19, 2026</td><td>56 days</td><td>Complete</td></tr>
+                    <tr><td>El Paso</td><td>TX</td><td>Nov 24, 2025</td><td>Jan 19, 2026</td><td>56 days</td><td>Complete</td></tr>
+                    <tr><td>Austin</td><td>TX</td><td>Nov 24, 2025</td><td>Jan 19, 2026</td><td>56 days</td><td>Complete</td></tr>
+                    <tr><td>Orlando</td><td>FL</td><td>Nov 25, 2025</td><td>Jan 19, 2026</td><td>55 days</td><td>Complete</td></tr>
+                    <tr><td>Jacksonville</td><td>FL</td><td>Nov 25, 2025</td><td>Jan 19, 2026</td><td>55 days</td><td>Complete</td></tr>
+                    <tr><td>Pawtucket</td><td>RI</td><td>Nov 25, 2025</td><td>Jan 19, 2026</td><td>55 days</td><td>Complete</td></tr>
+                    <tr><td>Denver</td><td>CO</td><td>Nov 26, 2025</td><td>Jan 19, 2026</td><td>54 days</td><td>Complete</td></tr>
+                    <tr><td>Las Vegas</td><td>NV</td><td>Nov 26, 2025</td><td>Jan 19, 2026</td><td>54 days</td><td>Complete</td></tr>
+                    <tr><td>Sparks</td><td>NV</td><td>Nov 26, 2025</td><td>Jan 19, 2026</td><td>54 days</td><td>Complete</td></tr>
+                    <tr><td>Salt Lake City</td><td>UT</td><td>Nov 26, 2025</td><td>Jan 19, 2026</td><td>54 days</td><td>Complete</td></tr>
                     <tr style="background-color: #e3f2fd;">
-                        <td colspan="6"><strong>🔄 SCHEDULED: November 24, 2025</strong></td>
+                        <td colspan="6"><strong>Sites Not on Original Network Schedule (Verify Status)</strong></td>
                     </tr>
-                    <tr>
-                        <td><strong>Albuquerque</strong></td>
-                        <td>NM</td>
-                        <td>November 24, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>21 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>El Paso</strong></td>
-                        <td>TX</td>
-                        <td>November 24, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>21 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Austin</strong></td>
-                        <td>TX</td>
-                        <td>November 24, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>21 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-
-                    <!-- November 25 Migration -->
-                    <tr style="background-color: #e3f2fd;">
-                        <td colspan="6"><strong>🔄 SCHEDULED: November 25, 2025</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Orlando</strong></td>
-                        <td>FL</td>
-                        <td>November 25, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>20 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Jacksonville</strong></td>
-                        <td>FL</td>
-                        <td>November 25, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>20 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Pawtucket</strong></td>
-                        <td>RI</td>
-                        <td>November 25, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>20 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-
-                    <!-- November 26 Migration -->
-                    <tr style="background-color: #e3f2fd;">
-                        <td colspan="6"><strong>🔄 SCHEDULED: November 26, 2025</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Denver</strong></td>
-                        <td>CO</td>
-                        <td>November 26, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>19 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Las Vegas</strong></td>
-                        <td>NV</td>
-                        <td>November 26, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>19 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sparks</strong></td>
-                        <td>NV</td>
-                        <td>November 26, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>19 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Salt Lake City</strong></td>
-                        <td>UT</td>
-                        <td>November 26, 2025</td>
-                        <td>December 15, 2025</td>
-                        <td>19 days</td>
-                        <td>✅ Ready</td>
-                    </tr>
-
-                    <!-- Not on Network Migration Schedule -->
-                    <tr style="background-color: #fff3cd;">
-                        <td colspan="6"><strong>⚠️ VERIFY INDEPENDENTLY: Not on Network Migration Schedule (12 sites)</strong></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Tucson</strong></td>
-                        <td>AZ</td>
-                        <td>Unknown</td>
-                        <td>December 15, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Phoenix</strong></td>
-                        <td>AZ</td>
-                        <td>Unknown</td>
-                        <td>December 15, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sacramento</strong></td>
-                        <td>CA</td>
-                        <td>Unknown</td>
-                        <td>December 15, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Union City</strong></td>
-                        <td>CA</td>
-                        <td>Unknown</td>
-                        <td>December 18, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Chula Vista</strong></td>
-                        <td>CA</td>
-                        <td>Unknown</td>
-                        <td>December 19, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Fresno</strong></td>
-                        <td>CA</td>
-                        <td>Unknown</td>
-                        <td>December 15, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>La Mirada</strong></td>
-                        <td>CA</td>
-                        <td>Unknown</td>
-                        <td>December 20, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Auburn</strong></td>
-                        <td>WA</td>
-                        <td>Unknown</td>
-                        <td>December 23, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Milwaukie</strong></td>
-                        <td>OR</td>
-                        <td>Unknown</td>
-                        <td>December 26, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Houston</strong></td>
-                        <td>TX</td>
-                        <td>Unknown</td>
-                        <td>December 15, 2025</td>
-                        <td>N/A</td>
-                        <td>⚠️ Verify</td>
-                    </tr>
+                    <tr><td>Tucson</td><td>AZ</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Phoenix</td><td>AZ</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Sacramento</td><td>CA</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Union City</td><td>CA</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Chula Vista</td><td>CA</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Fresno</td><td>CA</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>La Mirada</td><td>CA</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Auburn</td><td>WA</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Milwaukie</td><td>OR</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
+                    <tr><td>Houston</td><td>TX</td><td>Verify</td><td>Jan 19, 2026</td><td>-</td><td>Verify</td></tr>
                 </tbody>
             </table>
 
-            <h3>Pending Network Migrations</h3>
-            <div class="grid">
-                <div class="card">
-                    <p>User Cutover follows a <strong>phased approach</strong> with pre-migration Dec 1-3 and main deployment dates. The following sites are pending network migration verification:</p>
-                    <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.9em;">
-                        <li><strong>December 1 - 3:00 PM:</strong>
-                            <ul style="margin: 5px 0; padding-left: 20px;">
-                                <li><strong>Tucson, AZ</strong> - Pre-migration: 12-01-25 (3:00 PM) | M365 Deploy: 12-15-25</li>
-                                <li><strong>Fresno, CA</strong> - Pre-migration: 12-01-25 (3:00 PM) | M365 Deploy: 12-15-25</li>
-                                <li><strong>La Mirada, CA</strong> - Pre-migration: 12-01-25 (3:00 PM) | M365 Deploy: 12-20-25</li>
-                            </ul>
-                        </li>
-                        <li><strong>December 2 - 3:00 PM:</strong>
-                            <ul style="margin: 5px 0; padding-left: 20px;">
-                                <li><strong>Auburn, WA</strong> - Pre-migration: 12-02-25 (3:00 PM) | M365 Deploy: 12-23-25</li>
-                                <li><strong>Sacramento, CA</strong> - Pre-migration: 12-02-25 (3:00 PM) | M365 Deploy: 12-15-25</li>
-                                <li><strong>Union City, CA</strong> - Pre-migration: 12-02-25 (3:00 PM) | M365 Deploy: 12-18-25</li>
-                                <li><strong>Chula Vista, CA</strong> - Pre-migration: 12-02-25 (3:00 PM) | M365 Deploy: 12-19-25</li>
-                            </ul>
-                        </li>
-                        <li><strong>December 3 - 3:00 PM:</strong>
-                            <ul style="margin: 5px 0; padding-left: 20px;">
-                                <li><strong>Milwaukie, OR</strong> - Pre-migration: 12-03-25 (3:00 PM) | M365 Deploy: 12-26-25</li>
-                            </ul>
-                        </li>
-                        <li><strong>Other Sites (No Pre-Migration):</strong>
-                            <ul style="margin: 5px 0; padding-left: 20px;">
-                                <li><strong>Phoenix, AZ</strong> - M365 Deploy: 12-15-25</li>
-                                <li><strong>Houston, TX</strong> - M365 Deploy: 12-15-25</li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Critical Path: Network → Deployment</h3>
+            <h3>Network Readiness Verification</h3>
             <div class="info-box">
-                <strong>Dependency Flow:</strong><br>
-                Network Migration (11-18, 11-20, 11-24, 11-25, 11-26)<br>
-                ↓<br>
-                Network Stabilization & Validation (11-27 through 12-14)<br>
-                ↓<br>
-                M365 On-Site Deployment Ready (12-15-2025)<br>
-                <br>
-                <strong>All affected sites have 19-27 day buffer windows for network stabilization before M365 deployment on December 15, 2025.</strong>
+                <p>The extended timeline to January 19, 2026 provides 50+ days of network stabilization for all sites that completed migrations in November 2025.</p>
+                <p style="margin-top: 10px;"><strong>Action Required:</strong> Verify network status for the 10 sites not on the original schedule (marked "Verify" above) before January 5, 2026.</p>
             </div>
 
             <h3>Action Items by Role</h3>
             <div class="workflow-step">
                 <span class="step-number">1</span>
-                <h4>Network Lead (By November 27)</h4>
+                <h4>Network Lead (By January 5, 2026)</h4>
                 <ul style="margin-left: 20px;">
-                    <li>Confirm network migration completion status for all 10 affected sites</li>
-                    <li>Provide status report to deployment team</li>
-                    <li>Escalate any delays or issues immediately</li>
+                    <li>Verify network migration status for 10 unconfirmed sites (AZ, CA, WA, OR, Houston)</li>
+                    <li>Confirm VPN/IPsec tunnel connectivity at all locations</li>
+                    <li>Provide final status report to deployment team</li>
                 </ul>
             </div>
 
             <div class="workflow-step">
                 <span class="step-number">2</span>
-                <h4>M365 Admin (By November 30)</h4>
+                <h4>M365 Admin (By January 12, 2026)</h4>
                 <ul style="margin-left: 20px;">
                     <li>Verify Azure AD Connect health status for all sites</li>
                     <li>Test M365 tenant connectivity from each site location</li>
-                    <li>Confirm DNS resolution working properly</li>
-                    <li>Document any network-specific configuration needs</li>
+                    <li>Confirm DNS resolution working properly for RFMS/Floorsight</li>
+                    <li>Coordinate with ILG on Autopilot device removal process</li>
                 </ul>
             </div>
 
-
-
             <div class="success-box">
-                <strong>✅ Status:</strong> Network migration schedule is compatible with M365 deployment timeline. All 10 network-migrated sites have sufficient buffer time (19-27 days) for validation and stabilization before single-day deployment on December 15, 2025.
+                <strong>Status:</strong> Network migration timeline provides 50-62 day buffer windows for validation and stabilization before M365 deployment on January 19, 2026. Extended timeline significantly reduces deployment risk.
             </div>
         </section>
 
 
         <!-- PREREQUISITES SECTION -->
         <section id="prerequisites">
-            <h2>✅ Prerequisites</h2>
+            <h2>Prerequisites</h2>
 
             <h3>Before Every Onsite Visit</h3>
             <div class="checklist">
@@ -916,18 +1658,51 @@
             </div>
 
             <div class="contact-card">
-                <h4>🚀 Get Started</h4>
+                <h4>Get Started</h4>
                 <p><strong>Suleman Manji - Device Reset Coordinator</strong></p>
                 <p>Email: <code>smanji@viyu.net</code></p>
                 <p>MS Teams: Available for serial number submissions</p>
             </div>
 
-            <h3>User Communication (24 Hours Before Visit)</h3>
+            <h3>User Communication - January 12, 2026</h3>
             <div class="info-box">
-                <p><strong>Send this message to site contact:</strong></p>
-                <p style="font-style: italic; margin-top: 10px;">
-                    "A technician will visit on [DATE] at [TIME] to migrate your devices to Impact Property Solutions. Please backup any important files and have both your Windows and iOS devices ready. The process typically takes 2-3 hours per user. Your device will be back and fully functional by end of visit."
-                </p>
+                <p><strong>Migration Reminder Email (sent by Brian/Alisha):</strong></p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>Users should leave their computers at workstations with sticky notes to identify devices</li>
+                    <li>All users need to report to the office on <strong>Monday, January 19, 2026</strong> to get their device migrated</li>
+                    <li><strong>Remote users:</strong> Contact <code>support@impactpropertysolutions.com</code> to schedule a migration time</li>
+                    <li>Users will not have access to email over the weekend (Jan 17-18)</li>
+                </ul>
+            </div>
+
+            <h3>Remote User Scheduling (Microsoft Bookings)</h3>
+            <div class="warning-box">
+                <p><strong>For remote/sales users who cannot come to the office:</strong></p>
+                <ol style="margin: 10px 0; padding-left: 20px;">
+                    <li>Book a migration slot via Microsoft Bookings (link TBD)</li>
+                    <li>Provide device serial number when booking (required for Autopilot removal)</li>
+                    <li>During scheduled time: ILG pushes wipe → Wait 5 min → Reboot → Login with Impact credentials</li>
+                    <li>Migration takes 10-15 minutes per device</li>
+                </ol>
+                <p style="margin-top: 10px;"><strong>Note:</strong> We cannot help 30 people at once - booking controls the support queue.</p>
+            </div>
+
+            <h3 style="margin-top: 20px;">Remote Support Migration Procedure</h3>
+            <div class="info-box">
+                <strong>Service Engineer Guide for Remote Users</strong>
+                <p style="margin-top: 10px;">For remote users who cannot come to the office on January 19, 2026, Viyu service engineers follow a comprehensive 8-phase remote support workflow:</p>
+                <ol style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
+                    <li><strong>Phase 1: Pre-Migration Backup</strong> - Browser bookmarks, printer config, OneDrive sync verification, iOS backup</li>
+                    <li><strong>Phase 2: Device Documentation</strong> - Serial numbers collected and sent to Suleman for Autopilot coordination</li>
+                    <li><strong>Phase 3: Windows OOBE</strong> - Guide user through Out-of-Box Experience with Autopilot enrollment</li>
+                    <li><strong>Phase 4: Post-ESP Verification</strong> - Verify all applications installed correctly</li>
+                    <li><strong>Phase 5: User Validation (3-Point Test)</strong> - Internet, RFMS RDP, Printer functionality</li>
+                    <li><strong>Phase 6: Browser Restoration</strong> - Import bookmarks for Chrome, Edge, Firefox</li>
+                    <li><strong>Phase 7: iOS Enrollment</strong> - ABM enrollment via Apple Configurator (if applicable)</li>
+                    <li><strong>Phase 8: Final Verification</strong> - Sign-off and documentation</li>
+                </ol>
+                <p style="margin-top: 10px;"><strong>Time Estimate:</strong> 60-90 minutes active time per remote user</p>
+                <p style="margin-top: 5px;"><strong>Reference Document:</strong> <code>Impact_Remote_Support_Migration_Worksheet.html</code> - Full procedure for service engineers</p>
             </div>
         </section>
 
@@ -965,10 +1740,10 @@
 
             <!-- WINDOWS MIGRATION SUBSECTION -->
             <section id="windows-migration" style="margin-top: 40px; padding: 0; background: transparent; box-shadow: none;">
-                <h2>🖥️ Windows Device Migration</h2>
+                <h2>Windows Device Migration</h2>
 
                 <div class="contact-card" style="margin-bottom: 20px;">
-                    <h4>📞 Important Contacts</h4>
+                    <h4>Quick Reference Contacts</h4>
                     <p><strong>Device Reset Issues:</strong> Suleman Manji | 281-904-1969 | Teams</p>
                     <p><strong>iOS Enrollment Help:</strong> Suleman Manji | Teams (has DEM credentials)</p>
                     <p><strong>Network Issues:</strong> Site Contact (check dispatch ticket)</p>
@@ -1017,7 +1792,7 @@
                         </ul>
                     </div>
                     <div class="warning-box">
-                        <strong>⚠️ Important:</strong> Do not proceed to OOBE until you have received confirmation that the device reset is complete.
+                        <strong>Important:</strong> Do not proceed to OOBE until you have received confirmation that the device reset is complete.
                     </div>
                 </div>
 
@@ -1034,7 +1809,7 @@
                     </ul>
                 </div>
                 <div class="info-box" style="margin-top: 15px;">
-                    <strong>⏱️ Timing Expectations:</strong> Autopilot enrollment typically takes 30-45 minutes for up-to-date devices, but can take 2-3 hours for brand new devices that need Windows updates, driver updates, and application installations. Users can skip ESP and continue working, but must return to complete the setup process.
+                    <strong>Timing Expectations:</strong> Autopilot enrollment typically takes 30-45 minutes for up-to-date devices, but can take 2-3 hours for brand new devices that need Windows updates, driver updates, and application installations. Users can skip ESP and continue working, but must return to complete the setup process.
                 </div>
                     <h4 style="margin-top: 15px;">After ESP Completes, Verify These Are Installed:</h4>
                     <div class="checklist">
@@ -1109,7 +1884,7 @@
 
             <!-- iOS MIGRATION SUBSECTION -->
             <section id="ios-migration" style="margin-top: 40px; padding: 0; background: transparent; box-shadow: none;">
-                <h2>📱 iOS Device Migration</h2>
+                <h2>iOS Device Migration</h2>
 
                 <div class="workflow-step">
                     <span class="step-number">6</span>
@@ -1149,7 +1924,7 @@
 
             <!-- VALIDATION SUBSECTION -->
             <section id="validation" style="margin-top: 40px; padding: 0; background: transparent; box-shadow: none;">
-                <h2>✔️ Post-Migration Validation Checklist</h2>
+                <h2>Post-Migration Validation</h2>
                 
                 <div class="info-box">
                     <strong>Primary Validation:</strong> Phase 4 User Validation (3-Point Test) must be completed with user present before proceeding to browser restoration or iOS enrollment.
@@ -1233,206 +2008,93 @@
                     </tbody>
                 </table>
             </section>
-        </section>
 
-        <!-- EXPECTED DEVICES SECTION -->
-        <section id="expected-devices">
-            <h2>🔍 Expected Device Models</h2>
-
-            <h3>Windows Devices</h3>
-            <p>The organization has approximately 170 Windows devices across the fleet:</p>
-            <div class="grid">
-                <div class="card">
-                    <h4>HP Devices (71)</h4>
-                    <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
-                        <li>EliteBook 850 G8</li>
-                        <li>EliteBook 860 G9/G10/G11</li>
-                        <li>Various desktop models</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>Lenovo Devices (99)</h4>
-                    <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
-                        <li>ThinkPad series variants</li>
-                        <li>X1, E, L series models</li>
-                        <li>Various desktop configurations</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Apple/iOS Devices</h3>
-            <p>The organization has 500+ iOS devices across the fleet:</p>
-            <div class="grid">
-                <div class="card">
-                    <h4>iPhones</h4>
-                    <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
-                        <li>iPhone 12, 13, 15, 16e</li>
-                        <li>Various color/storage configurations</li>
-                    </ul>
-                </div>
-                <div class="card">
-                    <h4>iPads</h4>
-                    <ul style="margin: 10px 0; padding-left: 20px; font-size: 0.95em;">
-                        <li>iPad 7th, 8th, 9th, 10th generation</li>
-                        <li>iPad Air and iPad Pro variants</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="info-box">
-                <strong>💡 Tip:</strong> Device models are provided for context. Refer to the user tracking spreadsheet for device-specific serial numbers and enrollment status during site visits.
-            </div>
-        </section>
-
-
-        <!-- TROUBLESHOOTING SECTION -->
-        <section id="troubleshooting">
-            <h2>🔧 Troubleshooting Guide</h2>
-
-            <h3>Autopilot Enrollment Issues</h3>
-            <div class="workflow-step">
-                <h4>Autopilot Enrollment Stalls or Shows Error</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Restart the device and retry enrollment</li>
-                        <li>Verify network connection (Ethernet preferred)</li>
-                        <li>Check ESP screen for error messages</li>
-                        <li>If stuck >15 min: Skip OOBE and continue (contact Suleman for status)</li>
-                        <li><strong>DO NOT:</strong> Force shutdown the device</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>OneDrive & Data Sync Issues</h3>
-            <div class="workflow-step">
-                <h4>OneDrive Sync Not Starting</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Verify user signed in with <code>@impactpropertysolutions.com</code> email</li>
-                        <li>Wait additional 2-3 minutes for initial sync to begin</li>
-                        <li>Manually open OneDrive and re-authenticate if needed</li>
-                        <li>Restart device if sync still not starting</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Network & Printing Issues</h3>
-            <div class="workflow-step">
-                <h4>Printer Mapping Failed</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Verify printer IP address matches site printer IP in schedule</li>
-                        <li>Check network connectivity to printer (ping test)</li>
-                        <li>Test printer directly from site location</li>
-                        <li>Document failure and note in Issues/Notes column</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="workflow-step">
-                <h4>Internet Access Not Working</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Verify network connection is active (WiFi or Ethernet)</li>
-                        <li>Restart network adapter</li>
-                        <li>Check if proxy is required and configured</li>
-                        <li>Verify DNS resolution (nslookup google.com)</li>
-                        <li>If still failing: Escalate to network team</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="workflow-step">
-                <h4>RFMS RDP Connection Failing</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Verify RDP client is installed</li>
-                        <li>Confirm RFMS server IP/hostname is correct</li>
-                        <li>Check firewall rules allow RDP (port 3389)</li>
-                        <li>Verify user has permissions to connect</li>
-                        <li>If still failing: Contact RFMS support team</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Authentication Issues</h3>
-            <div class="workflow-step">
-                <h4>Teams or Outlook Not Authenticating</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Clear app cache and restart application</li>
-                        <li>Verify user credentials are correct (@impactpropertysolutions.com)</li>
-                        <li>Check if MFA is required (ask user for phone)</li>
-                        <li>Try signing out and signing back in</li>
-                        <li>Document and escalate if persistent</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>iOS Enrollment Issues</h3>
-            <div class="workflow-step">
-                <h4>iOS Device Not Appearing in Intune</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>Wait 10-15 minutes (normal cloud sync delay)</li>
-                        <li>Verify device signed in with Impact Apple ID</li>
-                        <li>Check Intune portal for device status</li>
-                        <li>If still missing after 15 min: Contact Suleman immediately</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3>Device-Specific Troubleshooting</h3>
-            <div class="workflow-step">
-                <h4>HP EliteBook/Desktop Issues</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>BIOS boot order: May need to enable USB boot for Autopilot</li>
-                        <li>Network adapters: Ensure Intel/Realtek network drivers are available</li>
-                        <li>TPM: Verify TPM 2.0 is enabled in BIOS (required for Autopilot)</li>
-                        <li>Touchpad: May require driver from Intune after initial enrollment</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="workflow-step">
-                <h4>Lenovo ThinkPad/Desktop Issues</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>BIOS settings: Check for Secure Boot and UEFI requirements</li>
-                        <li>Vantage App: May auto-install; ensure Intune policies don't conflict</li>
-                        <li>ThinkPad TrackPoint: Drivers may require post-enrollment installation</li>
-                        <li>Docking stations: Test USB and video output post-enrollment</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="workflow-step">
-                <h4>iPad/iPhone Issues</h4>
-                <div class="checklist">
-                    <ul>
-                        <li>WiFi vs. Cellular: If WiFi enrollment fails, try cellular data</li>
-                        <li>Face ID/Touch ID: May need to configure after ABM enrollment</li>
-                        <li>Backup Restoration: May prompt user to restore from backup during setup</li>
-                        <li>App Installation: Wait 10+ minutes for initial app deployment after enrollment</li>
-                    </ul>
-                </div>
+            <div class="info-box" style="margin-top: 30px;">
+                <strong>For Field Technicians:</strong> Detailed troubleshooting procedures, device-specific guidance, and documentation requirements are included in each site's individual <a href="AMSYS Site References/">Site Technician Guide</a>. Click any site card above to access the full guide.
             </div>
         </section>
 
         <!-- CONTACTS SECTION -->
         <section id="contacts">
-            <h2>📞 Important Contacts</h2>
+            <h2>Key Contacts &amp; Escalation</h2>
 
-            <div class="contact-card">
-                <h4>Primary Escalation Contact</h4>
-                <p><strong>Suleman Manji</strong></p>
-                <p>Device Reset Coordinator & Support</p>
-                <p>Email: <code>smanji@viyu.net</code></p>
-                <p>MS Teams: Direct message for serial submissions and device reset status</p>
-            </div>
+            <h3>Project Stakeholders</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Organization</th>
+                        <th>Contact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Brian Vaughan</strong></td>
+                        <td>IT Lead / Migration Coordinator</td>
+                        <td>Impact Property Solutions</td>
+                        <td><code>bvaughan@impactpropertysolutions.com</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Alysha Ruse</strong></td>
+                        <td>Integration Coordinator</td>
+                        <td>ILG</td>
+                        <td><code>Alysha.Ruse@ilginc.com</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Landon Hill</strong></td>
+                        <td>Network & Infrastructure</td>
+                        <td>Viyu</td>
+                        <td><code>lhill@viyu.net</code></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Suleman Manji</strong></td>
+                        <td>M365 / Device Engineering</td>
+                        <td>Viyu</td>
+                        <td><code>smanji@viyu.net</code> | 281-904-1969</td>
+                    </tr>
+                </tbody>
+            </table>
 
-            <h3>Support Escalation</h3>
+            <h3 style="margin-top: 30px;">Support Teams</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Team</th>
+                        <th>Members</th>
+                        <th>Responsibility</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Impact Help Desk</strong></td>
+                        <td>Riasat, Trevor, Brian Vaughan</td>
+                        <td>User support, Help desk tickets, Go-live day support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ILG IT</strong></td>
+                        <td>Brent, Jish, Willie</td>
+                        <td>Autopilot removal, Device wipes, ILG tenant operations</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Viyu MSD</strong></td>
+                        <td>Doug, Jason, Suleman</td>
+                        <td>Escalation support for AMSYS technicians</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AMSYS Field Services</strong></td>
+                        <td>Colin, Alice + remote hands</td>
+                        <td>Saturday on-site at 6 large sites; Monday go-live support</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Verizon/iOS</strong></td>
+                        <td>Bradley (ILG), Lana (Impact), Trevor</td>
+                        <td>iOS device ABM transfer coordination</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3 style="margin-top: 30px;">Escalation Matrix</h3>
             <table>
                 <thead>
                     <tr>
@@ -1444,77 +2106,63 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td>Device Reset Delays</td>
+                        <td>Device Reset / Wipe Coordination</td>
                         <td>Suleman Manji</td>
-                        <td>→ Willie Day<br/>→ Raymond Rodriguez</td>
-                        <td><code>smanji@viyu.net</code><br/><code>rrodriguez@ilginc.com</code><br/><code>wdallas@ilginc.com</code></td>
+                        <td>ILG (Willie) for wipes</td>
+                        <td><code>smanji@viyu.net</code> (MS Teams)</td>
                     </tr>
                     <tr>
-                        <td>Network/Internet Issues</td>
+                        <td>Autopilot Removal (ILG)</td>
+                        <td>ILG IT Team</td>
+                        <td>Willie, Brett</td>
+                        <td>Coordinate via Suleman Manji</td>
+                    </tr>
+                    <tr>
+                        <td>RDP/RFMS/Floorsight Issues</td>
+                        <td>Brian Vaughan</td>
+                        <td>Primary escalation point</td>
+                        <td><code>bvaughan@impactpropertysolutions.com</code></td>
+                    </tr>
+                    <tr>
+                        <td>Network/VPN/IPsec Issues</td>
                         <td>Landon Hill</td>
-                        <td>→ Nick Christian<br/>→ Imran Saleem<br/>→ Goutham Reddy</td>
-                        <td><code>lhill@viyu.net</code><br/><code>nchristian@viyu.net</code><br/><code>imran.saleem@ilginc.com</code><br/><code>goutham.reddy@ilginc.com</code></td>
+                        <td> Nick Christian<br/> Imran Saleem</td>
+                        <td><code>lhill@viyu.net</code><br/><code>nchristian@viyu.net</code></td>
                     </tr>
                     <tr>
-                        <td>RDP/RFMS Issues</td>
+                        <td>Verizon/iOS ABM Transfer</td>
+                        <td>Trevor</td>
+                        <td> Bradley (ILG Verizon)<br/> Lana (Impact)</td>
+                        <td>Coordinate via Brian Vaughan</td>
+                    </tr>
+                    <tr>
+                        <td>Printer/IPsec Tunnels</td>
                         <td>Brian Vaughan</td>
                         <td>Primary escalation point</td>
-                        <td><code>bvaughan@impactpropertysolutions.com</code><br/>MS Teams direct message</td>
+                        <td><code>bvaughan@impactpropertysolutions.com</code></td>
                     </tr>
                     <tr>
-                        <td>Printer Issues</td>
-                        <td>Brian Vaughan</td>
-                        <td>→ Suleman Manji<br/>→ Brett McGolrick<br/>→ Sean Skeels</td>
-                        <td><code>bvaughan@impactpropertysolutions.com</code><br/><code>smanji@viyu.net</code><br/><code>rrodriguez@ilginc.com</code><br/><code>wdallas@ilginc.com</code></td>
-                    </tr>
-                    <tr>
-                        <td>Intune/iOS/ABM Issues</td>
+                        <td>Intune/Autopilot/ABM Issues</td>
                         <td>Suleman Manji</td>
                         <td>Primary escalation point</td>
-                        <td><code>smanji@viyu.net</code><br/><code>wdallas@ilginc.com</code></td>
+                        <td><code>smanji@viyu.net</code></td>
                     </tr>
                     <tr>
-                        <td>User Data / Identity Issues</td>
+                        <td>BitTitan/Email Migration</td>
                         <td>Suleman Manji</td>
-                        <td>→ Raymond Rodriguez</td>
-                        <td><code>smanji@viyu.net</code> (MS Teams)<br/><code>rrodriguez@ilginc.com</code></td>
+                        <td>Primary escalation point</td>
+                        <td><code>smanji@viyu.net</code><br/></td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- DOCUMENTATION SECTION -->
-        <section id="documentation">
-            <h2>📝 Documentation & Reporting</h2>
-
-            <h3>During Visit</h3>
-            <div class="checklist">
-                <ul>
-                    <li>Report any issues to Teams Chat</li>
-                    <li>Capture before/after screenshots for unusual configurations</li>
-                    <li>Record actual time spent per user</li>
-                </ul>
-            </div>
-
-            <h3>After Visit</h3>
-            <div class="checklist">
-                <ul>
-                    <li>Submit completed device list to Suleman via MS Teams</li>
-                    <li>Include: All serial numbers captured, any issues encountered</li>
-                    <li>Provide estimated time per user for future planning</li>
-                    <li>Note user feedback or concerns for support team</li>
-                    <li>Return all backup media and cables to site contact</li>
-                </ul>
-            </div>
-        </section>
-
-        
     </div>
 
     <footer>
         <p>Impact Property Solutions - Onsite Migration Coordination Guide</p>
-        <p>Version 1.0 | Last Updated: 2025</p>
-        <p>For support, contact Suleman Manji at smanji@viyu.net</p>
+        <p>Version 3.0 | Go-Live: January 19, 2026 | Last Updated: December 15, 2025</p>
+        <p>For support, contact Suleman Manji at smanji@viyu.net or Brian Vaughan at bvaughan@impactpropertysolutions.com</p>
     </footer>
 
     <script>
