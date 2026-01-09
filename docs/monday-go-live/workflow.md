@@ -7,23 +7,22 @@ nav_order: 5
 
 # Migration Workflow
 
-Complete 6-phase migration process for Windows devices and iOS backup verification.
+Complete 5-phase migration process for Windows devices with iOS backup verification.
 
 ---
 
 ## Workflow Overview
 
-| Phase | Name                    | Time Est. | Description                                                                      |
-| ----- | ----------------------- | --------- | -------------------------------------------------------------------------------- |
-| 1     | Backup                  | 15-20 min | Printer mappings, OneDrive verification, browser bookmarks/passwords, iOS backup |
-| 2     | Document & Submit       | 5-10 min  | Record serial numbers, submit to Suleman via Teams, wait for reset confirmation  |
-|       | _(Wait for Reset)_      | 15-30 min | Use this time to help next user with backup phase                                |
-| 3     | OOBE                    | 30-60 min | Boot device, Autopilot enrollment, verify applications installed                 |
-| 4     | User Validation         | 10-15 min | 3-point test with user present: Internet, RDP, Printing                          |
-| 5     | Browser Restoration     | 10-15 min | Import bookmarks and passwords for Chrome, Edge, Firefox                         |
-| 6     | iOS Backup Verification | 5-10 min  | Verify recent backup exists using Apple Devices app                              |
+| Phase | Name                | Time Est. | Description                                           |
+| ----- | ------------------- | --------- | ----------------------------------------------------- |
+| 1     | Backup              | 20-30 min | OneDrive setup, browser profile, printers, iOS backup |
+| 2     | Document & Submit   | 5-10 min  | Serial numbers, submit reset request to Suleman       |
+|       | _(Wait for Reset)_  | 15-30 min | Help next user during wait period                     |
+| 3     | OOBE                | 30-90 min | Windows setup, Autopilot ESP, app installation        |
+| 4     | User Validation     | 10-15 min | 3-point test: Internet, RDP, Printing                 |
+| 5     | Browser Restoration | 10-15 min | Import bookmarks, passwords, cleanup                  |
 
-**Total Active Time:** 60-90 minutes per user (parallel processing reduces wall-clock time significantly)
+**Total Active Time:** 75-120 minutes per user (parallel processing reduces wall-clock time significantly)
 
 ---
 
@@ -58,25 +57,65 @@ Complete 6-phase migration process for Windows devices and iOS backup verificati
 
 ## Phase 1: Backup (Before Reset)
 
-{: .important }
+{: .note }
 
-> **Estimated Time: 15-20 minutes** | Complete all backups BEFORE requesting device reset. This is a one-way process.
+> **Estimated Time:** 20-30 minutes | Set up OneDrive, backup browser profile, printers, and iOS device before reset.
 
 ---
 
-### Opening Script (Remote Support)
+### Opening Script
 
-> "Before we reset your device, we need to backup your browser profile and verify your files are synced to the cloud. This ensures you won't lose any saved websites, passwords, or browsing history. Let's start with your browser..."
+> "Before we reset your device, we need to make sure all your files and settings are backed up. First, let's verify OneDrive is set up correctly - this is where all your backups will be stored. Then we'll backup your browser bookmarks and passwords, your printer settings, and verify your iPhone backup if you have one."
+
+---
+
+### OneDrive Setup & Verification
+
+{: .important }
+
+> **DO NOT SKIP:** OneDrive must be configured and fully synced before proceeding. Users may have circumvented Known Folder Policies.
+
+**Step 1: Verify OneDrive Installation**
+
+- Look for OneDrive icon in system tray (cloud icon, bottom right)
+- If missing: Install from [onedrive.com](https://onedrive.com) or Microsoft Store
+
+**Step 2: Sign In**
+
+- Click OneDrive icon → Sign in
+- Use **INGINC.com** account credentials
+- Complete MFA if prompted
+
+**Step 3: Enable Known Folder Backup**
+
+1. Click OneDrive icon → Settings (gear icon)
+2. Select **Sync and backup** tab
+3. Click **Manage backup**
+4. Enable all three folders:
+    - ✓ Desktop
+    - ✓ Documents
+    - ✓ Pictures
+5. Click **Start backup**
+
+**Step 4: Wait for Sync**
+
+- OneDrive icon shows sync arrows while uploading
+- Large folders may take 15-30 minutes
+- **DO NOT proceed until sync completes**
+
+**Step 5: Verify Completion**
+
+- OneDrive icon shows green checkmark ✓
+- Visit [portal.office.com](https://portal.office.com) → OneDrive
+- Confirm all files are present
+
+> **Script:** "Click the cloud icon in your taskbar - bottom right corner. Do you see it? If it's not there, we need to install OneDrive first. Once you're signed in, let's make sure your Desktop, Documents, and Pictures folders are being backed up..."
 
 ---
 
 ### Browser Profile Backup
 
-{: .note }
-
-> **Primary Method:** Enable browser sync with your INGINC.com account. This automatically backs up bookmarks, passwords, history, and settings to the cloud.
-
-#### Step 1: Enable Browser Sync
+**Step 1: Enable Browser Sync**
 
 | Browser     | Steps                                                                         | Verify                 |
 | ----------- | ----------------------------------------------------------------------------- | ---------------------- |
@@ -84,196 +123,350 @@ Complete 6-phase migration process for Windows devices and iOS backup verificati
 | **Edge**    | Menu (···) → Settings → Profiles → Sync → Turn on sync                        | "Sync is on" displays  |
 | **Firefox** | Menu (☰) → Settings → Sync → Sign in                                         | "Syncing" status shows |
 
-#### Step 2: Export Profile Data (Backup Copy)
+**Step 2: Export Profile Data**
 
 Save all exports to: `OneDrive > Documents > BrowserBackup`
 
 **Chrome:**
 
-- [ ] **Bookmarks:** Menu → Bookmarks → Bookmark Manager → ⋮ → Export bookmarks
-- [ ] **Passwords:** Menu → Settings → Passwords → ⋮ → Export passwords (CSV)
-- [ ] **History:** Menu → History → Export (or use extension)
+- [ ] Bookmarks: Menu → Bookmarks → Bookmark Manager → ⋮ → Export bookmarks
+- [ ] Passwords: Menu → Settings → Passwords → ⋮ → Export passwords (CSV)
 
 **Edge:**
 
-- [ ] **Favorites:** Menu → Favorites → ⋮ → Export favorites
-- [ ] **Passwords:** Menu → Settings → Passwords → ⋮ → Export passwords (CSV)
+- [ ] Favorites: Menu → Favorites → ⋮ → Export favorites
+- [ ] Passwords: Menu → Settings → Passwords → ⋮ → Export passwords (CSV)
 
 **Firefox (if used):**
 
-- [ ] **Bookmarks:** Menu → Bookmarks → Manage → Import/Export → Export to HTML
+- [ ] Bookmarks: Menu → Bookmarks → Manage → Import/Export → Export to HTML
 
 {: .warning }
 
-> **Password Security:** Exported password CSV files contain sensitive data. Delete from OneDrive after restoration is confirmed.
+> **Password Security:** Exported CSV files contain sensitive data. Delete from OneDrive after restoration is confirmed.
 
 ---
 
 ### Printer Configuration Backup
 
-- [ ] Open Settings → Devices → Printers & scanners
-- [ ] Screenshot all mapped printers
-- [ ] Save to `OneDrive > Documents > PrinterBackup.png`
+**Step 1:** Open Settings → Devices → Printers & scanners
 
-> **Script:** "Now let's backup your printer settings. Open Settings, then Devices, then Printers & scanners. Take a screenshot showing all your printers and save it to your OneDrive Documents folder."
+**Step 2:** Take screenshot of all mapped printers (Win + Shift + S)
 
----
+**Step 3:** Save to `OneDrive > Documents > PrinterBackup.png`
 
-### OneDrive Verification
-
-{: .important }
-
-> **DO NOT PROCEED** until OneDrive shows 100% sync completion. This is critical for data safety.
-
-- [ ] Verify OneDrive Known-Folder Backup is ON (Settings → Account → Manage backup)
-- [ ] Check OneDrive icon in taskbar shows green checkmark (synced)
-- [ ] Verify at [portal.office.com](https://portal.office.com) → OneDrive → All files present
-
-> **Script:** "This is very important - we need to make sure all your files are backed up to OneDrive. Check the OneDrive icon in your taskbar - it should show a green checkmark. Can you confirm all your files are synced? We cannot proceed until OneDrive shows 100% complete."
+> **Script:** "Now let's capture your printer settings. Open Settings, then Devices, then Printers & scanners. Take a screenshot and save it to your OneDrive Documents folder."
 
 ---
 
 ### iOS Backup Verification
 
-{: .note }
+**Step 1:** Connect iOS device via USB cable
 
-> **Scope:** End user migration verifies backup only. iOS device reset/restore/ABM enrollment is handled separately.
+**Step 2:** Open [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k)
 
-- [ ] Connect iOS device via USB
-- [ ] Open [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k)
-- [ ] Verify recent backup exists (within last 24-48 hours)
-- [ ] If no backup exists, create one now
+- If not installed: Download from Microsoft Store
 
-> **Script:** "If you have an iPhone or iPad, let's verify your backup. Connect it via USB and open the Apple Devices app. Check the backup date - it should be recent. If there's no backup, we'll create one now."
+**Step 3:** Check backup status
+
+- Verify recent backup exists (within last 24-48 hours)
+- If no backup exists, click **Back Up Now**
+
+> **Script:** "If you have an iPhone or iPad, connect it via USB. Open the Apple Devices app and check when the last backup was. If it's older than a day or two, let's create a fresh backup now."
+
+---
+
+### Phase 1 Checklist
+
+Before proceeding to Phase 2:
+
+- [ ] OneDrive signed in with INGINC.com account
+- [ ] Known Folder Backup enabled (Desktop, Documents, Pictures)
+- [ ] OneDrive sync complete (green checkmark)
+- [ ] Browser sync enabled
+- [ ] Browser bookmarks/passwords exported to OneDrive
+- [ ] Printer configuration screenshot saved
+- [ ] iOS backup verified or created (if applicable)
+
+{: .important }
+
+> **Checkpoint:** Do not request device reset until ALL items above are complete. Data loss cannot be recovered after reset.
 
 ---
 
 ## Phase 2: Document & Submit
 
+{: .note }
+
+> **Estimated Time:** 5-10 minutes | Collect device serial numbers and submit reset request.
+
+---
+
+### Opening Script
+
+> "Great, your backups are complete. Now I need to collect your device serial numbers so we can request the reset. This will just take a minute, then we'll have a 15-30 minute wait while IT processes the reset request."
+
+---
+
 ### Windows Serial Number
 
-1. Settings → System → About → Look for device identifier
-2. Format: `ABC123XYZ` (ALL CAPS, no spaces)
+**Step 1:** Open Settings → System → About
+
+**Step 2:** Locate "Device ID" or serial number
+
+**Step 3:** Record serial number (format: `ABC123XYZ` - ALL CAPS, no spaces)
+
+---
 
 ### iOS Serial + UDID (for inventory)
 
-1. Settings → General → About → "Serial Number"
-2. UDID below it (or use Apple Configurator)
+**Step 1:** On iOS device: Settings → General → About
 
-### Teams Message to Suleman (Suggested Format)
+**Step 2:** Record Serial Number (e.g., `DEF456UVW`)
+
+**Step 3:** Record UDID (listed below serial, or use Apple Configurator)
+
+---
+
+### Submit Reset Request
+
+**Step 1:** Open Microsoft Teams
+
+**Step 2:** Message Suleman Manji (`smanji@viyu.net`)
+
+**Step 3:** Send using this format:
 
 ```
 Windows Serial: ABC123XYZ | iOS Serial: DEF456UVW | iOS UDID: A1B2C3D4-E5F6-7890...
 ```
 
+---
+
+### Phase 2 Checklist
+
+- [ ] Windows serial number recorded
+- [ ] iOS serial and UDID recorded (if applicable)
+- [ ] Reset request sent to Suleman via Teams
+
 {: .warning }
 
-> **WAIT 15-30 MINUTES** for reset confirmation before proceeding. During wait: Help next user backup, test network connectivity.
+> **Wait Period:** 15-30 minutes for reset confirmation. During wait: Help next user with Phase 1, test network connectivity, or take a break.
 
 ---
 
 ## Phase 3: OOBE (Windows Out-of-Box Experience)
 
-### Steps
-
-1. Boot device after reset confirmation
-2. Connect to network (**Ethernet preferred**)
-3. Sign in with: `@impactpropertysolutions.com` email
-4. **DO NOT INTERRUPT AUTOPILOT ESP PAGE** — Let apps install automatically
-5. Wait 30-60 minutes for apps to finish installing
-
 {: .note }
 
-> **Timing Expectations:** Autopilot enrollment typically takes 30-45 minutes for up-to-date devices, but can take 2-3 hours for brand new devices that need Windows updates, driver updates, and application installations.
+> **Estimated Time:** 30-90 minutes | Windows setup, Autopilot enrollment, and app installation.
 
-### After ESP Completes, Verify These Are Installed
+---
 
-- [ ] Outlook Classic (Launch & pin to taskbar)
+### Opening Script
+
+> "Your device has been reset. Now we'll walk through the initial setup together. This process takes 30-60 minutes for the apps to install, so let's get it started and I'll check back with you when it's done."
+
+---
+
+### Device Boot & Network
+
+**Step 1:** Boot device after reset confirmation received
+
+**Step 2:** Connect to network
+
+- **Ethernet preferred** (faster, more reliable)
+- WiFi acceptable if Ethernet not available
+
+**Step 3:** Select language and region, accept terms
+
+---
+
+### Organizational Sign-In
+
+**Step 1:** When prompted, sign in with `@impactpropertysolutions.com` email
+
+**Step 2:** Complete MFA verification
+
+{: .warning }
+
+> **Do NOT create a local account.** Always use organizational sign-in.
+
+---
+
+### Autopilot ESP (Enrollment Status Page)
+
+{: .important }
+
+> **DO NOT INTERRUPT:** The device will show "Setting up your device" with app installation progress. This takes 30-60 minutes. Do not power off, disconnect, or close this screen.
+
+**Step 1:** Wait for ESP to complete
+
+- Progress bar shows app installation status
+- Device may restart 1-2 times (normal)
+- Typical time: 30-45 minutes for updated devices
+- Can take 2-3 hours for new devices needing Windows updates
+
+**Step 2:** Desktop appears when complete
+
+> **Script:** "You should see a screen that says 'Setting up your device' - this is installing all your work applications. It will take about 30-60 minutes. Please don't turn off your computer or close this screen. I'll check back with you in about 45 minutes, or call me when you see your desktop."
+
+---
+
+### Phase 3 Checklist
+
+After ESP completes, verify these applications:
+
+- [ ] Outlook Classic (launch & pin to taskbar)
 - [ ] Teams (work/school account, pin to taskbar)
 - [ ] Chrome (set as default browser)
 - [ ] Foxit Reader (set as default PDF reader)
-- [ ] NinjaOne RMM Agent (running)
-- [ ] IPS.exe (optional - VPN profile backup only)
+- [ ] NinjaOne RMM Agent (running in system tray)
+- [ ] IPS.exe (optional - VPN profile)
 - [ ] OneDrive (syncing automatically)
 
 ---
 
 ## Phase 4: User Validation (3-Point Test)
 
-{: .important }
-
-> **Have the user test these three items while you observe:**
-
-### Internet Access
-
-Open browser and visit a website (e.g., google.com). Confirm connection is working.
-
-### RFMS RDP Usability
-
-Test Remote Desktop connection to RFMS server. Confirm connectivity and responsiveness.
-
-### Printing Functionality
-
-Send a test print job to the mapped printer. Confirm output is received.
-
 {: .note }
 
-> **Ask user to confirm:** All three items are working before you proceed to other devices.
+> **Estimated Time:** 10-15 minutes | User-present validation of core functionality.
+
+---
+
+### Opening Script
+
+> "Everything looks installed. Before I move on, I need you to test three things to make sure your device is fully working. This will only take a few minutes."
+
+---
+
+### Test 1: Internet Access
+
+**Step 1:** Open Chrome browser
+
+**Step 2:** Navigate to google.com
+
+**Step 3:** Confirm page loads successfully
+
+> **Script:** "First, let's test your internet. Open Chrome and go to google.com. Does the page load? Great!"
+
+---
+
+### Test 2: RFMS RDP Connection
+
+**Step 1:** Open Remote Desktop Connection (search "Remote Desktop" in Start)
+
+**Step 2:** Connect to RFMS server address
+
+**Step 3:** Confirm session opens and is responsive
+
+> **Script:** "Now let's test RFMS access. Open Remote Desktop and connect to your RFMS server. Can you see the login screen? Is it responsive?"
+
+---
+
+### Test 3: Printing
+
+**Step 1:** Open Notepad, type "Test"
+
+**Step 2:** File → Print → Select your printer
+
+**Step 3:** Confirm printout is received
+
+> **Script:** "Last test - printing. Open Notepad, type something, and try to print. Did a page come out? Perfect!"
+
+---
+
+### Phase 4 Checklist
+
+{: .important }
+
+> **User must confirm** all three tests pass before proceeding.
+
+- [ ] Internet access confirmed by user
+- [ ] RFMS RDP connection confirmed by user
+- [ ] Printing confirmed by user
 
 ---
 
 ## Phase 5: Browser Restoration
 
-### Chrome
+{: .note }
 
-1. Open Chrome → Settings → Bookmarks → Bookmark Manager
-2. Click ⋮ → Import → Select `Chrome_Bookmarks_[USERNAME].html` from Desktop
-3. Verify bookmarks appear in bookmark bar
-
-### Edge
-
-1. Settings → Profiles → Import browser data
-2. Select `Edge_Bookmarks_[USERNAME].html`
-3. For passwords: Autofill → Passwords → Import → Select CSV
-
-### Firefox
-
-1. Library → Bookmarks → Manage → Import
-2. Select `Firefox_Bookmarks_[USERNAME].html`
-
-### Passwords Note
-
-Most passwords cannot be bulk-restored (device-encrypted). User must:
-
-- Re-enter manually, OR
-- Use "Forgot Password" for important sites, OR
-- Use M365 password sync for work accounts
-
-{: .warning }
-
-> **DELETE FROM DESKTOP:** All bookmark/password files after restoration confirmed. These files contain sensitive data.
+> **Estimated Time:** 10-15 minutes | Import bookmarks and passwords from OneDrive backup.
 
 ---
 
-## Phase 6: iOS Backup Verification
+### Opening Script
 
-{: .note }
+> "Now let's restore your browser bookmarks and passwords. Remember those files we saved to OneDrive earlier? We're going to import them back into your browsers."
 
-> **Scope:** End user migration verifies backup only. iOS device reset/restore/ABM enrollment is handled separately.
+---
 
-### Verification Steps
+### Chrome Restoration
 
-1. Connect iOS device via USB
-2. Open [Apple Devices app](https://apps.microsoft.com/detail/9np83lwlpz9k)
-3. Verify a recent backup exists (within last 24-48 hours)
-4. If no backup exists, create one now before proceeding
-5. Document backup status in migration notes
+**Step 1:** Open Chrome → Menu (⋮) → Bookmarks → Bookmark Manager
 
-### What to Verify
+**Step 2:** Click ⋮ → Import bookmarks
 
-- [ ] Backup date is recent
-- [ ] Backup completed successfully (no errors)
-- [ ] Device appears in Apple Devices app
+**Step 3:** Navigate to OneDrive → Documents → BrowserBackup
+
+**Step 4:** Select your Chrome bookmarks file
+
+**Step 5:** For passwords: Settings → Passwords → ⋮ → Import → Select CSV file
+
+> **Script:** "Open Chrome, go to the three-dot menu, then Bookmarks, then Bookmark Manager. Click the three dots again and select Import. Navigate to your OneDrive Documents folder, then BrowserBackup, and select your bookmarks file."
+
+---
+
+### Edge Restoration
+
+**Step 1:** Open Edge → Settings → Profiles → Import browser data
+
+**Step 2:** Select "Favorites or bookmarks HTML file"
+
+**Step 3:** Navigate to OneDrive → Documents → BrowserBackup
+
+**Step 4:** Select your Edge favorites file
+
+**Step 5:** For passwords: Settings → Passwords → ⋮ → Import
+
+---
+
+### Firefox Restoration (if used)
+
+**Step 1:** Menu (☰) → Bookmarks → Manage Bookmarks
+
+**Step 2:** Import and Backup → Import Bookmarks from HTML
+
+**Step 3:** Select your Firefox bookmarks file from OneDrive
+
+---
+
+### Cleanup
+
+{: .warning }
+
+> **Security:** Delete all backup files from OneDrive after restoration is confirmed. These files contain sensitive password data.
+
+**Step 1:** Open OneDrive → Documents → BrowserBackup
+
+**Step 2:** Delete all exported files
+
+**Step 3:** Empty Recycle Bin
+
+---
+
+### Phase 5 Checklist
+
+- [ ] Chrome bookmarks restored
+- [ ] Chrome passwords imported (if exported)
+- [ ] Edge favorites restored (if used)
+- [ ] Firefox bookmarks restored (if used)
+- [ ] Backup files deleted from OneDrive
+
+{: .important }
+
+> **Migration Complete!** User's device is fully migrated and ready for use.
 
 ---
 
@@ -281,17 +474,18 @@ Most passwords cannot be bulk-restored (device-encrypted). User must:
 
 {: .note }
 
-> **Primary Validation:** Phase 4 User Validation (3-Point Test) must be completed with user present before proceeding to browser restoration.
+> **Summary:** This checklist consolidates all validation steps from the 5-phase workflow.
 
 ### Validation Checklist
 
-| Item                   | Device  | Validation Step                    | Status |
-| ---------------------- | ------- | ---------------------------------- | ------ |
-| Internet Access        | Windows | Open browser and visit website     | ☐      |
-| RFMS RDP Usability     | Windows | Test Remote Desktop connection     | ☐      |
-| Printing Functionality | Windows | Send test print job                | ☐      |
-| OneDrive Sync          | Windows | Check sync status in File Explorer | ☐      |
-| Outlook                | Windows | Verify can send/receive email      | ☐      |
-| Teams                  | Windows | Send test message                  | ☐      |
-| Browser Bookmarks      | Windows | Verify bookmarks restored          | ☐      |
-| iOS Backup             | iOS     | Verify recent backup exists        | ☐      |
+| Phase | Item                 | Validation Step                            | Status |
+| ----- | -------------------- | ------------------------------------------ | ------ |
+| 1     | OneDrive Setup       | Known Folder Backup enabled, sync complete | ☐      |
+| 1     | Browser Backup       | Bookmarks/passwords exported to OneDrive   | ☐      |
+| 1     | iOS Backup           | Recent backup verified (if applicable)     | ☐      |
+| 3     | Apps Installed       | Outlook, Teams, Chrome, Foxit, NinjaOne    | ☐      |
+| 4     | Internet Access      | Browser loads google.com                   | ☐      |
+| 4     | RFMS RDP             | Remote Desktop connection works            | ☐      |
+| 4     | Printing             | Test print successful                      | ☐      |
+| 5     | Bookmarks Restored   | Imported from OneDrive backup              | ☐      |
+| 5     | Backup Files Deleted | Removed sensitive exports from OneDrive    | ☐      |
