@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rufus Bulk USB Creation - 30 Drives Single Workstation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=IBM+Plex+Sans:wght@400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #dc2626;
+            --primary-dark: #991b1b;
+            --success: #16a34a;
+            --warning: #ea580c;
+            --danger: #dc2626;
+            --dark: #0f172a;
+            --gray: #475569;
+            --light: #f8fafc;
+            --border: #cbd5e1;
+            --code-bg: #1e293b;
+            --accent: #f97316;
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: #ffffff;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #dc2626 0%, #f97316 100%);
+            color: white;
+            padding: 3rem 2.5rem;
+            border-radius: 16px;
+            margin-bottom: 3rem;
+            box-shadow: 0 20px 60px rgba(220, 38, 38, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header h1 {
+            font-size: 2.75rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            letter-spacing: -0.03em;
+        }
+        
+        .header .subtitle {
+            font-size: 1.25rem;
+            opacity: 0.95;
+            font-weight: 400;
+            margin-bottom: 1.5rem;
+        }
+        
+        .header-tags {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .header-tag {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .critical-notice {
+            background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%);
+            border: 3px solid var(--warning);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 10px 30px rgba(234, 88, 12, 0.2);
+        }
+        
+        .critical-notice h2 {
+            color: var(--warning);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .critical-notice-icon {
+            font-size: 2rem;
+        }
+        
+        .critical-notice p {
+            font-size: 1.05rem;
+            color: #78350f;
+            line-height: 1.8;
+        }
+        
+        .critical-notice strong {
+            color: #92400e;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 4px solid var(--primary);
+        }
+        
+        .section-number {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            flex-shrink: 0;
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+        }
+        
+        .section h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .section h3 {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            color: var(--primary);
+        }
+        
+        .method-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .method-card {
+            border: 3px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            background: white;
+            position: relative;
+        }
+        
+        .method-card.recommended {
+            border-color: var(--primary);
+            background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+        }
+        
+        .method-card.recommended::before {
+            content: "YOUR CHOICE";
+            position: absolute;
+            top: -12px;
+            right: 20px;
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 1rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+        
+        .method-card h4 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .method-pros {
+            margin-top: 1rem;
+        }
+        
+        .method-pros h5 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--success);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .method-pros ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .method-pros li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .method-pros li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: 700;
+        }
+        
+        .method-cons {
+            margin-top: 1rem;
+        }
+        
+        .method-cons h5 {
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--danger);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .method-cons ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .method-cons li {
+            padding: 0.4rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .method-cons li::before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: var(--danger);
+            font-weight: 700;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        .card-header {
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin-bottom: 1.25rem;
+            color: var(--dark);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.35rem 0.85rem;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        
+        .badge-success {
+            background: #d1fae5;
+            color: var(--success);
+        }
+        
+        .badge-warning {
+            background: #fed7aa;
+            color: var(--warning);
+        }
+        
+        .badge-info {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+        
+        .badge-danger {
+            background: #fee2e2;
+            color: var(--danger);
+        }
+        
+        .step-list {
+            counter-reset: step;
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list > li {
+            counter-increment: step;
+            padding: 1.75rem;
+            padding-left: 5rem;
+            margin-bottom: 1.5rem;
+            background: var(--light);
+            border-radius: 10px;
+            border-left: 5px solid var(--primary);
+            position: relative;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .step-list > li::before {
+            content: counter(step);
+            position: absolute;
+            left: 1.25rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            box-shadow: 0 6px 20px rgba(220, 38, 38, 0.3);
+        }
+        
+        .step-list > li strong {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--primary);
+            font-size: 1.15rem;
+        }
+        
+        .step-list ul {
+            margin-top: 0.75rem;
+            padding-left: 1.5rem;
+        }
+        
+        .step-list ul li {
+            margin: 0.5rem 0;
+        }
+        
+        code {
+            background: var(--code-bg);
+            color: #10b981;
+            padding: 0.3rem 0.6rem;
+            border-radius: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            border: 1px solid #334155;
+        }
+        
+        pre {
+            background: var(--code-bg);
+            color: #e2e8f0;
+            padding: 1.75rem;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border: 2px solid #334155;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        pre code {
+            background: none;
+            color: inherit;
+            padding: 0;
+            font-size: 0.9rem;
+            line-height: 1.7;
+            border: none;
+        }
+        
+        .alert {
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            border-left: 5px solid;
+            display: flex;
+            gap: 1.25rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+        
+        .alert-icon {
+            font-size: 1.75rem;
+            flex-shrink: 0;
+        }
+        
+        .alert-success {
+            background: #d1fae5;
+            border-color: var(--success);
+            color: #065f46;
+        }
+        
+        .alert-warning {
+            background: #fed7aa;
+            border-color: var(--warning);
+            color: #92400e;
+        }
+        
+        .alert-danger {
+            background: #fee2e2;
+            border-color: var(--danger);
+            color: #991b1b;
+        }
+        
+        .alert-info {
+            background: #dbeafe;
+            border-color: #2563eb;
+            color: #1e3a8a;
+        }
+        
+        .alert strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        
+        th {
+            background: var(--dark);
+            color: white;
+            font-weight: 700;
+            text-align: left;
+            padding: 1.25rem;
+            text-transform: uppercase;
+            font-size: 0.875rem;
+            letter-spacing: 0.05em;
+        }
+        
+        td {
+            padding: 1.25rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        tr:nth-child(even) {
+            background: var(--light);
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .checklist li:last-child {
+            border-bottom: none;
+        }
+        
+        .checklist li::before {
+            content: "☐";
+            font-size: 1.75rem;
+            color: var(--gray);
+            flex-shrink: 0;
+            line-height: 1;
+        }
+        
+        .strategy-box {
+            background: linear-gradient(135deg, #fef2f2 0%, #fff7ed 100%);
+            border: 3px solid var(--primary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .strategy-box h3 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+        
+        .strategy-options {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .strategy-option {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 2px solid var(--border);
+            text-align: center;
+        }
+        
+        .strategy-option.recommended {
+            border-color: var(--primary);
+            background: white;
+            position: relative;
+        }
+        
+        .strategy-option.recommended::before {
+            content: "BEST";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+        
+        .strategy-option h4 {
+            font-size: 1.1rem;
+            color: var(--dark);
+            margin-bottom: 0.75rem;
+        }
+        
+        .strategy-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 1rem 0;
+        }
+        
+        .strategy-desc {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+        }
+        
+        .strategy-time {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+        
+        .visual-diagram {
+            background: var(--light);
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .visual-diagram h4 {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+        
+        .usb-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 0.75rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .usb-slot {
+            aspect-ratio: 1;
+            background: white;
+            border: 2px solid var(--primary);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .hub-label {
+            grid-column: 1 / -1;
+            text-align: left;
+            font-weight: 700;
+            color: var(--gray);
+            padding: 0.5rem 0;
+            border-top: 2px solid var(--border);
+            margin-top: 1rem;
+        }
+        
+        .hub-label:first-child {
+            border-top: none;
+            margin-top: 0;
+        }
+        
+        @media (max-width: 1024px) {
+            .method-comparison,
+            .strategy-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .usb-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            body {
+                padding: 1rem;
+            }
+        }
+        
+        @media print {
+            body {
+                padding: 0;
+                max-width: 100%;
+            }
+            
+            .header,
+            .alert,
+            .card,
+            .strategy-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+        }
+        
+        .quick-command {
+            background: var(--code-bg);
+            color: #10b981;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            margin: 1rem 0;
+            border: 2px solid #334155;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .quick-command-text {
+            flex-grow: 1;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, var(--primary) 0%, var(--accent) 100%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2.5rem;
+        }
+        
+        .timeline-item::before {
+            content: "";
+            position: absolute;
+            left: -3.5rem;
+            top: 0.5rem;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--primary);
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px var(--primary);
+        }
+        
+        .timeline-time {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-content {
+            background: var(--light);
+            padding: 1.25rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--primary);
+        }
+        
+        .timeline-content strong {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+            font-size: 1.05rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔥 Rufus Bulk USB Creation Guide</h1>
+            <div class="subtitle">Creating 30 Windows 11 Bootable USB Drives - Single Workstation Method</div>
+            <div class="header-tags">
+                <span class="header-tag">30× USB Drives</span>
+                <span class="header-tag">2× 16-Port Hubs</span>
+                <span class="header-tag">Single Workstation</span>
+                <span class="header-tag">Rufus Method</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="critical-notice">
+        <h2>
+            <span class="critical-notice-icon">⚠️</span>
+            Critical: Rufus Limitation You Must Understand
+        </h2>
+        <p>
+            <strong>Rufus does NOT natively support writing to multiple USB drives simultaneously in its GUI.</strong> Unlike some enterprise tools, Rufus is designed to write to ONE drive at a time. However, you CAN run multiple instances of Rufus in parallel to achieve bulk operations. This guide provides THREE strategies to handle 30 drives efficiently on a single workstation.
+        </p>
+    </div>
+
+    <!-- SECTION 1: STRATEGY SELECTION -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">1</div>
+            <h2>Choose Your Strategy</h2>
+        </div>
+
+        <div class="method-comparison">
+            <div class="method-card">
+                <h4>❌ What WON'T Work</h4>
+                <p style="margin-bottom: 1rem;">Opening one Rufus instance and expecting it to write to all 30 drives. This is physically impossible with Rufus's design.</p>
+                
+                <div class="method-cons">
+                    <h5>Why This Fails</h5>
+                    <ul>
+                        <li>Rufus only selects one target drive</li>
+                        <li>No batch mode in GUI</li>
+                        <li>Would take 2.5-5 hours sequentially</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="method-card recommended">
+                <h4>✅ What WILL Work</h4>
+                <p style="margin-bottom: 1rem;">Running multiple Rufus instances simultaneously, each writing to a different drive. This parallelizes the process.</p>
+                
+                <div class="method-pros">
+                    <h5>Why This Works</h5>
+                    <ul>
+                        <li>Each Rufus instance = 1 drive</li>
+                        <li>10 instances = 10 drives in parallel</li>
+                        <li>Completes in 30-45 minutes total</li>
+                        <li>Proven method for bulk operations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="strategy-box">
+            <h3>Three Execution Strategies</h3>
+            <p style="margin-bottom: 1.5rem;">Choose based on your workstation specs and comfort level with simultaneous operations:</p>
+            
+            <div class="strategy-options">
+                <div class="strategy-option">
+                    <h4>Conservative</h4>
+                    <div class="strategy-number">5×6</div>
+                    <div class="strategy-desc">5 drives at a time, 6 batches total</div>
+                    <div class="strategy-time">⏱️ Total: 45-60 min</div>
+                </div>
+                
+                <div class="strategy-option recommended">
+                    <h4>Balanced</h4>
+                    <div class="strategy-number">10×3</div>
+                    <div class="strategy-desc">10 drives at a time, 3 batches total</div>
+                    <div class="strategy-time">⏱️ Total: 30-40 min</div>
+                </div>
+                
+                <div class="strategy-option">
+                    <h4>Aggressive</h4>
+                    <div class="strategy-number">15×2</div>
+                    <div class="strategy-desc">15 drives at a time, 2 batches total</div>
+                    <div class="strategy-time">⏱️ Total: 25-35 min</div>
+                </div>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 1.5rem;">
+                <div class="alert-icon">💡</div>
+                <div>
+                    <strong>Recommended: Balanced Strategy (10×3)</strong>
+                    Best compromise between speed and system stability. 10 simultaneous Rufus instances is manageable on most modern workstations without overwhelming resources.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 2: PREREQUISITES -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">2</div>
+            <h2>Prerequisites & Setup</h2>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <span>Required Hardware</span>
+                <span class="badge badge-success">Verify First</span>
+            </div>
+            <ul class="checklist">
+                <li>30× USB 3.0 flash drives (16GB minimum for Windows 11)</li>
+                <li>2× 16-port powered USB 3.0 hubs (32 ports total)</li>
+                <li>1× Powerful workstation:
+                    <ul style="margin-top: 0.5rem; padding-left: 2rem;">
+                        <li>Windows 10/11 Pro</li>
+                        <li>16GB+ RAM (32GB recommended for 15+ instances)</li>
+                        <li>Fast SSD (for ISO read performance)</li>
+                        <li>USB 3.0 ports for hubs</li>
+                    </ul>
+                </li>
+                <li>Reliable power source (hubs draw significant power)</li>
+                <li>Large desk space (for organizing 30 drives)</li>
+            </ul>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <span>Required Software</span>
+                <span class="badge badge-warning">Download First</span>
+            </div>
+            <ul class="checklist">
+                <li><strong>Rufus 4.x Portable</strong> - Download from <code>https://rufus.ie/</code>
+                    <ul style="margin-top: 0.5rem; padding-left: 2rem;">
+                        <li>Get the PORTABLE version (rufus-4.x.exe)</li>
+                        <li>No installation needed</li>
+                        <li>Can run multiple instances</li>
+                    </ul>
+                </li>
+                <li><strong>Windows 11 ISO</strong> - Official from Microsoft
+                    <ul style="margin-top: 0.5rem; padding-left: 2rem;">
+                        <li><code>https://www.microsoft.com/software-download/windows11</code></li>
+                        <li>Size: ~6.5GB</li>
+                        <li>Multi-edition ISO recommended</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="alert alert-warning">
+            <div class="alert-icon">⚡</div>
+            <div>
+                <strong>Power Requirement Critical</strong>
+                Two 16-port hubs with 30 USB drives will draw 20-40W total. Ensure both hubs are connected to powered outlets, preferably on different circuits. Hub power adapters MUST be plugged in.
+            </div>
+        </div>
+
+        <h3>Physical Setup</h3>
+        
+        <div class="visual-diagram">
+            <h4>Your 30-Drive Layout on 2× 16-Port Hubs</h4>
+            <div class="usb-grid">
+                <div class="hub-label">🔌 HUB A (16 ports) - Drives 1-16</div>
+                <div class="usb-slot">1</div>
+                <div class="usb-slot">2</div>
+                <div class="usb-slot">3</div>
+                <div class="usb-slot">4</div>
+                <div class="usb-slot">5</div>
+                <div class="usb-slot">6</div>
+                <div class="usb-slot">7</div>
+                <div class="usb-slot">8</div>
+                <div class="usb-slot">9</div>
+                <div class="usb-slot">10</div>
+                <div class="usb-slot">11</div>
+                <div class="usb-slot">12</div>
+                <div class="usb-slot">13</div>
+                <div class="usb-slot">14</div>
+                <div class="usb-slot">15</div>
+                <div class="usb-slot">16</div>
+                
+                <div class="hub-label">🔌 HUB B (14 ports used) - Drives 17-30</div>
+                <div class="usb-slot">17</div>
+                <div class="usb-slot">18</div>
+                <div class="usb-slot">19</div>
+                <div class="usb-slot">20</div>
+                <div class="usb-slot">21</div>
+                <div class="usb-slot">22</div>
+                <div class="usb-slot">23</div>
+                <div class="usb-slot">24</div>
+                <div class="usb-slot">25</div>
+                <div class="usb-slot">26</div>
+                <div class="usb-slot">27</div>
+                <div class="usb-slot">28</div>
+                <div class="usb-slot">29</div>
+                <div class="usb-slot">30</div>
+            </div>
+            <p style="margin-top: 1.5rem; color: var(--gray);">Label each USB drive with a number (1-30) using stickers BEFORE insertion for easy tracking</p>
+        </div>
+    </div>
+
+    <!-- SECTION 3: PREPARATION -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">3</div>
+            <h2>Preparation Phase</h2>
+        </div>
+
+        <ol class="step-list">
+            <li>
+                <strong>Download Rufus Portable</strong>
+                Navigate to <code>https://rufus.ie/</code> and download the portable version (no installer). File name: <code>rufus-4.x.exe</code> (~1.4MB). Save to desktop or easy-access folder.
+            </li>
+            
+            <li>
+                <strong>Download Windows 11 ISO</strong>
+                Go to Microsoft's official download page. Select "Download Windows 11 Disk Image (ISO)". Choose Windows 11 (multi-edition ISO). Download will be ~6.5GB. Save to a fast drive (SSD preferred).
+            </li>
+            
+            <li>
+                <strong>Create Multiple Rufus Copies</strong>
+                Since you'll run multiple instances, create a folder structure:
+                <pre><code>C:\USB_Creation\
+├── rufus-01.exe
+├── rufus-02.exe
+├── rufus-03.exe
+├── rufus-04.exe
+├── rufus-05.exe
+├── rufus-06.exe
+├── rufus-07.exe
+├── rufus-08.exe
+├── rufus-09.exe
+├── rufus-10.exe
+├── rufus-11.exe (if doing 15× strategy)
+├── rufus-12.exe (if doing 15× strategy)
+├── rufus-13.exe (if doing 15× strategy)
+├── rufus-14.exe (if doing 15× strategy)
+├── rufus-15.exe (if doing 15× strategy)
+└── Win11.iso</code></pre>
+                <em>Simply copy/paste Rufus executable and rename each copy. Each instance needs its own .exe file to run independently.</em>
+            </li>
+            
+            <li>
+                <strong>Connect and Power Hubs</strong>
+                <ul>
+                    <li>Connect both 16-port hubs to USB 3.0 ports on workstation</li>
+                    <li>Plug in power adapters for both hubs</li>
+                    <li>Verify hub LEDs indicate power</li>
+                    <li>Wait 30 seconds for Windows to recognize hubs</li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Label All USB Drives</strong>
+                Before inserting ANY drives, use small labels or permanent marker to number them 1-30. This is CRITICAL for tracking which drives are complete.
+            </li>
+            
+            <li>
+                <strong>Test Hub Recognition</strong>
+                Insert 2-3 test drives. Open File Explorer - you should see them appear. If not, check hub power and USB connection. Remove test drives before proceeding.
+            </li>
+        </ol>
+
+        <div class="alert alert-success">
+            <div class="alert-icon">✓</div>
+            <div>
+                <strong>Preparation Complete Checklist</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li>✓ 10-15 Rufus executables ready in folder</li>
+                    <li>✓ Windows 11 ISO downloaded and accessible</li>
+                    <li>✓ Both hubs connected and powered</li>
+                    <li>✓ All 30 USB drives labeled with numbers</li>
+                    <li>✓ Workstation has free RAM and disk space</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 4: EXECUTION (THE ACTUAL STEPS) -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">4</div>
+            <h2>Step-by-Step Execution - Balanced Method (10×3)</h2>
+        </div>
+
+        <div class="alert alert-info">
+            <div class="alert-icon">📋</div>
+            <div>
+                <strong>This Section: The Actual Process for All 30 Drives</strong>
+                Following these steps will create all 30 bootable USB drives in 3 batches of 10 drives each. Total time: 30-40 minutes.
+            </div>
+        </div>
+
+        <h3>🔥 BATCH 1: Drives 1-10 (First 10 Drives)</h3>
+
+        <ol class="step-list">
+            <li>
+                <strong>Insert First 10 USB Drives</strong>
+                <ul>
+                    <li>Insert drives numbered 1-10 into Hub A (first 10 ports)</li>
+                    <li>Wait 30-60 seconds for Windows to recognize all drives</li>
+                    <li>You'll hear USB connection sounds and see notifications</li>
+                    <li>Open File Explorer - verify all 10 drives appear (should be assigned drive letters)</li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Launch 10 Rufus Instances</strong>
+                <ul>
+                    <li>Go to your <code>C:\USB_Creation\</code> folder</li>
+                    <li>Double-click <code>rufus-01.exe</code> - Rufus window opens</li>
+                    <li>Double-click <code>rufus-02.exe</code> - Second Rufus window opens</li>
+                    <li>Double-click <code>rufus-03.exe</code> - Third Rufus window opens</li>
+                    <li>Continue through <code>rufus-10.exe</code> - You'll have 10 Rufus windows open</li>
+                    <li><em>Arrange windows so you can see all of them (tile them, or cascade)</em></li>
+                </ul>
+                <div class="alert alert-warning" style="margin-top: 1rem;">
+                    <div class="alert-icon">⚠️</div>
+                    <div>
+                        Each Rufus window is independent. You'll configure each one individually to target a different USB drive. Yes, this is manual, but it's the only way to achieve parallelization with Rufus.
+                    </div>
+                </div>
+            </li>
+            
+            <li>
+                <strong>Configure Rufus Instance #1 (Drive 1)</strong>
+                In the FIRST Rufus window:
+                <ul>
+                    <li><strong>Device:</strong> Click dropdown, select your Drive #1 (check drive letter and size to confirm)</li>
+                    <li><strong>Boot selection:</strong> Click "SELECT" button, browse to <code>Win11.iso</code></li>
+                    <li><strong>Image option:</strong> Leave as "Standard Windows installation"</li>
+                    <li><strong>Partition scheme:</strong> Select "GPT" (for UEFI)</li>
+                    <li><strong>Target system:</strong> Automatically set to UEFI</li>
+                    <li><strong>Volume label:</strong> Type "WIN11" or "WIN11_USB"</li>
+                    <li><strong>File system:</strong> NTFS (default)</li>
+                    <li><strong>Cluster size:</strong> Default</li>
+                    <li>✓ Check "Quick format"</li>
+                    <li>✓ Check "Create extended label and icon files"</li>
+                    <li><strong>DO NOT CLICK START YET</strong></li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Configure Rufus Instances #2 through #10</strong>
+                Repeat the same configuration for each remaining Rufus window:
+                <ul>
+                    <li><strong>Rufus #2:</strong> Select Drive #2, same settings, don't start</li>
+                    <li><strong>Rufus #3:</strong> Select Drive #3, same settings, don't start</li>
+                    <li><strong>Rufus #4:</strong> Select Drive #4, same settings, don't start</li>
+                    <li>... continue through Rufus #10 (Drive #10)</li>
+                </ul>
+                <div class="alert alert-danger" style="margin-top: 1rem;">
+                    <div class="alert-icon">🛑</div>
+                    <div>
+                        <strong>CRITICAL: Verify Each Drive Selection</strong>
+                        Double-check the "Device" dropdown in each Rufus window. Make sure you're not selecting the same drive twice, and that you haven't accidentally selected an internal drive. Drive size should match your USB drives (16GB+).
+                    </div>
+                </div>
+            </li>
+            
+            <li>
+                <strong>Start All 10 Instances Simultaneously</strong>
+                <ul>
+                    <li>Go to Rufus #1 window, click <strong>"START"</strong></li>
+                    <li>A warning will appear about data destruction - click <strong>"OK"</strong></li>
+                    <li>Quickly move to Rufus #2, click <strong>"START"</strong>, confirm warning</li>
+                    <li>Move to Rufus #3, click <strong>"START"</strong>, confirm warning</li>
+                    <li>Continue rapidly clicking START on all 10 Rufus windows</li>
+                    <li><em>Goal: Get all 10 started within 30-60 seconds of each other</em></li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>What happens now:</strong> All 10 Rufus instances will begin writing to their respective USB drives in parallel. You'll see progress bars in each window.</p>
+            </li>
+            
+            <li>
+                <strong>Monitor Progress (10-15 minutes)</strong>
+                <ul>
+                    <li>Watch the progress bars in each Rufus window</li>
+                    <li>All 10 should progress at roughly the same rate (varies by drive speed)</li>
+                    <li>Typical time: 8-12 minutes for 6.5GB ISO on USB 3.0 drives</li>
+                    <li>DO NOT disconnect drives during this process</li>
+                    <li>If any Rufus shows an error, note which drive and continue with others</li>
+                </ul>
+            </li>
+            
+            <li>
+                <strong>Batch 1 Complete - Verify and Remove</strong>
+                When all 10 Rufus windows show "READY" (process complete):
+                <ul>
+                    <li>Close all 10 Rufus windows</li>
+                    <li>In File Explorer, safely eject all 10 drives (right-click > Eject)</li>
+                    <li>Remove drives 1-10 from hub</li>
+                    <li>Place them in labeled storage container</li>
+                    <li><strong>Quick verification:</strong> Spot check 1-2 drives - should have ~6.5GB used space and show Windows files</li>
+                </ul>
+            </li>
+        </ol>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-time">0:00 - Start</div>
+                <div class="timeline-content">
+                    <strong>Insert drives 1-10, launch 10 Rufus instances</strong>
+                    <p>Takes ~2 minutes to open all instances and arrange windows</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-time">2:00 - Configure</div>
+                <div class="timeline-content">
+                    <strong>Configure all 10 Rufus instances</strong>
+                    <p>Select target drives, load ISO, verify settings. Takes ~3-4 minutes.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-time">6:00 - Execute</div>
+                <div class="timeline-content">
+                    <strong>Click START on all 10 instances</strong>
+                    <p>Rapid-fire clicking through all windows. Takes ~1 minute.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-time">7:00-17:00 - Writing</div>
+                <div class="timeline-content">
+                    <strong>All drives writing in parallel</strong>
+                    <p>10 minutes average for USB 3.0 drives. Monitor progress bars.</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item">
+                <div class="timeline-time">17:00 - Complete</div>
+                <div class="timeline-content">
+                    <strong>Batch 1 done - eject and remove drives</strong>
+                    <p>Store drives 1-10, prepare for batch 2</p>
+                </div>
+            </div>
+        </div>
+
+        <h3>🔥 BATCH 2: Drives 11-20 (Second 10 Drives)</h3>
+
+        <div class="card">
+            <div class="card-header">Repeat Process for Drives 11-20</div>
+            <p>Follow the EXACT same steps as Batch 1:</p>
+            <ol style="margin-top: 1rem;">
+                <li>Insert drives 11-20 into Hub A</li>
+                <li>Launch 10 Rufus instances (rufus-01.exe through rufus-10.exe)</li>
+                <li>Configure each instance to target drives 11-20</li>
+                <li>Click START on all 10 instances</li>
+                <li>Wait 10-12 minutes for completion</li>
+                <li>Eject and store drives 11-20</li>
+            </ol>
+            <p style="margin-top: 1rem; color: var(--gray);"><strong>Time for Batch 2:</strong> ~15-17 minutes</p>
+        </div>
+
+        <h3>🔥 BATCH 3: Drives 21-30 (Final 10 Drives)</h3>
+
+        <div class="card">
+            <div class="card-header">Final Batch - Drives 21-30</div>
+            <p>One more time - same process:</p>
+            <ol style="margin-top: 1rem;">
+                <li>Insert drives 21-30 (use Hub A and start of Hub B)</li>
+                <li>Launch 10 Rufus instances</li>
+                <li>Configure each instance to target drives 21-30</li>
+                <li>Click START on all 10 instances</li>
+                <li>Wait 10-12 minutes for completion</li>
+                <li>Eject and store drives 21-30</li>
+            </ol>
+            <p style="margin-top: 1rem; color: var(--gray);"><strong>Time for Batch 3:</strong> ~15-17 minutes</p>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-icon">🎉</div>
+            <div>
+                <strong>All 30 Drives Complete!</strong>
+                <p style="margin-top: 0.5rem;"><strong>Total Time Elapsed:</strong> 30-40 minutes for all 3 batches</p>
+                <ul style="margin-top: 0.5rem;">
+                    <li>Batch 1 (drives 1-10): ~17 minutes</li>
+                    <li>Batch 2 (drives 11-20): ~15 minutes</li>
+                    <li>Batch 3 (drives 21-30): ~15 minutes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 5: ALTERNATIVE STRATEGIES -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">5</div>
+            <h2>Alternative Strategies</h2>
+        </div>
+
+        <h3>Conservative Strategy: 5 Drives at a Time (5×6 batches)</h3>
+        
+        <div class="card">
+            <div class="card-header">
+                <span>When to Use</span>
+                <span class="badge badge-info">Lower-Spec Workstation</span>
+            </div>
+            <p>If your workstation has limited RAM (<16GB) or you want maximum stability, run only 5 Rufus instances at a time.</p>
+            
+            <p style="margin-top: 1rem;"><strong>Process:</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Batch 1: Drives 1-5 (5 Rufus instances)</li>
+                <li>Batch 2: Drives 6-10 (5 Rufus instances)</li>
+                <li>Batch 3: Drives 11-15 (5 Rufus instances)</li>
+                <li>Batch 4: Drives 16-20 (5 Rufus instances)</li>
+                <li>Batch 5: Drives 21-25 (5 Rufus instances)</li>
+                <li>Batch 6: Drives 26-30 (5 Rufus instances)</li>
+            </ul>
+            
+            <p style="margin-top: 1rem;"><strong>Total Time:</strong> 50-70 minutes (more batches = more overhead)</p>
+        </div>
+
+        <h3>Aggressive Strategy: 15 Drives at a Time (15×2 batches)</h3>
+        
+        <div class="card">
+            <div class="card-header">
+                <span>When to Use</span>
+                <span class="badge badge-warning">High-End Workstation</span>
+            </div>
+            <p>If you have a powerful workstation (32GB+ RAM, fast CPU, SSD), you can run 15 Rufus instances simultaneously.</p>
+            
+            <p style="margin-top: 1rem;"><strong>Process:</strong></p>
+            <ul style="margin-left: 1.5rem;">
+                <li>Batch 1: Drives 1-15 (15 Rufus instances)</li>
+                <li>Batch 2: Drives 16-30 (15 Rufus instances)</li>
+            </ul>
+            
+            <div class="alert alert-warning" style="margin-top: 1rem;">
+                <div class="alert-icon">⚠️</div>
+                <div>
+                    <strong>Requirements for 15× Strategy</strong>
+                    <ul style="margin-top: 0.5rem;">
+                        <li>32GB+ RAM</li>
+                        <li>Fast multicore CPU (6+ cores)</li>
+                        <li>Sufficient USB bandwidth (may need both hubs on separate USB controllers)</li>
+                        <li>Monitor system resources - if CPU/RAM maxes out, reduce to 10×</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <p style="margin-top: 1rem;"><strong>Total Time:</strong> 25-35 minutes (fewer batches, but higher risk of bottlenecks)</p>
+        </div>
+    </div>
+
+    <!-- SECTION 6: TROUBLESHOOTING -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">6</div>
+            <h2>Troubleshooting</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Problem: Rufus Shows "Error - Access Denied"</div>
+            <p><strong>Cause:</strong> Windows has the drive locked, or drive is write-protected</p>
+            <p><strong>Solutions:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Close File Explorer windows showing that drive</li>
+                <li>Check for physical write-protect switch on USB drive</li>
+                <li>Run Rufus as Administrator (right-click > Run as administrator)</li>
+                <li>Eject and re-insert the drive</li>
+                <li>Try a different USB port</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Problem: System Slows Down Significantly</div>
+            <p><strong>Cause:</strong> Too many Rufus instances for your system specs</p>
+            <p><strong>Solutions:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Reduce batch size (try 5 drives instead of 10)</li>
+                <li>Close other applications</li>
+                <li>Check Task Manager for RAM/CPU usage</li>
+                <li>Let current batch finish before starting next</li>
+                <li>Upgrade to Conservative Strategy (5×6)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Problem: Windows Doesn't Recognize All Drives</div>
+            <p><strong>Cause:</strong> USB bandwidth limitation or driver issues</p>
+            <p><strong>Solutions:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Verify both hubs are powered (check LEDs)</li>
+                <li>Connect hubs to different USB controllers (different ports on PC)</li>
+                <li>Reboot workstation and try again</li>
+                <li>Try connecting fewer drives per hub (split across both hubs more evenly)</li>
+                <li>Update USB hub firmware if available</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Problem: Some Drives Complete Faster Than Others</div>
+            <p><strong>This is normal.</strong> USB drive write speeds vary even within same brand/model.</p>
+            <p><strong>What to do:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Let all drives finish - don't interrupt</li>
+                <li>Slower drives may take 15-20 minutes vs 8-10 minutes for fast ones</li>
+                <li>This is why quality USB drives matter</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Problem: Rufus Shows "Error Writing to Device"</div>
+            <p><strong>Cause:</strong> Bad USB drive, disconnection during write, or drive failure</p>
+            <p><strong>Solutions:</strong></p>
+            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Note which drive failed (check drive number label)</li>
+                <li>Remove failed drive and try re-imaging it separately</li>
+                <li>If fails again, replace drive (may be defective)</li>
+                <li>Ensure drives aren't being bumped or moved during process</li>
+                <li>Check for loose connections</li>
+            </ul>
+        </div>
+
+        <h3>Critical Failure: What If Many Drives Fail?</h3>
+
+        <div class="alert alert-danger">
+            <div class="alert-icon">🚨</div>
+            <div>
+                <strong>If 3+ Drives Fail in Same Batch</strong>
+                <p style="margin-top: 0.5rem;">This indicates a systemic issue, not individual drive problems:</p>
+                <ol style="margin-top: 0.5rem; margin-left: 1.5rem;">
+                    <li>STOP all current operations</li>
+                    <li>Check ISO file integrity (re-download if suspicious)</li>
+                    <li>Verify hub power - both power adapters connected?</li>
+                    <li>Test with single drive in single Rufus to isolate issue</li>
+                    <li>Check Windows Event Viewer for USB errors</li>
+                    <li>Consider reducing batch size or switching strategies</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECTION 7: VERIFICATION -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">7</div>
+            <h2>Verification & Quality Control</h2>
+        </div>
+
+        <h3>Post-Creation Verification Steps</h3>
+
+        <div class="card">
+            <div class="card-header">
+                <span>Level 1: Visual File Check</span>
+                <span class="badge badge-success">Quick - 2 minutes</span>
+            </div>
+            <p>For 3-5 sample drives (drives 1, 10, 20, 30):</p>
+            <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Insert drive into workstation</li>
+                <li>Open in File Explorer</li>
+                <li>Verify these files exist:
+                    <ul style="margin-left: 1.5rem;">
+                        <li><code>bootmgr</code></li>
+                        <li><code>setup.exe</code></li>
+                        <li><code>sources\boot.wim</code></li>
+                        <li><code>sources\install.wim</code> or <code>install.esd</code></li>
+                    </ul>
+                </li>
+                <li>Check used space: Should be ~6-7GB</li>
+                <li>Check file count: Should have 1000+ files</li>
+            </ol>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span>Level 2: Boot Test</span>
+                <span class="badge badge-warning">Recommended - 10 minutes</span>
+            </div>
+            <p>Test 3-4 drives by actually booting them:</p>
+            <ol style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                <li>Select drives at random (e.g., drives 5, 15, 25)</li>
+                <li>Insert drive into test machine</li>
+                <li>Reboot and enter BIOS/Boot Menu (F12, F8, or DEL)</li>
+                <li>Select USB drive from boot options</li>
+                <li>Verify Windows Setup screen appears</li>
+                <li>Exit setup (Shift+F10, type <code>exit</code>, reboot)</li>
+                <li>If all tested drives boot successfully, confidence = 99%</li>
+            </ol>
+        </div>
+
+        <div class="alert alert-success">
+            <div class="alert-icon">✓</div>
+            <div>
+                <strong>Expected Success Rate</strong>
+                With quality USB drives and proper procedure, expect 98-100% success rate. Have 2-3 spare drives ready for any failures.
+            </div>
+        </div>
+
+        <h3>Common Boot Issues & Fixes</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Boot Error</th>
+                    <th>Cause</th>
+                    <th>Fix</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>"No boot device found"</td>
+                    <td>BIOS not detecting USB</td>
+                    <td>Enable USB boot in BIOS, check boot priority</td>
+                </tr>
+                <tr>
+                    <td>"Secure Boot violation"</td>
+                    <td>Secure Boot enabled</td>
+                    <td>Disable Secure Boot in BIOS (or recreate with secure boot support)</td>
+                </tr>
+                <tr>
+                    <td>"Missing operating system"</td>
+                    <td>Partition scheme mismatch</td>
+                    <td>Recreate drive with correct scheme (GPT for UEFI, MBR for Legacy)</td>
+                </tr>
+                <tr>
+                    <td>Black screen / no response</td>
+                    <td>Corrupt boot files</td>
+                    <td>Re-image the drive, verify ISO integrity</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- SECTION 8: POST-COMPLETION -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">8</div>
+            <h2>Post-Completion</h2>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Final Checklist</div>
+            <ul class="checklist">
+                <li>All 30 drives created and labeled (1-30)</li>
+                <li>3-5 drives boot tested successfully</li>
+                <li>Failed drives (if any) noted and set aside for re-imaging</li>
+                <li>All drives stored in protective cases or anti-static bags</li>
+                <li>Hubs disconnected and stored</li>
+                <li>Workstation returned to normal state</li>
+                <li>Creation date and Windows build documented</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Storage & Distribution Best Practices</div>
+            <ul style="margin-left: 1.5rem;">
+                <li><strong>Labeling:</strong> Each drive should have number + "Windows 11 Setup" + creation date</li>
+                <li><strong>Storage:</strong> Keep in cool, dry location away from magnets/strong EM fields</li>
+                <li><strong>Tracking:</strong> Create spreadsheet logging drive numbers and who received them</li>
+                <li><strong>Shelf life:</strong> Drives are good for years, but Windows builds get outdated</li>
+                <li><strong>Refresh schedule:</strong> Recreate drives every 6-12 months for latest updates</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">End User Instructions</div>
+            <p>Provide these instructions with each drive:</p>
+            <ol style="margin-left: 1.5rem; margin-top: 1rem;">
+                <li>Insert USB drive before powering on computer</li>
+                <li>Power on or restart computer</li>
+                <li>Press boot menu key during startup (F12, F8, or ESC)</li>
+                <li>Select USB drive from boot menu</li>
+                <li>Follow Windows 11 installation wizard</li>
+            </ol>
+            <p style="margin-top: 1rem;"><strong>BIOS Requirements:</strong> UEFI mode, TPM 2.0 enabled (or use bypass method), Secure Boot can be on or off</p>
+        </div>
+    </div>
+
+    <!-- SECTION 9: QUICK REFERENCE -->
+    <div class="section">
+        <div class="section-header">
+            <div class="section-number">9</div>
+            <h2>Quick Reference Card</h2>
+        </div>
+
+        <div class="strategy-box">
+            <h3>⚡ At-A-Glance: 30 Drives in 30 Minutes</h3>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Batch</th>
+                        <th>Drives</th>
+                        <th>Rufus Instances</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Batch 1</strong></td>
+                        <td>1-10</td>
+                        <td>10 parallel</td>
+                        <td>~17 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Batch 2</strong></td>
+                        <td>11-20</td>
+                        <td>10 parallel</td>
+                        <td>~15 min</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Batch 3</strong></td>
+                        <td>21-30</td>
+                        <td>10 parallel</td>
+                        <td>~15 min</td>
+                    </tr>
+                    <tr style="background: #fef2f2; font-weight: 700;">
+                        <td colspan="3"><strong>TOTAL TIME</strong></td>
+                        <td><strong>30-40 min</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="card">
+            <div class="card-header">Critical Do's and Don'ts</div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h4 style="color: var(--success); margin-bottom: 1rem;">✓ DO</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ Use powered USB 3.0 hubs</li>
+                        <li style="padding: 0.5rem 0;">✓ Label drives BEFORE insertion</li>
+                        <li style="padding: 0.5rem 0;">✓ Verify drive selection before START</li>
+                        <li style="padding: 0.5rem 0;">✓ Close other apps to free resources</li>
+                        <li style="padding: 0.5rem 0;">✓ Sample boot test before distribution</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: var(--danger); margin-bottom: 1rem;">✗ DON'T</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✗ Don't use USB 2.0 (too slow)</li>
+                        <li style="padding: 0.5rem 0;">✗ Don't move drives during writing</li>
+                        <li style="padding: 0.5rem 0;">✗ Don't select same drive in multiple Rufus</li>
+                        <li style="padding: 0.5rem 0;">✗ Don't skip verification</li>
+                        <li style="padding: 0.5rem 0;">✗ Don't exceed your PC's capability</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="alert alert-info">
+            <div class="alert-icon">📚</div>
+            <div>
+                <strong>Resources</strong>
+                <ul style="margin-top: 0.5rem;">
+                    <li><strong>Rufus:</strong> https://rufus.ie/</li>
+                    <li><strong>Windows 11 ISO:</strong> https://www.microsoft.com/software-download/windows11</li>
+                    <li><strong>Rufus Documentation:</strong> https://github.com/pbatard/rufus/wiki</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div style="margin-top: 4rem; padding: 2.5rem; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 12px; text-align: center; border: 2px solid var(--border);">
+        <p style="color: var(--gray); font-size: 0.95rem; font-weight: 600;">
+            <strong style="color: var(--primary);">RUFUS BULK USB CREATION GUIDE</strong>
+        </p>
+        <p style="color: var(--gray); font-size: 0.875rem; margin-top: 0.5rem;">
+            Version 2.0 | January 2026 | Optimized for Single Workstation + 16-Port Hubs
+        </p>
+        <p style="color: var(--gray); font-size: 0.75rem; margin-top: 1rem;">
+            This guide is designed for MSP environments and professional deployment scenarios.<br>
+            30 Windows 11 bootable USB drives in 30-40 minutes using parallel Rufus instances.
+        </p>
+    </div>
+</body>
+</html>
