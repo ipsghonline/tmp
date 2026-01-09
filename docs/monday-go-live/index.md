@@ -62,15 +62,24 @@ Comprehensive coordination guide for the January 19, 2026 migration go-live.
 
 <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem; color: #1e3c72;">Escalation Matrix</h4>
 
-| Issue Type           | Primary Contact | Escalation Chain       |
-| -------------------- | --------------- | ---------------------- |
-| Device Reset/Wipes   | Suleman Manji   | ILG (Willie) for wipes |
-| Autopilot Removal    | ILG IT Team     | Willie, Brett          |
-| RDP/RFMS/Floorsight  | Brian Vaughan   | Primary escalation     |
-| Network/VPN/IPsec    | Landon Hill     | Nick Christian → Imran |
-| Verizon/iOS ABM      | Trevor          | Bradley (ILG) → Lana   |
-| Intune/Autopilot/ABM | Suleman Manji   | Primary escalation     |
-| BitTitan/Email       | Suleman Manji   | Primary escalation     |
+<table style="width: 100%; border-collapse: collapse; font-size: 0.9em;">
+<thead>
+<tr style="background: #e9ecef;">
+<th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid #dee2e6;">Issue Type</th>
+<th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid #dee2e6;">Primary Contact</th>
+<th style="padding: 0.5rem; text-align: left; border-bottom: 2px solid #dee2e6;">Escalation Chain</th>
+</tr>
+</thead>
+<tbody>
+<tr><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Device Reset/Wipes</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Suleman Manji</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">ILG (Willie) for wipes</td></tr>
+<tr><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Autopilot Removal</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">ILG IT Team</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Willie, Brett</td></tr>
+<tr><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">RDP/RFMS/Floorsight</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Brian Vaughan</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Primary escalation</td></tr>
+<tr><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Network/VPN/IPsec</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Landon Hill</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Nick Christian → Imran</td></tr>
+<tr><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Verizon/iOS ABM</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Trevor</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Bradley (ILG) → Lana</td></tr>
+<tr><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Intune/Autopilot/ABM</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Suleman Manji</td><td style="padding: 0.5rem; border-bottom: 1px solid #dee2e6;">Primary escalation</td></tr>
+<tr><td style="padding: 0.5rem;">BitTitan/Email</td><td style="padding: 0.5rem;">Suleman Manji</td><td style="padding: 0.5rem;">Primary escalation</td></tr>
+</tbody>
+</table>
 
 <h4 style="margin-top: 1.5rem; margin-bottom: 0.5rem;">Device Reset Submission Format</h4>
 <code style="background: #e9ecef; padding: 0.5rem; display: block; border-radius: 4px; font-size: 0.9em;">
