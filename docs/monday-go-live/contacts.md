@@ -24,13 +24,13 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 
 ## Support Teams
 
-| Team                     | Members                              | Responsibility                                            |
-| ------------------------ | ------------------------------------ | --------------------------------------------------------- |
-| **Impact Help Desk**     | Riasat, Trevor, Brian Vaughan        | User support, Help desk tickets, Go-live day support      |
-| **ILG IT**               | Brent, Jish, Willie                  | Autopilot removal, Device wipes, ILG tenant operations    |
-| **Viyu MSD**             | Doug, Jason, Suleman                 | Escalation support for AMSYS technicians                  |
-| **AMSYS Field Services** | Colin, Alice + remote hands          | Saturday on-site at 6 large sites; Monday go-live support |
-| **Verizon/iOS**          | Bradley (ILG), Lana (Impact), Trevor | iOS device ABM transfer coordination                      |
+| Team                       | Members                                   | Responsibility                                            |
+| -------------------------- | ----------------------------------------- | --------------------------------------------------------- |
+| **Impact Help Desk**       | Riasat, Trevor, Brian Vaughan, Jim Norman | User support, Help desk tickets, Go-live day support      |
+| **ILG IT**                 | Brent, Jish, Willie                       | Autopilot removal, Device wipes, ILG tenant operations    |
+| **Viyu Network Solutions** | Doug, Marcus, Suleman                     | Escalation support for AMSYS technicians                  |
+| **AMSYS Field Services**   | Colin, Alice + remote hands               | Saturday on-site at 6 large sites; Monday go-live support |
+| **Verizon/iOS**            | Bradley (ILG), Lana (Impact), Trevor      | iOS device ABM transfer coordination                      |
 
 ---
 
@@ -55,11 +55,10 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 
 <div style="border: 1px solid #dee2e6; border-left: 4px solid #1e3c72; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
 
-**Suleman Manji - Device Reset Coordinator**
-
-- Email: `smanji@viyu.net`
-- Phone: 281-904-1969
-- MS Teams: Available for serial number submissions
+<strong>Suleman Manji - Device Reset Coordinator</strong><br><br>
+Email: <code>smanji@viyu.net</code><br>
+Phone: 281-904-1969<br>
+MS Teams: Available for serial number submissions
 
 </div>
 
@@ -67,11 +66,10 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 
 <div style="border: 1px solid #dee2e6; border-left: 4px solid #1e3c72; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
 
-**Landon Hill - Network & Infrastructure**
-
-- Email: `lhill@viyu.net`
-- Escalation: Nick Christian (`nchristian@viyu.net`)
-- Secondary: Imran Saleem
+<strong>Landon Hill - Network & Infrastructure</strong><br><br>
+Email: <code>lhill@viyu.net</code><br>
+Escalation: Nick Christian (<code>nchristian@viyu.net</code>)<br>
+Secondary: Imran Saleem
 
 </div>
 
@@ -79,10 +77,9 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 
 <div style="border: 1px solid #dee2e6; border-left: 4px solid #1e3c72; padding: 1rem; border-radius: 4px; margin: 1rem 0;">
 
-**Brian Vaughan - IT Lead**
-
-- Email: `bvaughan@impactpropertysolutions.com`
-- Primary escalation point for RDP, RFMS, Floorsight, and printer issues
+<strong>Brian Vaughan - IT Lead</strong><br><br>
+Email: <code>bvaughan@impactpropertysolutions.com</code><br>
+Primary escalation point for RDP, RFMS, Floorsight, and printer issues
 
 </div>
 
@@ -92,20 +89,20 @@ Project stakeholders, support teams, and escalation matrix for the January 19, 2
 
 ### Saturday On-Site (January 17, 2026)
 
-| Role                 | Coverage                  | Locations                                                         |
-| -------------------- | ------------------------- | ----------------------------------------------------------------- |
-| AMSYS Field Services | 6 large sites (10+ users) | Union City, Chula Vista, Sacramento, Auburn, La Mirada, Milwaukie |
-| Impact IT            | Remote support            | All systems                                                       |
-| Viyu MSD             | Escalation support        | Remote                                                            |
+| Role                   | Coverage                  | Locations                                                         |
+| ---------------------- | ------------------------- | ----------------------------------------------------------------- |
+| AMSYS Field Services   | 6 large sites (10+ users) | Union City, Chula Vista, Sacramento, Auburn, La Mirada, Milwaukie |
+| Impact IT              | Remote support            | All systems                                                       |
+| Viyu Network Solutions | Escalation support        | Remote                                                            |
 
 ### Monday Go-Live (January 19, 2026)
 
-| Role               | Coverage           | Notes                          |
-| ------------------ | ------------------ | ------------------------------ |
-| AMSYS Remote Hands | All 22 sites       | On-site technician support     |
-| Impact Help Desk   | User support       | Help desk tickets              |
-| Viyu MSD           | Escalation support | Technical escalations          |
-| ILG IT             | Device wipes       | Autopilot removal coordination |
+| Role                   | Coverage           | Notes                          |
+| ---------------------- | ------------------ | ------------------------------ |
+| AMSYS Remote Hands     | All 22 sites       | On-site technician support     |
+| Impact Help Desk       | User support       | Help desk tickets              |
+| Viyu Network Solutions | Escalation support | Technical escalations          |
+| ILG IT                 | Device wipes       | Autopilot removal coordination |
 
 ---
 
