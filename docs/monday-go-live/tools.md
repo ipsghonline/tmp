@@ -324,3 +324,232 @@ The script is open source and available for review:
 > **Version History:**
 >
 > - **v1.0** (January 2026) - Initial release for Monday Go-Live migration
+
+---
+
+## Intune Remediation Scripts
+
+{: .highlight }
+
+> **Purpose:** Post-migration validation scripts that run automatically via Intune to ensure device compliance.
+
+Intune Proactive Remediations detect and fix common post-migration issues on Windows devices in the Impact tenant. These scripts run on a schedule (daily for first 30 days) and automatically remediate issues without user interaction.
+
+---
+
+### Available Remediation Scripts
+
+| Script                           | Purpose                                                    | What It Fixes                                        |
+| -------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------- |
+| **OneDrive KFB Enforcement**     | Ensures Desktop, Documents, Pictures backed up to OneDrive | Enables Known Folder Backup if not configured        |
+| **Old Tenant Cleanup**           | Removes Pinnacle/ILG tenant artifacts                      | Deletes old OST files, credentials, registry entries |
+| **Migration Success Validation** | Verifies migration completion and compliance               | Fixes OneDrive sync, network connectivity issues     |
+
+**Script Location:** [/scripts/intune/](https://github.com/ipsghonline/tmp/tree/main/scripts/intune)
+
+---
+
+### Deployment Instructions
+
+Full deployment guide available at: [scripts/intune/README.md](https://github.com/ipsghonline/tmp/blob/main/scripts/intune/README.md)
+
+**Quick Start:**
+
+1. Sign in to [Microsoft Intune admin center](https://intune.microsoft.com)
+2. Go to **Devices** → **Scripts** → **Proactive remediations**
+3. Click **+ Create script package**
+4. Upload detection and remediation script pair
+5. Configure:
+    - Run using **logged-on credentials**: Yes
+    - Run in **64-bit PowerShell**: Yes
+    - Frequency: **Daily** (first 30 days)
+6. Assign to all Impact Windows devices
+7. Deploy in order:
+    1. OneDrive KFB Enforcement
+    2. Old Tenant Cleanup
+    3. Migration Success Validation
+
+---
+
+### Monitoring Remediation Status
+
+**Intune Console:**
+
+1. Go to **Devices** → **Scripts** → **Proactive remediations**
+2. Click on remediation package
+3. View **Device status**:
+    - **With issues** = Problems detected, remediation needed
+    - **Without issues** = Compliant
+    - **Failed** = Check Event Log for errors
+
+**Event Log (on device):**
+
+```powershell
+Get-EventLog -LogName Application -Source IntuneRemediations -Newest 10
+```
+
+**Event IDs:**
+
+- 1001: Remediation successful
+- 1002: Remediation failed
+- 1003: Detection passed (compliant)
+- 1004: Detection failed (non-compliant)
+
+---
+
+### Remediation Reports
+
+All remediation scripts create detailed reports in `C:\Support\` on each device:
+
+**Files:**
+
+- `Remediation-{ScriptName}-{Timestamp}.json` - Structured data for automation
+- `Remediation-{ScriptName}-{Timestamp}.txt` - Human-readable report
+
+**View Reports on Device:**
+
+```powershell
+# List all remediation reports
+Get-ChildItem C:\Support\Remediation-*.txt | Sort-Object LastWriteTime -Descending
+
+# Read latest report
+Get-Content (Get-ChildItem C:\Support\Remediation-*.txt | Sort-Object LastWriteTime -Descending | Select-Object -First 1).FullName
+```
+
+---
+
+### Collecting Remediation Telemetry
+
+Use the collection script to gather remediation data from multiple devices:
+
+**Download Collection Script:**
+
+```powershell
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-RemediationTelemetry.ps1" -OutFile "Collect-RemediationTelemetry.ps1"
+```
+
+**Collect to USB Drive:**
+
+```powershell
+.\Collect-RemediationTelemetry.ps1 -OutputPath "E:\RemediationTelemetry"
+```
+
+**Collect to Network Share:**
+
+```powershell
+.\Collect-RemediationTelemetry.ps1 -OutputPath "\\server\share\telemetry"
+```
+
+**Collect JSON and TXT Files:**
+
+```powershell
+.\Collect-RemediationTelemetry.ps1 -OutputPath "E:\Telemetry" -IncludeTxtFiles
+```
+
+**Collect and Remove Local Copies:**
+
+```powershell
+.\Collect-RemediationTelemetry.ps1 -OutputPath "E:\Telemetry" -RemoveAfterCopy
+```
+
+---
+
+### What Each Remediation Does
+
+#### OneDrive KFB Enforcement
+
+**Detection:**
+
+- Checks if OneDrive installed and signed in
+- Verifies Desktop, Documents, Pictures backed up to OneDrive
+- Tests OneDrive sync status
+
+**Remediation:**
+
+- Starts OneDrive if not running
+- Enables Known Folder Move via registry policy
+- Triggers OneDrive reconfiguration
+- Verifies folders redirected to OneDrive
+
+**Expected Runtime:** 20-30 seconds
+
+---
+
+#### Old Tenant Cleanup
+
+**Detection:**
+
+- Finds old OST files (>30 days) from Pinnacle tenant
+- Detects cached credentials for `@pinnacle*`, `@ilginc.com`
+- Identifies old device registrations in registry
+
+**Remediation:**
+
+- Deletes old OST files from `%LOCALAPPDATA%\Microsoft\Outlook`
+- Removes old tenant credentials via `cmdkey /delete`
+- Cleans registry keys under `HKCU:\Software\Microsoft\Windows\CurrentVersion\AAD\Storage`
+
+**Expected Runtime:** 10-20 seconds
+
+---
+
+#### Migration Success Validation
+
+**Detection:**
+
+- Verifies required apps installed (Outlook, Teams, Chrome, Foxit, NinjaOne)
+- Checks device enrolled in Impact tenant (not Pinnacle)
+- Tests OneDrive sync status
+- Checks internet connectivity to Microsoft 365 endpoints
+
+**Remediation:**
+
+- **Cannot install missing apps** - logs for IT follow-up (apps deployed via Intune separately)
+- Repairs OneDrive sync if stuck
+- Clears DNS cache if connectivity issues
+- Resets network adapter if endpoints unreachable
+
+**Expected Runtime:** 30-45 seconds
+
+{: .note }
+
+> **Application Installation:** The Migration Success Validation script cannot install missing applications. Application deployment must be configured in Intune separately. Missing apps are logged in the remediation report for IT follow-up.
+
+---
+
+### Troubleshooting
+
+**Detection shows "Failed" in Intune:**
+
+1. Check Event Log on device:
+    ```powershell
+    Get-EventLog -LogName Application -Source IntuneRemediations -EntryType Error -Newest 5
+    ```
+2. Verify script runs manually:
+    ```powershell
+    .\Detect-OneDriveKFB.ps1
+    echo $LASTEXITCODE  # Should be 0 or 1
+    ```
+3. Ensure "Run with logged-on credentials" is enabled in Intune
+
+**Remediation doesn't fix issue:**
+
+1. Check `C:\Support\Remediation-*.txt` for error details
+2. For OneDrive KFB: May take 5-10 minutes after script runs
+3. For missing apps: Deploy via Intune (script only logs the issue)
+
+**No reports in C:\Support\:**
+
+1. Check Event Log for errors
+2. Manually run remediation script to see output
+3. Verify user has write permissions to `C:\Support\`
+
+---
+
+### Best Practices
+
+1. **Deploy in order**: OneDrive KFB → Old Tenant → Migration Success
+2. **Monitor Event Logs**: First 7 days post-deployment
+3. **Collect telemetry weekly**: Analyze trends and common issues
+4. **Adjust frequency**: After 30 days, reduce to weekly or monthly
+5. **Test locally first**: Validate scripts on test machine before production
