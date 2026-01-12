@@ -8,11 +8,12 @@ These Intune Proactive Remediation scripts detect and fix common post-migration 
 
 ### Available Remediation Pairs
 
-| Remediation                      | Purpose                                                                  | Files                                                             |
-| -------------------------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------- |
-| **OneDrive KFB Enforcement**     | Ensures Desktop, Documents, and Pictures are backed up to OneDrive       | `Detect-OneDriveKFB.ps1`<br>`Remediate-OneDriveKFB.ps1`           |
-| **Old Tenant Cleanup**           | Removes Pinnacle/ILG tenant artifacts (OST files, credentials, registry) | `Detect-OldTenantData.ps1`<br>`Remediate-OldTenantData.ps1`       |
-| **Migration Success Validation** | Verifies required apps installed and connectivity working                | `Detect-MigrationSuccess.ps1`<br>`Remediate-MigrationSuccess.ps1` |
+| Remediation                  | Purpose                                                            | Files                                                       |
+| ---------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------- |
+| **OneDrive KFB Enforcement** | Ensures Desktop, Documents, and Pictures are backed up to OneDrive | `Detect-OneDriveKFB.ps1`<br>`Remediate-OneDriveKFB.ps1`     |
+| **Printer Backup**           | Backs up printer configuration to OneDrive Documents               | `Detect-PrinterBackup.ps1`<br>`Remediate-PrinterBackup.ps1` |
+| **WiFi Backup**              | Captures WiFi SSID to OneDrive Documents                           | `Detect-WiFiBackup.ps1`<br>`Remediate-WiFiBackup.ps1`       |
+| **PST Backup**               | Copies PST files to OneDrive Documents (< 2GB)                     | `Detect-PSTBackup.ps1`<br>`Remediate-PSTBackup.ps1`         |
 
 ---
 
@@ -75,9 +76,10 @@ For each remediation pair, create a script package with these settings:
 
 Deploy remediation scripts in this order:
 
-1. **OneDrive KFB Enforcement** (Priority 1 - Data protection)
-2. **Old Tenant Cleanup** (Priority 2 - Remove confusion artifacts)
-3. **Migration Success Validation** (Priority 3 - Overall validation)
+1. **OneDrive KFB Enforcement** (Priority 1 - Enables OneDrive backup infrastructure)
+2. **Printer Backup** (Priority 2 - Small file, quick backup)
+3. **WiFi Backup** (Priority 3 - Small file, quick backup)
+4. **PST Backup** (Priority 4 - Large files, may take time)
 
 ---
 
@@ -203,18 +205,16 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Remedi
    ```
 3. Verify user has write permissions to C:\Support\
 
-#### Old Tenant Data Still Present
+#### PST Backup Fails or Skips Files
 
-**Symptoms**: Old Tenant Cleanup shows "Issues detected" repeatedly
-**Cause**: Outlook may have OST files locked, or credentials recreated by cached apps
+**Symptoms**: PST Backup shows "Issues detected" or creates warning files
+**Cause**: Outlook running, files locked, files >2GB, or insufficient space
 **Solution**:
 
 1. Close Outlook completely
-2. Run remediation script manually:
-   ```powershell
-   .\Remediate-OldTenantData.ps1
-   ```
-3. Check `C:\Support\Remediation-OldTenantCleanup-*.txt` for specific items not removed
+2. Check for warning file in OneDrive Documents: `IPS-Migration-WARNING-PSTBackup.txt`
+3. Review telemetry file: `C:\Support\Remediation-PSTBackup-*.txt`
+4. For files >2GB: Contact IT support for manual backup assistance
 
 ---
 
@@ -271,49 +271,98 @@ Get-Content C:\Support\Remediation-*.txt
 - Triggers OneDrive reconfiguration
 - Verifies folders redirected to OneDrive path
 
+**High-risk detection:**
+
+- OneDrive process running check
+- Documents folder accessibility
+- Sufficient disk space (≥1GB)
+
 **Expected runtime:** 20-30 seconds
 
-### Old Tenant Cleanup
+### Printer Backup
 
 **What it does:**
 
-- Finds old OST files (>30 days) from Pinnacle tenant
-- Detects cached credentials for `@pinnacle*`, `@ilginc.com`
-- Identifies old device registrations in registry
+- Exports all printer configurations to OneDrive Documents
+- Captures printer names, ports, drivers, and default printer
+- Creates human-readable backup file for post-migration reference
 
 **Remediation actions:**
 
-- Deletes old OST files from `%LOCALAPPDATA%\Microsoft\Outlook`
-- Removes credentials via `cmdkey /delete`
-- Cleans registry keys under `HKCU:\Software\Microsoft\Windows\CurrentVersion\AAD\Storage`
+- Uses WMI `Win32_Printer` to enumerate all printers
+- Exports printer details to `IPS-Migration-PrinterBackup.txt`
+- Writes telemetry to `C:\Support\`
 
-**Expected runtime:** 10-20 seconds
+**High-risk detection:**
 
-### Migration Success Validation
+- OneDrive process running check
+- Print Spooler service status
+- Excessive printer count (>50 = back off)
+- Sufficient disk space (≥1GB)
+
+**Expected runtime:** 10-15 seconds
+
+### WiFi Backup
 
 **What it does:**
 
-- Verifies required apps installed (Outlook, Teams, Chrome, Foxit, NinjaOne)
-- Checks device enrolled in Impact tenant
-- Tests connectivity to Microsoft 365 endpoints
+- Captures current WiFi SSID for post-migration reconnection
+- Saves WiFi network name to OneDrive Documents
+- Handles devices without WiFi hardware gracefully
 
 **Remediation actions:**
 
-- Logs missing applications (cannot install - requires Intune app deployment)
-- Repairs OneDrive sync if stuck
-- Clears DNS cache and resets network if connectivity issues
+- Uses `netsh wlan show interfaces` to get current SSID
+- Exports to `IPS-Migration-WiFiSSID.txt`
+- Creates "Not applicable" file if WiFi not available
 
-**Expected runtime:** 30-45 seconds
+**High-risk detection:**
+
+- OneDrive process running check
+- Wireless service (WlanSvc) availability
+- Sufficient disk space (≥1GB)
+
+**Expected runtime:** 5-10 seconds
+
+### PST Backup
+
+**What it does:**
+
+- Searches for PST files in Outlook locations and user folders
+- Copies PST files <2GB to OneDrive Documents backup folder
+- Creates summary report with copied/skipped files
+
+**Remediation actions:**
+
+- Searches: `%LOCALAPPDATA%\Microsoft\Outlook`, `Documents`, `Desktop`
+- Copies PST files to `IPS-Migration-PSTBackup\` folder
+- Skips files >2GB (OneDrive sync limit)
+- Tests file locks before copying
+- Creates detailed summary: `BackupSummary.txt`
+
+**High-risk detection:**
+
+- OneDrive process running check
+- Outlook process NOT running (avoid file locks)
+- Total PST size vs available space (80% threshold)
+- Network-located PST files (UNC paths) skipped
+- Individual file lock testing
+- 2GB per-file size limit
+- Sufficient disk space (≥1GB)
+
+**Expected runtime:** Varies (1-10 minutes depending on PST count and size)
 
 ---
 
 ## Best Practices
 
-1. **Deploy in order**: OneDrive KFB → Old Tenant → Migration Success
+1. **Deploy in order**: OneDrive KFB → Printer Backup → WiFi Backup → PST Backup
 2. **Monitor Event Logs**: First 7 days post-deployment
 3. **Collect telemetry weekly**: Analyze trends and common issues
-4. **Adjust frequency**: After 30 days, reduce to weekly or monthly
-5. **Test locally first**: Always validate scripts on test machine before production
+4. **Check warning files**: Review `IPS-Migration-WARNING-*.txt` files in OneDrive Documents
+5. **PST backup timing**: Run PST backup when Outlook is closed (after-hours deployment recommended)
+6. **Adjust frequency**: After 30 days, reduce to weekly or monthly
+7. **Test locally first**: Always validate scripts on test machine before production
 
 ---
 
