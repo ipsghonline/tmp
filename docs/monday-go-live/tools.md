@@ -357,13 +357,13 @@ Intune Proactive Remediations detect and fix common post-migration issues on Win
 - [Detect-PSTBackup.ps1](/scripts/intune/Detect-PSTBackup.ps1)
 - [Remediate-PSTBackup.ps1](/scripts/intune/Remediate-PSTBackup.ps1)
 
-**Source:** [View on GitHub](https://github.com/ipsghonline/tmp/tree/main/scripts/intune) | [Deployment Guide](/scripts/intune/)
+**Documentation:** [Full Deployment Guide](/scripts/intune/) | [View Source on GitHub](https://github.com/ipsghonline/tmp/tree/main/scripts/intune)
 
 ---
 
 ### Deployment Instructions
 
-**Full Deployment Guide:** [View README on GitHub](https://github.com/ipsghonline/tmp/blob/main/scripts/intune/README.md)
+For complete step-by-step deployment instructions, monitoring, troubleshooting, and best practices, see the [**Full Deployment Guide**](/scripts/intune/)
 
 ---
 
