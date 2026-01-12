@@ -15,7 +15,7 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 
 {: .highlight }
 
-> **📊 Phase 1 Backup Guide (PowerPoint):** Download the [Phase 1 Backup Guide presentation](https://github.com/ipsghonline/tmp/blob/main/presentation/Phase1-Backup-Guide.pptx) for a visual walkthrough of the backup process. This presentation is designed for end-user training and can be used as a reference guide during migration.
+> **📊 Phase 1 Backup Guide (PowerPoint):** Download the [Phase 1 Backup Guide presentation](https://github.com/ipsghonline/tmp/raw/main/presentation/Phase1-Backup-Guide.pptx) for a visual walkthrough of the backup process. This presentation is designed for end-user training and can be used as a reference guide during migration.
 >
 > **🤖 Automated Backup Script:** Run `irm https://ipsghonline.github.io/tmp/scripts/Phase1-Backup.ps1 | iex` to automate system checks and data collection. See [Migration Tools](tools.html) for details.
 
