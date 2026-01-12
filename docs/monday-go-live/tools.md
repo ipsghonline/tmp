@@ -530,6 +530,8 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Remedi
 - Includes printer names, ports, drivers, default printer
 - Performs high-risk checks: OneDrive running, Print Spooler status, excessive printer count (>50)
 
+**User Notifications:** If the script detects issues requiring action (e.g., OneDrive not running, Print Spooler stopped), it displays a Windows Toast Notification with clear instructions. Users also receive a warning file in their Documents folder.
+
 **Expected Runtime:** 10-15 seconds
 
 ---
@@ -547,6 +549,8 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Remedi
 - Exports to `IPS-Migration-WiFiSSID.txt`
 - Creates "Not applicable" file if WiFi not available
 - Performs high-risk checks: OneDrive running, wireless service availability
+
+**User Notifications:** If the script detects issues requiring action (e.g., OneDrive not running, low disk space), it displays a Windows Toast Notification with clear instructions. Users also receive a warning file in their Documents folder.
 
 **Expected Runtime:** 5-10 seconds
 
@@ -567,6 +571,8 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Remedi
 - Tests file locks before copying
 - Creates detailed summary: `BackupSummary.txt`
 - Performs high-risk checks: OneDrive running, Outlook NOT running, total PST size vs available space (80% threshold), network-located PST files skipped, individual file lock testing
+
+**User Notifications:** If the script detects issues requiring action (e.g., OneDrive not running, Outlook needs to be closed, PST files too large), it displays a Windows Toast Notification with clear instructions. Users also receive a warning file in their Documents folder.
 
 **Expected Runtime:** Varies (1-10 minutes depending on PST count and size)
 

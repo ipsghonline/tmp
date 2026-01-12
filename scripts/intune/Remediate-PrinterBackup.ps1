@@ -6,7 +6,59 @@
 #   0 = Success (backup created or backed off safely)
 #   1 = Failure (unexpected error)
 
+# ======================================================================
+# Toast Notification Helper Function
+# ======================================================================
+function Show-ToastNotification {
+    param(
+        [string]$Title,
+        [string]$Message,
+        [int]$DurationSeconds = 10
+    )
+
+    try {
+        # Method 1: Try BurntToast module (if available)
+        if (Get-Module -ListAvailable -Name BurntToast) {
+            Import-Module BurntToast -ErrorAction Stop
+            New-BurntToastNotification -Text $Title, $Message -Silent
+            return $true
+        }
+
+        # Method 2: Native Windows.UI.Notifications (Windows 10/11)
+        [Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] | Out-Null
+        [Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] | Out-Null
+
+        $template = @"
+<toast>
+    <visual>
+        <binding template="ToastGeneric">
+            <text>$Title</text>
+            <text>$Message</text>
+        </binding>
+    </visual>
+</toast>
+"@
+
+        $xml = New-Object Windows.Data.Xml.Dom.XmlDocument
+        $xml.LoadXml($template)
+
+        $toast = [Windows.UI.Notifications.ToastNotification]::new($xml)
+        $toast.ExpirationTime = [DateTimeOffset]::Now.AddSeconds($DurationSeconds)
+
+        $notifier = [Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("Impact Property Solutions - Migration")
+        $notifier.Show($toast)
+
+        return $true
+    } catch {
+        # Silent fail - warning file will still be created
+        Write-Warning "Failed to show toast notification: $_"
+        return $false
+    }
+}
+
+# ======================================================================
 # High-Risk Detection: Check OneDrive Health
+# ======================================================================
 try {
     # Check 1: OneDrive is running
     $oneDriveProcess = Get-Process -Name "OneDrive" -ErrorAction SilentlyContinue
@@ -29,6 +81,11 @@ ACTION REQUIRED: Please ensure OneDrive is running and signed in, then this scri
             $warningMessage | Out-File -FilePath $warningFile -Encoding UTF8 -Force
         }
 
+        # Show toast notification
+        $toastShown = Show-ToastNotification `
+            -Title "Printer Backup: Action Required" `
+            -Message "Please start OneDrive and sign in. Your printer configuration will be backed up automatically."
+
         # Write telemetry
         $telemetry = @{
             ComputerName = $env:COMPUTERNAME
@@ -37,6 +94,11 @@ ACTION REQUIRED: Please ensure OneDrive is running and signed in, then this scri
             Reason = "OneDrive process not running"
             RiskLevel = "High"
             ActionRequired = "Start OneDrive and sign in"
+            ToastNotification = @{
+                Shown = $toastShown
+                Title = "Printer Backup: Action Required"
+                Message = "Please start OneDrive and sign in."
+            }
         }
 
         $telemetryFile = "C:\Support\Remediation-PrinterBackup-$(Get-Date -Format 'yyyyMMdd-HHmmss').json"
@@ -85,6 +147,11 @@ ACTION REQUIRED: Please free up disk space, then this script will retry automati
 "@
         $warningMessage | Out-File -FilePath $warningFile -Encoding UTF8 -Force
 
+        # Show toast notification
+        $toastShown = Show-ToastNotification `
+            -Title "Printer Backup: Low Disk Space" `
+            -Message "Free up at least 1GB of disk space. Backup will retry automatically."
+
         $telemetry = @{
             ComputerName = $env:COMPUTERNAME
             Timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
@@ -93,6 +160,11 @@ ACTION REQUIRED: Please free up disk space, then this script will retry automati
             RiskLevel = "High"
             ActionRequired = "Free up disk space"
             FreeSpaceMB = [math]::Round($freeSpace / 1MB, 0)
+            ToastNotification = @{
+                Shown = $toastShown
+                Title = "Printer Backup: Low Disk Space"
+                Message = "Free up at least 1GB of disk space."
+            }
         }
 
         $telemetryFile = "C:\Support\Remediation-PrinterBackup-$(Get-Date -Format 'yyyyMMdd-HHmmss').json"
@@ -121,6 +193,11 @@ ACTION REQUIRED: Please start the Print Spooler service, then this script will r
 "@
         $warningMessage | Out-File -FilePath $warningFile -Encoding UTF8 -Force
 
+        # Show toast notification
+        $toastShown = Show-ToastNotification `
+            -Title "Printer Backup: Service Issue" `
+            -Message "Print Spooler service is stopped. Please contact IT support."
+
         $telemetry = @{
             ComputerName = $env:COMPUTERNAME
             Timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
@@ -128,6 +205,11 @@ ACTION REQUIRED: Please start the Print Spooler service, then this script will r
             Reason = "Print Spooler service not running"
             RiskLevel = "High"
             ActionRequired = "Start Print Spooler service"
+            ToastNotification = @{
+                Shown = $toastShown
+                Title = "Printer Backup: Service Issue"
+                Message = "Print Spooler service is stopped."
+            }
         }
 
         $telemetryFile = "C:\Support\Remediation-PrinterBackup-$(Get-Date -Format 'yyyyMMdd-HHmmss').json"
@@ -156,6 +238,11 @@ ACTION REQUIRED: Please contact IT support for manual printer backup assistance.
 "@
         $warningMessage | Out-File -FilePath $warningFile -Encoding UTF8 -Force
 
+        # Show toast notification
+        $toastShown = Show-ToastNotification `
+            -Title "Printer Backup: Manual Review Needed" `
+            -Message "You have more than 50 printers configured. Please contact IT support for manual backup."
+
         $telemetry = @{
             ComputerName = $env:COMPUTERNAME
             Timestamp = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
@@ -164,6 +251,11 @@ ACTION REQUIRED: Please contact IT support for manual printer backup assistance.
             RiskLevel = "High"
             ActionRequired = "Contact IT for manual backup"
             PrinterCount = $printers.Count
+            ToastNotification = @{
+                Shown = $toastShown
+                Title = "Printer Backup: Manual Review Needed"
+                Message = "More than 50 printers detected."
+            }
         }
 
         $telemetryFile = "C:\Support\Remediation-PrinterBackup-$(Get-Date -Format 'yyyyMMdd-HHmmss').json"

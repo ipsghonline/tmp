@@ -354,6 +354,44 @@ Get-Content C:\Support\Remediation-*.txt
 
 ---
 
+## Toast Notifications
+
+When a remediation script detects a high-risk condition requiring user action, it displays a **Windows Toast Notification** to alert the user immediately.
+
+### Toast Behavior
+
+- **Auto-dismiss**: Disappears after 10 seconds
+- **Non-blocking**: User can continue working
+- **Action-oriented**: Clear message about what to do next
+- **Fail-safe**: Warning files are still created in Documents folder
+
+### Example Toast Messages
+
+- "Please close Outlook completely. Your PST files will be backed up automatically once closed."
+- "Please start OneDrive and sign in. Your printer configuration will be backed up automatically."
+- "Free up at least 1GB of disk space. Backup will retry automatically."
+
+### When Toasts Appear
+
+Toasts are shown only for scenarios requiring user action:
+
+| Script             | Toast Triggers                                                                                                |
+| ------------------ | ------------------------------------------------------------------------------------------------------------- |
+| **Printer Backup** | OneDrive not running, Low disk space, Print Spooler stopped, Excessive printer count (>50)                    |
+| **WiFi Backup**    | OneDrive not running, Low disk space                                                                          |
+| **PST Backup**     | OneDrive not running, Outlook running (file lock), Low disk space, PST files too large (>80% available space) |
+| **OneDrive KFB**   | No toasts (uses Event Log only)                                                                               |
+
+### Technical Details
+
+**IT Note:** Toast notifications use Windows native API (no external dependencies). The script tries BurntToast module first (if installed), then falls back to `Windows.UI.Notifications` API (Windows 10 1607+ / Windows 11).
+
+If toast display fails, the warning file in Documents folder ensures users are still notified. Toast delivery success/failure is tracked in telemetry JSON files (`C:\Support\Remediation-*.json`).
+
+**Focus Assist:** Toasts may be suppressed if user has Focus Assist enabled. Warning files provide backup notification method.
+
+---
+
 ## Best Practices
 
 1. **Deploy in order**: OneDrive KFB → Printer Backup → WiFi Backup → PST Backup
