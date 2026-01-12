@@ -56,40 +56,6 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 
 ---
 
-## Quick Reference Contacts
-
-{: .important }
-
-> **Go-Live Operations Call:** Teams call open **6:00 AM CST Monday 1/19** for duration of operations. Direct invite only.
-
-| Issue               | Contact       | Phone/Method                         |
-| ------------------- | ------------- | ------------------------------------ |
-| Device Reset Issues | Suleman Manji | 469-364-6222 / Teams                 |
-| RFMS/Floorsight     | Brian Vaughan | bvaughan@impactpropertysolutions.com |
-| Network/VPN Issues  | Landon Hill   | lhill@viyu.net                       |
-
----
-
-## Troubleshooting Quick Reference
-
-{: .warning }
-
-> **Common issues and quick fixes during migration.**
-
-| Issue                    | Likely Cause             | Quick Fix                                             |
-| ------------------------ | ------------------------ | ----------------------------------------------------- |
-| ESP taking >60 min       | Network/bandwidth issues | Check connectivity; may need device restart and retry |
-| Bookmarks won't import   | Wrong file format        | Verify exported as .html (not .json)                  |
-| OneDrive not syncing     | Initial sync delay       | Wait 15-30 min; try sign out/in                       |
-| Printer not appearing    | Driver not deployed      | Use Phase 1 screenshot, add manually via Settings     |
-| Apps missing after ESP   | Deployment delay         | Wait 10 min, check Intune portal for status           |
-| User can't find settings | Not familiar with Win 11 | Windows key + I opens Settings                        |
-| RFMS RDP fails           | Network or DNS issue     | Verify VPN; contact Brian Vaughan                     |
-| Chrome profile issues    | Sync conflict            | Create new profile, import bookmarks fresh            |
-| Device won't reboot      | Hardware issue           | Use thumb drive for forced reboot (shipped to site)   |
-
----
-
 ## Phase 1: Backup (Before Reset)
 
 {: .highlight }
@@ -607,3 +573,37 @@ After ESP completes, verify these applications:
 | 4     | Printing             | Test print successful                      | ☐      |
 | 5     | Bookmarks Restored   | Imported from OneDrive backup              | ☐      |
 | 5     | Backup Files Deleted | Removed sensitive exports from OneDrive    | ☐      |
+
+---
+
+## Troubleshooting Quick Reference
+
+{: .warning }
+
+> **Common issues and quick fixes during migration.**
+
+| Issue                    | Likely Cause             | Quick Fix                                             |
+| ------------------------ | ------------------------ | ----------------------------------------------------- |
+| ESP taking >60 min       | Network/bandwidth issues | Check connectivity; may need device restart and retry |
+| Bookmarks won't import   | Wrong file format        | Verify exported as .html (not .json)                  |
+| OneDrive not syncing     | Initial sync delay       | Wait 15-30 min; try sign out/in                       |
+| Printer not appearing    | Driver not deployed      | Use Phase 1 screenshot, add manually via Settings     |
+| Apps missing after ESP   | Deployment delay         | Wait 10 min, check Intune portal for status           |
+| User can't find settings | Not familiar with Win 11 | Windows key + I opens Settings                        |
+| RFMS RDP fails           | Network or DNS issue     | Verify VPN; contact Brian Vaughan                     |
+| Chrome profile issues    | Sync conflict            | Create new profile, import bookmarks fresh            |
+| Device won't reboot      | Hardware issue           | Use thumb drive for forced reboot (shipped to site)   |
+
+---
+
+## Quick Reference Contacts
+
+{: .important }
+
+> **Go-Live Operations Call:** Teams call open **6:00 AM CST Monday 1/19** for duration of operations. Direct invite only.
+
+| Issue               | Contact       | Phone/Method                         |
+| ------------------- | ------------- | ------------------------------------ |
+| Device Reset Issues | Suleman Manji | 469-364-6222 / Teams                 |
+| RFMS/Floorsight     | Brian Vaughan | bvaughan@impactpropertysolutions.com |
+| Network/VPN Issues  | Landon Hill   | lhill@viyu.net                       |
