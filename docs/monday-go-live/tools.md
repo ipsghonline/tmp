@@ -339,11 +339,12 @@ Intune Proactive Remediations detect and fix common post-migration issues on Win
 
 ### Available Remediation Scripts
 
-| Script                           | Purpose                                                    | What It Fixes                                        |
-| -------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------- |
-| **OneDrive KFB Enforcement**     | Ensures Desktop, Documents, Pictures backed up to OneDrive | Enables Known Folder Backup if not configured        |
-| **Old Tenant Cleanup**           | Removes Pinnacle/ILG tenant artifacts                      | Deletes old OST files, credentials, registry entries |
-| **Migration Success Validation** | Verifies migration completion and compliance               | Fixes OneDrive sync, network connectivity issues     |
+| Script                       | Purpose                                                    | What It Fixes                                 |
+| ---------------------------- | ---------------------------------------------------------- | --------------------------------------------- |
+| **OneDrive KFB Enforcement** | Ensures Desktop, Documents, Pictures backed up to OneDrive | Enables Known Folder Backup if not configured |
+| **Printer Backup**           | Backs up printer configuration to OneDrive Documents       | Exports printer list for post-migration setup |
+| **WiFi Backup**              | Captures WiFi SSID to OneDrive Documents                   | Records WiFi network name for reconnection    |
+| **PST Backup**               | Copies PST files to OneDrive Documents (< 2GB)             | Backs up Outlook data files to cloud          |
 
 **Script Location:** [/scripts/intune/](https://github.com/ipsghonline/tmp/tree/main/scripts/intune)
 
@@ -365,9 +366,10 @@ Full deployment guide available at: [scripts/intune/README.md](https://github.co
     - Frequency: **Daily** (first 30 days)
 6. Assign to all Impact Windows devices
 7. Deploy in order:
-    1. OneDrive KFB Enforcement
-    2. Old Tenant Cleanup
-    3. Migration Success Validation
+    1. OneDrive KFB Enforcement (Priority 1 - Enables OneDrive backup infrastructure)
+    2. Printer Backup (Priority 2 - Small file, quick backup)
+    3. WiFi Backup (Priority 3 - Small file, quick backup)
+    4. PST Backup (Priority 4 - Large files, may take time)
 
 ---
 
@@ -475,45 +477,59 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Remedi
 
 ---
 
-#### Old Tenant Cleanup
+#### Printer Backup
 
 **Detection:**
 
-- Finds old OST files (>30 days) from Pinnacle tenant
-- Detects cached credentials for `@pinnacle*`, `@ilginc.com`
-- Identifies old device registrations in registry
+- Checks if printer backup file exists in OneDrive Documents
+- Verifies backup is recent (< 7 days old)
 
 **Remediation:**
 
-- Deletes old OST files from `%LOCALAPPDATA%\Microsoft\Outlook`
-- Removes old tenant credentials via `cmdkey /delete`
-- Cleans registry keys under `HKCU:\Software\Microsoft\Windows\CurrentVersion\AAD\Storage`
+- Uses WMI `Win32_Printer` to enumerate all printers
+- Exports printer details to `IPS-Migration-PrinterBackup.txt`
+- Includes printer names, ports, drivers, default printer
+- Performs high-risk checks: OneDrive running, Print Spooler status, excessive printer count (>50)
 
-**Expected Runtime:** 10-20 seconds
+**Expected Runtime:** 10-15 seconds
 
 ---
 
-#### Migration Success Validation
+#### WiFi Backup
 
 **Detection:**
 
-- Verifies required apps installed (Outlook, Teams, Chrome, Foxit, NinjaOne)
-- Checks device enrolled in Impact tenant (not Pinnacle)
-- Tests OneDrive sync status
-- Checks internet connectivity to Microsoft 365 endpoints
+- Checks if WiFi SSID backup file exists in OneDrive Documents
+- Verifies backup is recent (< 7 days old)
 
 **Remediation:**
 
-- **Cannot install missing apps** - logs for IT follow-up (apps deployed via Intune separately)
-- Repairs OneDrive sync if stuck
-- Clears DNS cache if connectivity issues
-- Resets network adapter if endpoints unreachable
+- Uses `netsh wlan show interfaces` to get current SSID
+- Exports to `IPS-Migration-WiFiSSID.txt`
+- Creates "Not applicable" file if WiFi not available
+- Performs high-risk checks: OneDrive running, wireless service availability
 
-**Expected Runtime:** 30-45 seconds
+**Expected Runtime:** 5-10 seconds
 
-{: .note }
+---
 
-> **Application Installation:** The Migration Success Validation script cannot install missing applications. Application deployment must be configured in Intune separately. Missing apps are logged in the remediation report for IT follow-up.
+#### PST Backup
+
+**Detection:**
+
+- Searches for PST files in Outlook locations and user folders
+- Checks if PST files have been backed up to OneDrive Documents
+
+**Remediation:**
+
+- Searches: `%LOCALAPPDATA%\Microsoft\Outlook`, `Documents`, `Desktop`
+- Copies PST files to `IPS-Migration-PSTBackup\` folder
+- Skips files >2GB (OneDrive sync limit)
+- Tests file locks before copying
+- Creates detailed summary: `BackupSummary.txt`
+- Performs high-risk checks: OneDrive running, Outlook NOT running, total PST size vs available space (80% threshold), network-located PST files skipped, individual file lock testing
+
+**Expected Runtime:** Varies (1-10 minutes depending on PST count and size)
 
 ---
 
@@ -548,7 +564,7 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Remedi
 
 ### Best Practices
 
-1. **Deploy in order**: OneDrive KFB → Old Tenant → Migration Success
+1. **Deploy in order**: OneDrive KFB → Printer Backup → WiFi Backup → PST Backup
 2. **Monitor Event Logs**: First 7 days post-deployment
 3. **Collect telemetry weekly**: Analyze trends and common issues
 4. **Adjust frequency**: After 30 days, reduce to weekly or monthly
