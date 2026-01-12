@@ -159,6 +159,208 @@ function Get-OneDriveDocumentsPath {
     return [Environment]::GetFolderPath('MyDocuments')
 }
 
+function Get-ChassisTypeName {
+    param([int]$ChassisTypeCode)
+
+    $chassisTypes = @{
+        3 = "Desktop"
+        4 = "Low Profile Desktop"
+        8 = "Portable"
+        9 = "Laptop"
+        10 = "Notebook"
+        14 = "Sub Notebook"
+        30 = "Tablet"
+        31 = "Convertible"
+        32 = "Detachable"
+    }
+
+    return $chassisTypes[$ChassisTypeCode] ?? "Other ($ChassisTypeCode)"
+}
+
+function Get-PrinterType {
+    param([string]$PortName)
+
+    if ([string]::IsNullOrEmpty($PortName)) {
+        return "Unknown"
+    }
+
+    # Network printer patterns
+    if ($PortName -match "^IP_" -or $PortName -match "^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}") {
+        return "Network (IP)"
+    }
+
+    # Print server UNC path
+    if ($PortName -like "\\*") {
+        return "Network (Server)"
+    }
+
+    # USB printers
+    if ($PortName -like "USB*") {
+        return "USB"
+    }
+
+    # Standard local ports
+    if ($PortName -match "^(LPT|COM)\d") {
+        return "Local Port"
+    }
+
+    # WSD (Web Services for Devices) network printers
+    if ($PortName -like "WSD*") {
+        return "Network (WSD)"
+    }
+
+    # File/PDF virtual printers
+    if ($PortName -like "FILE:*" -or $PortName -like "*PDF*") {
+        return "Virtual"
+    }
+
+    return "Other"
+}
+
+function Get-PrinterStatusText {
+    param([int]$StatusCode)
+
+    # Win32_Printer status codes
+    $statusMap = @{
+        0 = "Unknown"
+        1 = "Other"
+        2 = "Unknown"
+        3 = "Idle"
+        4 = "Printing"
+        5 = "Warmup"
+        6 = "Stopped Printing"
+        7 = "Offline"
+    }
+
+    return $statusMap[$StatusCode] ?? "Unknown ($StatusCode)"
+}
+
+function Get-FileVersionInfo {
+    param([string]$Path)
+
+    if (Test-Path $Path) {
+        try {
+            $version = (Get-Item $Path).VersionInfo.FileVersion
+            return $version ?? "Unknown"
+        }
+        catch {
+            return "Unknown"
+        }
+    }
+    return "Not Found"
+}
+
+function Count-BookmarksRecursive {
+    param($Node)
+
+    $count = 0
+
+    if ($Node.children) {
+        foreach ($child in $Node.children) {
+            if ($child.type -eq "url") {
+                $count++
+            }
+            elseif ($child.type -eq "folder" -and $child.children) {
+                $count += Count-BookmarksRecursive -Node $child
+            }
+        }
+    }
+
+    return $count
+}
+
+function Get-EdgePath {
+    $paths = @(
+        "$env:ProgramFiles(x86)\Microsoft\Edge\Application\msedge.exe",
+        "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe"
+    )
+    return $paths | Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+
+function Get-FirefoxPath {
+    $paths = @(
+        "$env:ProgramFiles\Mozilla Firefox\firefox.exe",
+        "$env:ProgramFiles(x86)\Mozilla Firefox\firefox.exe"
+    )
+    return $paths | Where-Object { Test-Path $_ } | Select-Object -First 1
+}
+
+function Test-FolderInOneDrive {
+    param(
+        [string]$FolderType,  # Desktop, Documents, Pictures
+        [string]$AccountPath
+    )
+
+    # Check actual folder location
+    $folderPath = switch ($FolderType) {
+        "Desktop"   { [Environment]::GetFolderPath('Desktop') }
+        "Documents" { [Environment]::GetFolderPath('MyDocuments') }
+        "Pictures"  { [Environment]::GetFolderPath('MyPictures') }
+    }
+
+    # If path contains "OneDrive", it's backed up
+    if ($folderPath -like "*OneDrive*") {
+        return $true
+    }
+
+    # Check registry for Known Folder Move status
+    $kfmPath = "$AccountPath\Tenants"
+    if (Test-Path $kfmPath) {
+        $tenants = Get-ChildItem -Path $kfmPath -ErrorAction SilentlyContinue
+
+        $folderIds = @{
+            "Desktop"   = "{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}"
+            "Documents" = "{FDD39AD0-238F-46AF-ADB4-6C85480369C7}"
+            "Pictures"  = "{33E28130-4E1E-4676-835A-98395C3BC3BB}"
+        }
+
+        foreach ($tenant in $tenants) {
+            $folderId = $folderIds[$FolderType]
+            $keyPath = Join-Path $tenant.PSPath $folderId
+            if (Test-Path $keyPath) {
+                return $true
+            }
+        }
+    }
+
+    return $false
+}
+
+function Get-OneDriveSyncHealth {
+    # Check for sync errors in registry
+    $healthStatus = @{
+        HasErrors = $false
+        ErrorCount = 0
+        LastSync = $null
+    }
+
+    try {
+        # Check for sync errors
+        $errorPath = "HKCU:\Software\Microsoft\OneDrive\Errors"
+        if (Test-Path $errorPath) {
+            $errors = Get-ChildItem $errorPath -ErrorAction SilentlyContinue
+            if ($errors) {
+                $healthStatus.HasErrors = $true
+                $healthStatus.ErrorCount = $errors.Count
+            }
+        }
+
+        # Try to get last sync time
+        $accountsPath = "HKCU:\Software\Microsoft\OneDrive\Accounts\Business1"
+        if (Test-Path $accountsPath) {
+            $lastSync = (Get-ItemProperty -Path $accountsPath -ErrorAction SilentlyContinue).LastSync
+            if ($lastSync) {
+                $healthStatus.LastSync = $lastSync
+            }
+        }
+    }
+    catch {
+        # Silent fail - sync health is bonus info
+    }
+
+    return $healthStatus
+}
+
 function Initialize-Telemetry {
     if (-not $script:TelemetryEnabled) { return }
 
@@ -220,6 +422,12 @@ function Save-Telemetry {
                 ComputerName = $script:Results.SystemInfo.ComputerName
                 SerialNumber = $script:Results.SystemInfo.SerialNumber
                 WindowsVersion = $script:Results.SystemInfo.WindowsVersion
+                # NEW FIELDS
+                Manufacturer = $script:Results.SystemInfo.Manufacturer
+                Model = $script:Results.SystemInfo.Model
+                AssetTag = $script:Results.SystemInfo.AssetTag
+                UUID = $script:Results.SystemInfo.UUID
+                ChassisType = $script:Results.SystemInfo.ChassisType
             }
             $script:TelemetryData.User = @{
                 Username = $script:Results.SystemInfo.CurrentUser
@@ -249,6 +457,8 @@ function Get-SystemInfo {
         $computerInfo = Get-CimInstance -ClassName Win32_ComputerSystem
         $biosInfo = Get-CimInstance -ClassName Win32_BIOS
         $osInfo = Get-CimInstance -ClassName Win32_OperatingSystem
+        $enclosure = Get-CimInstance -ClassName Win32_SystemEnclosure
+        $product = Get-CimInstance -ClassName Win32_ComputerSystemProduct
 
         $info = @{
             ComputerName = $env:COMPUTERNAME
@@ -257,10 +467,24 @@ function Get-SystemInfo {
             UserPrincipal = whoami /upn 2>$null
             WindowsVersion = "$($osInfo.Caption) ($($osInfo.Version))"
             Timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+            # NEW FIELDS
+            Manufacturer = $computerInfo.Manufacturer
+            Model = $computerInfo.Model
+            AssetTag = $enclosure.SMBiosAssetTag
+            UUID = $product.UUID
+            BIOSVersion = $biosInfo.SMBIOSBIOSVersion
+            BIOSReleaseDate = $biosInfo.ReleaseDate
+            ChassisType = Get-ChassisTypeName -ChassisTypeCode $enclosure.ChassisTypes[0]
         }
 
         Write-Info "Computer Name: $($info.ComputerName)"
         Write-Info "Serial Number: $($info.SerialNumber)"
+        Write-Info "Manufacturer: $($info.Manufacturer)"
+        Write-Info "Model: $($info.Model)"
+        if ($info.AssetTag -and $info.AssetTag -ne "Default string") {
+            Write-Info "Asset Tag: $($info.AssetTag)"
+        }
+        Write-Info "Chassis Type: $($info.ChassisType)"
         Write-Info "Current User: $($info.CurrentUser)"
         if ($info.UserPrincipal) {
             Write-Info "UPN: $($info.UserPrincipal)"
@@ -284,8 +508,17 @@ function Get-OneDriveStatus {
         Running = $false
         SignedIn = $false
         Account = $null
-        KnownFolderBackup = $false
+        AccountType = $null  # NEW: Business/Consumer
+        SyncPath = $null     # NEW: OneDrive folder path
+        # NEW: Per-folder KFB status
+        KnownFolderBackup = @{
+            Desktop = $false
+            Documents = $false
+            Pictures = $false
+        }
         SyncStatus = "Unknown"
+        SyncHealth = $null   # NEW: Errors/Warnings
+        MultipleAccounts = $false  # NEW
     }
 
     try {
@@ -311,47 +544,56 @@ function Get-OneDriveStatus {
             Write-Warning "OneDrive not running"
         }
 
-        # Check for OneDrive account (registry)
+        # Enhanced account detection (all accounts, not just Business1)
         $accountsPath = "HKCU:\Software\Microsoft\OneDrive\Accounts"
         if (Test-Path $accountsPath) {
             $accounts = Get-ChildItem $accountsPath -ErrorAction SilentlyContinue
+
+            if ($accounts.Count -gt 1) {
+                $status.MultipleAccounts = $true
+            }
+
             foreach ($account in $accounts) {
                 $userEmail = (Get-ItemProperty -Path $account.PSPath -ErrorAction SilentlyContinue).UserEmail
+                $userFolder = (Get-ItemProperty -Path $account.PSPath -ErrorAction SilentlyContinue).UserFolder
+
                 if ($userEmail) {
                     $status.SignedIn = $true
                     $status.Account = $userEmail
-                    break
+                    $status.SyncPath = $userFolder
+
+                    # Determine account type
+                    if ($account.PSChildName -like "Business*") {
+                        $status.AccountType = "Business"
+                    } elseif ($account.PSChildName -like "Personal") {
+                        $status.AccountType = "Consumer"
+                    }
+
+                    # Check KFB for each folder individually
+                    $status.KnownFolderBackup.Desktop = Test-FolderInOneDrive -FolderType "Desktop" -AccountPath $account.PSPath
+                    $status.KnownFolderBackup.Documents = Test-FolderInOneDrive -FolderType "Documents" -AccountPath $account.PSPath
+                    $status.KnownFolderBackup.Pictures = Test-FolderInOneDrive -FolderType "Pictures" -AccountPath $account.PSPath
+
+                    break  # Use first account found
                 }
             }
         }
 
         if ($status.SignedIn) {
-            Write-Success "Signed in as: $($status.Account)"
+            Write-Success "Signed in as: $($status.Account) ($($status.AccountType))"
+            Write-Info "Sync Path: $($status.SyncPath)"
+            Write-Info "Desktop KFB: $(if ($status.KnownFolderBackup.Desktop) { 'Enabled' } else { 'Not enabled' })"
+            Write-Info "Documents KFB: $(if ($status.KnownFolderBackup.Documents) { 'Enabled' } else { 'Not enabled' })"
+            Write-Info "Pictures KFB: $(if ($status.KnownFolderBackup.Pictures) { 'Enabled' } else { 'Not enabled' })"
         } else {
             Write-Warning "OneDrive not signed in or account not detected"
         }
 
-        # Check Known Folder Backup status
-        $kfmPath = "HKCU:\Software\Microsoft\OneDrive\Accounts\Business1"
-        if (Test-Path $kfmPath) {
-            $kfmDesktop = (Get-ItemProperty -Path $kfmPath -ErrorAction SilentlyContinue).KfmFoldersProtectedNow
-            if ($kfmDesktop) {
-                $status.KnownFolderBackup = $true
-            }
-        }
+        # Check sync health
+        $status.SyncHealth = Get-OneDriveSyncHealth
 
-        # Alternative check - see if Desktop/Documents are in OneDrive path
-        $desktopPath = [Environment]::GetFolderPath('Desktop')
-        $documentsPath = [Environment]::GetFolderPath('MyDocuments')
-
-        if ($desktopPath -like "*OneDrive*" -or $documentsPath -like "*OneDrive*") {
-            $status.KnownFolderBackup = $true
-        }
-
-        if ($status.KnownFolderBackup) {
-            Write-Success "Known Folder Backup: Enabled"
-        } else {
-            Write-Warning "Known Folder Backup: Not detected (verify manually)"
+        if ($status.SyncHealth.HasErrors) {
+            Write-Warning "Sync Health: $($status.SyncHealth.ErrorCount) error(s) detected"
         }
 
         # Try to get sync status from icon overlay
@@ -370,35 +612,53 @@ function Get-OneDriveStatus {
     }
 }
 
-function Get-PrinterConfig {
-    Write-Section "Exporting printer configuration..."
+function Get-PrinterInventory {  # RENAMED from Get-PrinterConfig
+    Write-Section "Collecting printer inventory..."
 
     try {
-        $printers = Get-Printer -ErrorAction SilentlyContinue
+        # Get all printers via WMI (more detailed than Get-Printer)
+        $wmiPrinters = Get-CimInstance -ClassName Win32_Printer -ErrorAction SilentlyContinue
 
-        if (-not $printers) {
+        if (-not $wmiPrinters) {
             Write-Warning "No printers found"
             return @()
         }
 
-        Write-Info "Found $($printers.Count) printer(s):"
+        Write-Info "Found $($wmiPrinters.Count) printer(s):"
 
         $printerList = @()
-        foreach ($printer in $printers) {
-            $isDefault = if ($printer.Name -eq (Get-CimInstance -ClassName Win32_Printer | Where-Object { $_.Default }).Name) { " (Default)" } else { "" }
-            Write-Info "  - $($printer.Name)$isDefault"
+        foreach ($printer in $wmiPrinters) {
+            # Classify printer type based on port
+            $printerType = Get-PrinterType -PortName $printer.PortName
 
-            $printerList += @{
+            # Get printer status
+            $status = Get-PrinterStatusText -StatusCode $printer.PrinterStatus
+
+            $isDefault = if ($printer.Default) { " (Default)" } else { "" }
+            Write-Info "  - $($printer.Name)$isDefault [$printerType]"
+
+            $printerInfo = @{
                 Name = $printer.Name
                 PortName = $printer.PortName
                 DriverName = $printer.DriverName
                 Shared = $printer.Shared
+                Default = $printer.Default              # NEW: Fixed detection
+                PrinterType = $printerType              # NEW: Network/Local/USB
+                Status = $status                        # NEW: Ready/Offline/Error
+                Location = $printer.Location            # NEW
+                Comment = $printer.Comment              # NEW
+                ServerName = $printer.ServerName        # NEW: For network printers
+                Local = $printer.Local                  # NEW
             }
+
+            $printerList += $printerInfo
         }
 
-        # Save to file
+        # Save to file (keep existing functionality)
         $outputPath = Join-Path (Get-OneDriveDocumentsPath) $script:PrinterFileName
-        $printerOutput = $printers | Select-Object Name, PortName, DriverName, Shared | Format-Table -AutoSize | Out-String
+        $printerOutput = $printerList | ForEach-Object {
+            [PSCustomObject]$_
+        } | Format-Table Name, PrinterType, PortName, Status, Default -AutoSize | Out-String
         $printerOutput | Out-File -FilePath $outputPath -Encoding UTF8 -Force
 
         Write-Success "Saved to: $outputPath"
@@ -407,7 +667,7 @@ function Get-PrinterConfig {
         return $printerList
     }
     catch {
-        Write-Error "Failed to export printers: $_"
+        Write-Error "Failed to collect printer inventory: $_"
         return @()
     }
 }
@@ -549,36 +809,193 @@ function Copy-PSTFilesToOneDrive {
     return $copied -gt 0
 }
 
-function Get-InstalledBrowsers {
-    Write-Section "Detecting browsers..."
+function Get-ChromeProfileData {
+    $data = @{
+        Name = "Google Chrome"
+        Path = "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe"
+        Version = Get-FileVersionInfo -Path "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe"
+        ProfilePath = "$env:LOCALAPPDATA\Google\Chrome\User Data"
+        ProfileCount = 0
+        BookmarkCount = 0
+        ExtensionCount = 0
+        ProfileSize = 0
+        BookmarkUrl = "chrome://bookmarks"
+    }
+
+    try {
+        # Enumerate profiles
+        $userDataPath = "$env:LOCALAPPDATA\Google\Chrome\User Data"
+        if (Test-Path $userDataPath) {
+            $profiles = Get-ChildItem $userDataPath -Directory | Where-Object { $_.Name -match "^(Default|Profile \d+)$" }
+            $data.ProfileCount = $profiles.Count
+
+            # Count bookmarks across all profiles
+            foreach ($profile in $profiles) {
+                $bookmarkFile = Join-Path $profile.FullName "Bookmarks"
+                if (Test-Path $bookmarkFile) {
+                    $bookmarks = Get-Content $bookmarkFile -Raw | ConvertFrom-Json -ErrorAction SilentlyContinue
+                    if ($bookmarks.roots) {
+                        $data.BookmarkCount += (Count-BookmarksRecursive -Node $bookmarks.roots.bookmark_bar)
+                        $data.BookmarkCount += (Count-BookmarksRecursive -Node $bookmarks.roots.other)
+                    }
+                }
+
+                # Count extensions
+                $extensionsPath = Join-Path $profile.FullName "Extensions"
+                if (Test-Path $extensionsPath) {
+                    $extensions = Get-ChildItem $extensionsPath -Directory -ErrorAction SilentlyContinue
+                    $data.ExtensionCount += $extensions.Count
+                }
+            }
+
+            # Calculate total profile size
+            $data.ProfileSize = (Get-ChildItem $userDataPath -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
+        }
+    }
+    catch {
+        Write-Warning "Error reading Chrome profile data: $_"
+    }
+
+    return $data
+}
+
+function Get-EdgeProfileData {
+    $edgePath = Get-EdgePath
+    $data = @{
+        Name = "Microsoft Edge"
+        Path = $edgePath
+        Version = Get-FileVersionInfo -Path $edgePath
+        ProfilePath = "$env:LOCALAPPDATA\Microsoft\Edge\User Data"
+        ProfileCount = 0
+        BookmarkCount = 0
+        ExtensionCount = 0
+        ProfileSize = 0
+        BookmarkUrl = "edge://favorites"
+    }
+
+    try {
+        $userDataPath = "$env:LOCALAPPDATA\Microsoft\Edge\User Data"
+        if (Test-Path $userDataPath) {
+            $profiles = Get-ChildItem $userDataPath -Directory | Where-Object { $_.Name -match "^(Default|Profile \d+)$" }
+            $data.ProfileCount = $profiles.Count
+
+            # Count bookmarks (same structure as Chrome)
+            foreach ($profile in $profiles) {
+                $bookmarkFile = Join-Path $profile.FullName "Bookmarks"
+                if (Test-Path $bookmarkFile) {
+                    $bookmarks = Get-Content $bookmarkFile -Raw | ConvertFrom-Json -ErrorAction SilentlyContinue
+                    if ($bookmarks.roots) {
+                        $data.BookmarkCount += (Count-BookmarksRecursive -Node $bookmarks.roots.bookmark_bar)
+                        $data.BookmarkCount += (Count-BookmarksRecursive -Node $bookmarks.roots.other)
+                    }
+                }
+
+                # Count extensions
+                $extensionsPath = Join-Path $profile.FullName "Extensions"
+                if (Test-Path $extensionsPath) {
+                    $extensions = Get-ChildItem $extensionsPath -Directory -ErrorAction SilentlyContinue
+                    $data.ExtensionCount += $extensions.Count
+                }
+            }
+
+            $data.ProfileSize = (Get-ChildItem $userDataPath -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
+        }
+    }
+    catch {
+        Write-Warning "Error reading Edge profile data: $_"
+    }
+
+    return $data
+}
+
+function Get-FirefoxProfileData {
+    $firefoxPath = Get-FirefoxPath
+    $data = @{
+        Name = "Mozilla Firefox"
+        Path = $firefoxPath
+        Version = Get-FileVersionInfo -Path $firefoxPath
+        ProfilePath = "$env:APPDATA\Mozilla\Firefox\Profiles"
+        ProfileCount = 0
+        BookmarkCount = 0
+        ExtensionCount = 0
+        ProfileSize = 0
+        BookmarkUrl = "about:preferences"
+    }
+
+    try {
+        $profilesIni = "$env:APPDATA\Mozilla\Firefox\profiles.ini"
+        if (Test-Path $profilesIni) {
+            # Parse profiles.ini to find profile directories
+            $iniContent = Get-Content $profilesIni
+            $profilePaths = $iniContent | Where-Object { $_ -match "^Path=" } | ForEach-Object { $_ -replace "^Path=", "" }
+            $data.ProfileCount = $profilePaths.Count
+
+            foreach ($profileRelPath in $profilePaths) {
+                $profilePath = Join-Path "$env:APPDATA\Mozilla\Firefox\Profiles" $profileRelPath
+
+                if (Test-Path $profilePath) {
+                    # Count bookmarks from places.sqlite (complex - simplified approach)
+                    $placesDb = Join-Path $profilePath "places.sqlite"
+                    if (Test-Path $placesDb) {
+                        # Estimate based on file size (rough approximation)
+                        $dbSize = (Get-Item $placesDb).Length
+                        $data.BookmarkCount += [math]::Floor($dbSize / 1024)  # Very rough estimate
+                    }
+
+                    # Count extensions
+                    $extensionsJson = Join-Path $profilePath "extensions.json"
+                    if (Test-Path $extensionsJson) {
+                        $extData = Get-Content $extensionsJson -Raw | ConvertFrom-Json -ErrorAction SilentlyContinue
+                        if ($extData.addons) {
+                            $data.ExtensionCount += $extData.addons.Count
+                        }
+                    }
+                }
+            }
+
+            $profilesPath = "$env:APPDATA\Mozilla\Firefox\Profiles"
+            if (Test-Path $profilesPath) {
+                $data.ProfileSize = (Get-ChildItem $profilesPath -Recurse -File -ErrorAction SilentlyContinue | Measure-Object -Property Length -Sum).Sum
+            }
+        }
+    }
+    catch {
+        Write-Warning "Error reading Firefox profile data: $_"
+    }
+
+    return $data
+}
+
+function Get-BrowserProfileSummary {  # RENAMED from Get-InstalledBrowsers
+    Write-Section "Analyzing browser profiles..."
 
     $browsers = @()
 
     # Chrome
     $chromePath = "$env:LOCALAPPDATA\Google\Chrome\Application\chrome.exe"
     if (Test-Path $chromePath) {
-        $browsers += @{ Name = "Google Chrome"; Path = $chromePath; BookmarkUrl = "chrome://bookmarks" }
-        Write-Success "Google Chrome - Installed"
+        $chromeData = Get-ChromeProfileData
+        $browsers += $chromeData
+        Write-Success "Google Chrome - Version $($chromeData.Version)"
+        Write-Info "  Profiles: $($chromeData.ProfileCount) | Bookmarks: $($chromeData.BookmarkCount) | Extensions: $($chromeData.ExtensionCount)"
     }
 
     # Edge
-    $edgePath = "$env:ProgramFiles(x86)\Microsoft\Edge\Application\msedge.exe"
-    if (-not (Test-Path $edgePath)) {
-        $edgePath = "$env:ProgramFiles\Microsoft\Edge\Application\msedge.exe"
-    }
-    if (Test-Path $edgePath) {
-        $browsers += @{ Name = "Microsoft Edge"; Path = $edgePath; BookmarkUrl = "edge://favorites" }
-        Write-Success "Microsoft Edge - Installed"
+    $edgePath = Get-EdgePath
+    if ($edgePath) {
+        $edgeData = Get-EdgeProfileData
+        $browsers += $edgeData
+        Write-Success "Microsoft Edge - Version $($edgeData.Version)"
+        Write-Info "  Profiles: $($edgeData.ProfileCount) | Bookmarks: $($edgeData.BookmarkCount) | Extensions: $($edgeData.ExtensionCount)"
     }
 
     # Firefox
-    $firefoxPath = "$env:ProgramFiles\Mozilla Firefox\firefox.exe"
-    if (-not (Test-Path $firefoxPath)) {
-        $firefoxPath = "$env:ProgramFiles(x86)\Mozilla Firefox\firefox.exe"
-    }
-    if (Test-Path $firefoxPath) {
-        $browsers += @{ Name = "Mozilla Firefox"; Path = $firefoxPath; BookmarkUrl = "about:preferences" }
-        Write-Success "Mozilla Firefox - Installed"
+    $firefoxPath = Get-FirefoxPath
+    if ($firefoxPath) {
+        $firefoxData = Get-FirefoxProfileData
+        $browsers += $firefoxData
+        Write-Success "Mozilla Firefox - Version $($firefoxData.Version)"
+        Write-Info "  Profiles: $($firefoxData.ProfileCount) | Bookmarks: $($firefoxData.BookmarkCount)"
     }
 
     if ($browsers.Count -eq 0) {
@@ -645,6 +1062,11 @@ Script Version: $script:Version
 ────────────────────────────────────────────────────────────────
 Computer Name:  $($script:Results.SystemInfo.ComputerName)
 Serial Number:  $($script:Results.SystemInfo.SerialNumber)
+Manufacturer:   $($script:Results.SystemInfo.Manufacturer)
+Model:          $($script:Results.SystemInfo.Model)
+$(if ($script:Results.SystemInfo.AssetTag -and $script:Results.SystemInfo.AssetTag -ne "Default string") { "Asset Tag:      $($script:Results.SystemInfo.AssetTag)" })
+UUID:           $($script:Results.SystemInfo.UUID)
+Chassis Type:   $($script:Results.SystemInfo.ChassisType)
 Current User:   $($script:Results.SystemInfo.CurrentUser)
 $(if ($script:Results.SystemInfo.UserPrincipal) { "UPN:            $($script:Results.SystemInfo.UserPrincipal)" })
 Windows:        $($script:Results.SystemInfo.WindowsVersion)
@@ -655,7 +1077,11 @@ Windows:        $($script:Results.SystemInfo.WindowsVersion)
 Installed:              $(if ($script:Results.OneDrive.Installed) { "Yes" } else { "NO" })
 Running:                $(if ($script:Results.OneDrive.Running) { "Yes" } else { "No" })
 Signed In:              $(if ($script:Results.OneDrive.SignedIn) { "Yes - $($script:Results.OneDrive.Account)" } else { "Not detected" })
-Known Folder Backup:    $(if ($script:Results.OneDrive.KnownFolderBackup) { "Enabled" } else { "Not detected - VERIFY MANUALLY" })
+Account Type:           $($script:Results.OneDrive.AccountType)
+Sync Path:              $($script:Results.OneDrive.SyncPath)
+Desktop Backup:         $(if ($script:Results.OneDrive.KnownFolderBackup.Desktop) { "Enabled" } else { "Not enabled" })
+Documents Backup:       $(if ($script:Results.OneDrive.KnownFolderBackup.Documents) { "Enabled" } else { "Not enabled" })
+Pictures Backup:        $(if ($script:Results.OneDrive.KnownFolderBackup.Pictures) { "Enabled" } else { "Not enabled" })
 
 ────────────────────────────────────────────────────────────────
                          WIFI NETWORK
@@ -666,7 +1092,10 @@ Current SSID:   $($script:Results.WiFi)
                       PRINTER CONFIGURATION
 ────────────────────────────────────────────────────────────────
 $(if ($script:Results.Printers.Count -gt 0) {
-    $script:Results.Printers | ForEach-Object { "  - $($_.Name) [$($_.PortName)]" } | Out-String
+    $script:Results.Printers | ForEach-Object {
+        $defaultFlag = if ($_.Default) { " - DEFAULT" } else { "" }
+        "  - $($_.Name) [$($_.PrinterType)] - $($_.Status)$defaultFlag"
+    } | Out-String
 } else {
     "  No printers found"
 })
@@ -689,10 +1118,15 @@ $(if ($script:Results.PSTFiles.Count -gt 0) {
 })
 
 ────────────────────────────────────────────────────────────────
-                      INSTALLED BROWSERS
+                    BROWSER PROFILE SUMMARY
 ────────────────────────────────────────────────────────────────
 $(if ($script:Results.Browsers.Count -gt 0) {
-    $script:Results.Browsers | ForEach-Object { "  - $($_.Name)" } | Out-String
+    $script:Results.Browsers | ForEach-Object {
+        "$($_.Name) - Version $($_.Version)
+  Profiles: $($_.ProfileCount) | Bookmarks: $($_.BookmarkCount) | Extensions: $($_.ExtensionCount)
+  Profile Size: $([math]::Round($_.ProfileSize / 1MB, 1)) MB
+  Location: $($_.ProfilePath)"
+    } | Out-String
 } else {
     "  None detected"
 })
@@ -702,7 +1136,7 @@ $(if ($script:Results.Browsers.Count -gt 0) {
 ════════════════════════════════════════════════════════════════
 [$(if ($script:Results.SystemInfo) { "✓" } else { " " })] System information collected
 [$(if ($script:Results.OneDrive.SignedIn) { "✓" } else { " " })] OneDrive signed in
-[$(if ($script:Results.OneDrive.KnownFolderBackup) { "✓" } else { " " })] Known Folder Backup enabled
+[$(if ($script:Results.OneDrive.KnownFolderBackup.Desktop -and $script:Results.OneDrive.KnownFolderBackup.Documents -and $script:Results.OneDrive.KnownFolderBackup.Pictures) { "✓" } else { " " })] Known Folder Backup enabled (all folders)
 [ ] OneDrive sync complete (verify green checkmark)
 [$(if ($script:Results.Printers.Count -gt 0) { "✓" } else { "-" })] Printers exported ($($script:Results.Printers.Count) found)
 [$(if ($script:Results.WiFi -and $script:Results.WiFi -ne "NOT CONNECTED") { "✓" } else { " " })] WiFi SSID recorded
@@ -827,11 +1261,15 @@ try {
     }
 
     # Step 4: Printer Configuration
-    Get-PrinterConfig | Out-Null
+    Get-PrinterInventory | Out-Null
     if ($script:Results.Printers) {
         Add-TelemetryData -Category "Printers" -Data @{
             Count = $script:Results.Printers.Count
             Names = $script:Results.Printers | ForEach-Object { $_.Name }
+            # NEW FIELDS
+            Types = $script:Results.Printers | ForEach-Object { $_.PrinterType } | Select-Object -Unique
+            NetworkPrinters = ($script:Results.Printers | Where-Object { $_.PrinterType -like "Network*" }).Count
+            DefaultPrinter = ($script:Results.Printers | Where-Object { $_.Default }).Name
         }
     }
 
@@ -858,10 +1296,15 @@ try {
     }
 
     # Step 7: Browser Detection & Export
-    $browsers = Get-InstalledBrowsers
+    $browsers = Get-BrowserProfileSummary
     if ($script:Results.Browsers) {
         Add-TelemetryData -Category "Browsers" -Data @{
             Installed = $script:Results.Browsers | ForEach-Object { $_.Name }
+            # NEW FIELDS
+            Versions = $script:Results.Browsers | ForEach-Object { @{ Name = $_.Name; Version = $_.Version } }
+            TotalBookmarks = ($script:Results.Browsers | Measure-Object -Property BookmarkCount -Sum).Sum
+            TotalExtensions = ($script:Results.Browsers | Measure-Object -Property ExtensionCount -Sum).Sum
+            TotalProfileSize = ($script:Results.Browsers | Measure-Object -Property ProfileSize -Sum).Sum
         }
     }
     Open-BrowserExportPages -Browsers $browsers
