@@ -46,6 +46,14 @@ Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Phase1-Backup.
 
 ---
 
+### Additional Resources
+
+{: .highlight }
+
+> **End-User Presentation:** Download the [Phase 1 Backup Guide (PowerPoint)](https://github.com/ipsghonline/tmp/blob/main/presentation/Phase1-Backup-Guide.pptx) for a visual walkthrough of the backup process. This presentation can be used for end-user training or as a reference guide during migration.
+
+---
+
 ### What the Script Does
 
 | Task                | Automated                                              | Manual Follow-up             |

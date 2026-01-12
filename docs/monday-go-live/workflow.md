@@ -65,6 +65,8 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 > ```powershell
 > irm https://ipsghonline.github.io/tmp/scripts/Phase1-Backup.ps1 | iex
 > ```
+>
+> **End-User Presentation:** Download the [Phase 1 Backup Guide (PowerPoint)](https://github.com/ipsghonline/tmp/blob/main/presentation/Phase1-Backup-Guide.pptx) for a visual walkthrough of the backup process.
 
 {: .note }
 
