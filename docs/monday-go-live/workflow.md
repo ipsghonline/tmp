@@ -43,14 +43,14 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 
 ## Workflow Overview
 
-| Phase | Name                | Time Est. | Description                                           |
-| ----- | ------------------- | --------- | ----------------------------------------------------- |
-| 1     | Backup              | 20-30 min | OneDrive setup, browser profile, printers, iOS backup |
-| 2     | Document & Submit   | 5-10 min  | Serial numbers, submit reset request to Suleman       |
-|       | _(Wait for Reset)_  | 15-30 min | **→ Work on next user's Phase 1**                     |
-| 3     | OOBE                | 30-90 min | Windows setup, Autopilot ESP, app installation        |
-| 4     | User Validation     | 10-15 min | 3-point test: Internet, RDP, Printing                 |
-| 5     | Browser Restoration | 5-10 min  | Verify sync restored data, cleanup                    |
+| Phase | Name                | Time Est. | Description                                       |
+| ----- | ------------------- | --------- | ------------------------------------------------- |
+| 1     | Backup              | 20-30 min | OneDrive, browser, printers, WiFi, PST files, iOS |
+| 2     | Document & Submit   | 5-10 min  | Serial numbers, submit reset request to Suleman   |
+|       | _(Wait for Reset)_  | 15-30 min | **→ Work on next user's Phase 1**                 |
+| 3     | OOBE                | 30-90 min | Windows setup, Autopilot ESP, app installation    |
+| 4     | User Validation     | 10-15 min | 3-point test: Internet, RDP, Printing             |
+| 5     | Browser Restoration | 5-10 min  | Verify sync restored data, cleanup                |
 
 **Total Active Time:** 75-120 minutes per user (parallel processing reduces wall-clock time significantly)
 
@@ -91,6 +91,14 @@ Complete 5-phase migration process for Windows devices with iOS backup verificat
 ---
 
 ## Phase 1: Backup (Before Reset)
+
+{: .highlight }
+
+> **Automation Available:** Run the [Phase 1 Backup Script](tools.html) to automate system checks and data collection.
+>
+> ```powershell
+> irm https://ipsghonline.github.io/tmp/scripts/Phase1-Backup.ps1 | iex
+> ```
 
 {: .note }
 
@@ -195,6 +203,58 @@ Save all exports to: `OneDrive > Documents > BrowserBackup`
 
 ---
 
+### WiFi Network Documentation
+
+> **Script:** "Before the reset, let's record your WiFi network name so we can reconnect quickly during setup. Click on the WiFi icon in your taskbar - that's the wireless symbol in the bottom right corner. Can you tell me the name of the network you're connected to?"
+
+**Record WiFi SSID:** **\*\*\*\***\_\_\_\_**\*\*\*\***
+
+{: .note }
+
+> **Why this matters:** After the device reset, the user will need to reconnect to WiFi during OOBE setup. Having the exact SSID documented ensures a smooth reconnection, especially if there are multiple similar network names at the site.
+
+---
+
+### Outlook Data Files Backup (OST/PST)
+
+{: .warning }
+
+> **IMPORTANT:** Outlook OST and PST files are NOT automatically backed up by OneDrive. These files contain locally cached emails and archived mail that could be lost during reset.
+
+> **Script:** "Before we finish up, we need to check for any Outlook data files on your computer. These are special files that store your email archives and won't sync automatically. Let me guide you through finding and moving them."
+
+**Step 1: Locate Outlook Data Files**
+
+> **Script:** "Please open File Explorer and paste this path into the address bar: `%LOCALAPPDATA%\Microsoft\Outlook`. Press Enter. Do you see any files ending in .ost or .pst?"
+
+**Default Location:** `%LOCALAPPDATA%\Microsoft\Outlook`
+
+- [ ] Checked default Outlook folder location
+- [ ] OST file(s) found: **\_** (count)
+- [ ] PST file(s) found: **\_** (count)
+
+**Step 2: Move PST Files to OneDrive**
+
+> **Script:** "For any PST files you found, please copy them to your OneDrive Documents folder. Right-click the file, select Copy, then navigate to your Documents folder and paste. OST files don't need to be moved - they'll be recreated automatically."
+
+{: .note }
+
+> **OST vs PST:**
+>
+> - **OST files** = Cached copy of your mailbox (will be recreated after migration - no action needed)
+> - **PST files** = Personal archives YOU created (must be manually backed up or data will be lost)
+
+- [ ] PST files copied to OneDrive Documents folder
+- [ ] No PST files exist (confirmed by user)
+
+**Step 3: Verify PST Files in OneDrive**
+
+> **Script:** "Let's confirm those PST files made it to OneDrive. Open portal.office.com in your browser, go to OneDrive, and check the Documents folder. Can you see the PST file(s) there?"
+
+- [ ] PST files visible in OneDrive web portal
+
+---
+
 ### iOS Backup Verification
 
 **Step 1:** Connect iOS device via USB cable
@@ -222,6 +282,8 @@ Before proceeding to Phase 2:
 - [ ] Browser sync enabled
 - [ ] Browser bookmarks/passwords exported to OneDrive
 - [ ] Printer configuration screenshot saved
+- [ ] WiFi SSID recorded (for OOBE reconnection)
+- [ ] Outlook PST files checked and moved to OneDrive (if applicable)
 - [ ] iOS backup verified or created (if applicable)
 
 {: .important }
@@ -536,6 +598,8 @@ After ESP completes, verify these applications:
 | ----- | -------------------- | ------------------------------------------ | ------ |
 | 1     | OneDrive Setup       | Known Folder Backup enabled, sync complete | ☐      |
 | 1     | Browser Backup       | Bookmarks/passwords exported to OneDrive   | ☐      |
+| 1     | WiFi SSID            | Network name documented for OOBE           | ☐      |
+| 1     | PST Files            | Archives moved to OneDrive (if applicable) | ☐      |
 | 1     | iOS Backup           | Recent backup verified (if applicable)     | ☐      |
 | 3     | Apps Installed       | Outlook, Teams, Chrome, Foxit, NinjaOne    | ☐      |
 | 4     | Internet Access      | Browser loads google.com                   | ☐      |
