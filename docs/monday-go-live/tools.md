@@ -198,6 +198,110 @@ If PST files are copied, they will also appear in OneDrive Documents.
 
 ---
 
+### Telemetry & Event Logging
+
+The script automatically collects telemetry data to help track migration progress and identify issues.
+
+**Telemetry Location:**
+
+```
+%USERPROFILE%\AppData\Local\IPS-Migration\Telemetry\
+  Phase1-Events-{ComputerName}-{Timestamp}.json
+```
+
+**What's Collected:**
+
+- Device information (computer name, serial, Windows version)
+- User information (username, UPN)
+- OneDrive status and Known Folder Backup
+- WiFi SSID
+- Printer count and names
+- PST file count and sizes
+- Browser installations
+- Script execution time and success status
+- Any errors encountered
+
+**Privacy:**
+
+The telemetry data is stored locally only. No data is sent to cloud services. IT can collect these files manually for migration tracking and troubleshooting.
+
+**Disable Telemetry:**
+
+```powershell
+.\Phase1-Backup.ps1 -TelemetryDisabled
+```
+
+**Collect Telemetry (For IT):**
+
+Use the collection script to gather telemetry files from machines:
+
+```powershell
+# Download collection script
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/Collect-Phase1-Telemetry.ps1" -OutFile "Collect-Phase1-Telemetry.ps1"
+
+# Collect to USB drive
+.\Collect-Phase1-Telemetry.ps1 -OutputPath "E:\MigrationTelemetry"
+
+# Collect to network share
+.\Collect-Phase1-Telemetry.ps1 -OutputPath "\\server\share\telemetry"
+
+# Collect and remove local copies
+.\Collect-Phase1-Telemetry.ps1 -OutputPath "E:\Telemetry" -RemoveAfterCopy
+```
+
+**Sample Telemetry Data:**
+
+```json
+{
+    "SchemaVersion": "1.0",
+    "EventType": "Phase1-Backup-Complete",
+    "Timestamp": "2026-01-19T08:15:23Z",
+    "ScriptVersion": "1.0",
+    "Device": {
+        "ComputerName": "DESKTOP-ABC123",
+        "SerialNumber": "5CG1234XYZ",
+        "WindowsVersion": "Windows 11 Pro (10.0.22631)"
+    },
+    "User": {
+        "Username": "jsmith",
+        "UPN": "jsmith@inginc.com"
+    },
+    "Results": {
+        "OneDrive": {
+            "Installed": true,
+            "SignedIn": true,
+            "Account": "jsmith@inginc.com",
+            "KnownFolderBackup": true
+        },
+        "WiFi": {
+            "SSID": "ImpactFloors-Corp"
+        },
+        "Printers": {
+            "Count": 3,
+            "Names": ["HP LaserJet Pro", "Microsoft Print to PDF"]
+        },
+        "OutlookDataFiles": {
+            "PSTCount": 2,
+            "PSTTotalSizeMB": 523,
+            "PSTCopied": true
+        },
+        "Browsers": {
+            "Installed": ["Chrome", "Edge"]
+        }
+    },
+    "Execution": {
+        "StartTime": "2026-01-19T08:12:45Z",
+        "EndTime": "2026-01-19T08:15:23Z",
+        "DurationSeconds": 158,
+        "Success": true,
+        "ErrorCount": 0
+    },
+    "Errors": []
+}
+```
+
+---
+
 ### After Running the Script
 
 1. **Verify OneDrive sync** - Check for green checkmark in system tray

@@ -19,6 +19,9 @@
 .PARAMETER Quiet
     Suppress interactive prompts (auto-confirm PST copy)
 
+.PARAMETER TelemetryDisabled
+    Disable telemetry/event logging to local JSON file
+
 .EXAMPLE
     .\Phase1-Backup.ps1
     Runs the full backup script with interactive prompts
@@ -43,7 +46,8 @@
 [CmdletBinding()]
 param(
     [switch]$SkipPSTCopy,
-    [switch]$Quiet
+    [switch]$Quiet,
+    [switch]$TelemetryDisabled
 )
 
 # ============================================================================
@@ -61,6 +65,22 @@ $script:Results = @{
     PSTFiles = @()
     OSTFiles = @()
     Browsers = @()
+    Errors = @()
+}
+
+# Telemetry configuration
+$script:TelemetryEnabled = -not $TelemetryDisabled
+$script:TelemetryPath = "$env:USERPROFILE\AppData\Local\IPS-Migration\Telemetry"
+$script:TelemetryFile = $null
+$script:TelemetryData = @{
+    SchemaVersion = "1.0"
+    EventType = "Phase1-Backup-Complete"
+    Timestamp = $null
+    ScriptVersion = $script:Version
+    Device = @{}
+    User = @{}
+    Results = @{}
+    Execution = @{}
     Errors = @()
 }
 
@@ -137,6 +157,85 @@ function Get-OneDriveDocumentsPath {
 
     # Fallback to regular Documents
     return [Environment]::GetFolderPath('MyDocuments')
+}
+
+function Initialize-Telemetry {
+    if (-not $script:TelemetryEnabled) { return }
+
+    try {
+        # Create telemetry directory
+        if (-not (Test-Path $script:TelemetryPath)) {
+            New-Item -Path $script:TelemetryPath -ItemType Directory -Force | Out-Null
+        }
+
+        # Set telemetry file name
+        $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
+        $computerName = $env:COMPUTERNAME
+        $script:TelemetryFile = Join-Path $script:TelemetryPath "Phase1-Events-$computerName-$timestamp.json"
+
+        # Set execution start time
+        $script:TelemetryData.Execution.StartTime = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
+        $script:TelemetryData.Timestamp = $script:TelemetryData.Execution.StartTime
+    }
+    catch {
+        Write-Warning "Failed to initialize telemetry: $_"
+        $script:TelemetryEnabled = $false
+    }
+}
+
+function Add-TelemetryData {
+    param(
+        [string]$Category,
+        [hashtable]$Data
+    )
+
+    if (-not $script:TelemetryEnabled) { return }
+
+    try {
+        $script:TelemetryData.Results[$Category] = $Data
+    }
+    catch {
+        Write-Warning "Failed to add telemetry data for $Category"
+    }
+}
+
+function Save-Telemetry {
+    if (-not $script:TelemetryEnabled) { return }
+
+    try {
+        # Finalize execution data
+        $script:TelemetryData.Execution.EndTime = Get-Date -Format "yyyy-MM-ddTHH:mm:ssZ"
+        $startTime = [DateTime]::Parse($script:TelemetryData.Execution.StartTime)
+        $endTime = Get-Date
+        $script:TelemetryData.Execution.DurationSeconds = [math]::Round(($endTime - $startTime).TotalSeconds, 0)
+        $script:TelemetryData.Execution.Success = $script:Results.Errors.Count -eq 0
+        $script:TelemetryData.Execution.ErrorCount = $script:Results.Errors.Count
+
+        # Add errors
+        $script:TelemetryData.Errors = $script:Results.Errors
+
+        # Add device and user data from Results
+        if ($script:Results.SystemInfo) {
+            $script:TelemetryData.Device = @{
+                ComputerName = $script:Results.SystemInfo.ComputerName
+                SerialNumber = $script:Results.SystemInfo.SerialNumber
+                WindowsVersion = $script:Results.SystemInfo.WindowsVersion
+            }
+            $script:TelemetryData.User = @{
+                Username = $script:Results.SystemInfo.CurrentUser
+                UPN = $script:Results.SystemInfo.UserPrincipal
+            }
+        }
+
+        # Convert to JSON and save
+        $json = $script:TelemetryData | ConvertTo-Json -Depth 10
+        $json | Out-File -FilePath $script:TelemetryFile -Encoding UTF8 -Force
+
+        Write-Success "Telemetry saved to: $script:TelemetryFile"
+    }
+    catch {
+        Write-Warning "Failed to save telemetry: $_"
+    }
 }
 
 # ============================================================================
@@ -707,6 +806,9 @@ function Show-Summary {
 # ============================================================================
 
 try {
+    # Initialize telemetry
+    Initialize-Telemetry
+
     Write-Banner
 
     # Step 1: System Information
@@ -714,23 +816,54 @@ try {
 
     # Step 2: OneDrive Status
     Get-OneDriveStatus | Out-Null
+    if ($script:Results.OneDrive) {
+        Add-TelemetryData -Category "OneDrive" -Data $script:Results.OneDrive
+    }
 
     # Step 3: WiFi SSID
     Get-WiFiSSID | Out-Null
+    if ($script:Results.WiFi) {
+        Add-TelemetryData -Category "WiFi" -Data @{ SSID = $script:Results.WiFi }
+    }
 
     # Step 4: Printer Configuration
     Get-PrinterConfig | Out-Null
+    if ($script:Results.Printers) {
+        Add-TelemetryData -Category "Printers" -Data @{
+            Count = $script:Results.Printers.Count
+            Names = $script:Results.Printers | ForEach-Object { $_.Name }
+        }
+    }
 
     # Step 5: Outlook Data Files
     $outlookFiles = Get-OutlookDataFiles
+    if ($script:Results.PSTFiles -or $script:Results.OSTFiles) {
+        $pstTotalMB = if ($script:Results.PSTFiles.Count -gt 0) {
+            [math]::Round(($script:Results.PSTFiles | Measure-Object -Property Size -Sum).Sum / 1MB, 0)
+        } else { 0 }
+
+        Add-TelemetryData -Category "OutlookDataFiles" -Data @{
+            PSTCount = $script:Results.PSTFiles.Count
+            PSTTotalSizeMB = $pstTotalMB
+            PSTCopied = $false  # Will be updated if copy succeeds
+        }
+    }
 
     # Step 6: Copy PST Files
     if ($outlookFiles.PST -and $outlookFiles.PST.Count -gt 0) {
-        Copy-PSTFilesToOneDrive -PSTFiles $outlookFiles.PST | Out-Null
+        $copied = Copy-PSTFilesToOneDrive -PSTFiles $outlookFiles.PST
+        if ($script:TelemetryData.Results.ContainsKey("OutlookDataFiles")) {
+            $script:TelemetryData.Results.OutlookDataFiles.PSTCopied = $copied
+        }
     }
 
     # Step 7: Browser Detection & Export
     $browsers = Get-InstalledBrowsers
+    if ($script:Results.Browsers) {
+        Add-TelemetryData -Category "Browsers" -Data @{
+            Installed = $script:Results.Browsers | ForEach-Object { $_.Name }
+        }
+    }
     Open-BrowserExportPages -Browsers $browsers
 
     # Step 8: iOS Reminder
@@ -741,6 +874,9 @@ try {
 
     # Step 10: Show Summary
     Show-Summary
+
+    # Step 11: Save Telemetry
+    Save-Telemetry
 
     if ($reportPath) {
         Write-Host "Report saved to: " -NoNewline
