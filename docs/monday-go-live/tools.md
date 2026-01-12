@@ -339,20 +339,59 @@ Intune Proactive Remediations detect and fix common post-migration issues on Win
 
 ### Available Remediation Scripts
 
-| Script                       | Purpose                                                    | What It Fixes                                 |
-| ---------------------------- | ---------------------------------------------------------- | --------------------------------------------- |
-| **OneDrive KFB Enforcement** | Ensures Desktop, Documents, Pictures backed up to OneDrive | Enables Known Folder Backup if not configured |
-| **Printer Backup**           | Backs up printer configuration to OneDrive Documents       | Exports printer list for post-migration setup |
-| **WiFi Backup**              | Captures WiFi SSID to OneDrive Documents                   | Records WiFi network name for reconnection    |
-| **PST Backup**               | Copies PST files to OneDrive Documents (< 2GB)             | Backs up Outlook data files to cloud          |
+| Script                       | Purpose                                                    | Downloads                                                                                                      |
+| ---------------------------- | ---------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| **OneDrive KFB Enforcement** | Ensures Desktop, Documents, Pictures backed up to OneDrive | [Detect](/scripts/intune/Detect-OneDriveKFB.ps1) \| [Remediate](/scripts/intune/Remediate-OneDriveKFB.ps1)     |
+| **Printer Backup**           | Backs up printer configuration to OneDrive Documents       | [Detect](/scripts/intune/Detect-PrinterBackup.ps1) \| [Remediate](/scripts/intune/Remediate-PrinterBackup.ps1) |
+| **WiFi Backup**              | Captures WiFi SSID to OneDrive Documents                   | [Detect](/scripts/intune/Detect-WiFiBackup.ps1) \| [Remediate](/scripts/intune/Remediate-WiFiBackup.ps1)       |
+| **PST Backup**               | Copies PST files to OneDrive Documents (< 2GB)             | [Detect](/scripts/intune/Detect-PSTBackup.ps1) \| [Remediate](/scripts/intune/Remediate-PSTBackup.ps1)         |
 
-**Script Location:** [/scripts/intune/](https://github.com/ipsghonline/tmp/tree/main/scripts/intune)
+**Direct Downloads:**
+
+- [Detect-OneDriveKFB.ps1](/scripts/intune/Detect-OneDriveKFB.ps1)
+- [Remediate-OneDriveKFB.ps1](/scripts/intune/Remediate-OneDriveKFB.ps1)
+- [Detect-PrinterBackup.ps1](/scripts/intune/Detect-PrinterBackup.ps1)
+- [Remediate-PrinterBackup.ps1](/scripts/intune/Remediate-PrinterBackup.ps1)
+- [Detect-WiFiBackup.ps1](/scripts/intune/Detect-WiFiBackup.ps1)
+- [Remediate-WiFiBackup.ps1](/scripts/intune/Remediate-WiFiBackup.ps1)
+- [Detect-PSTBackup.ps1](/scripts/intune/Detect-PSTBackup.ps1)
+- [Remediate-PSTBackup.ps1](/scripts/intune/Remediate-PSTBackup.ps1)
+
+**Source:** [View on GitHub](https://github.com/ipsghonline/tmp/tree/main/scripts/intune) | [Deployment Guide](/scripts/intune/)
 
 ---
 
 ### Deployment Instructions
 
-Full deployment guide available at: [scripts/intune/README.md](https://github.com/ipsghonline/tmp/blob/main/scripts/intune/README.md)
+**Full Deployment Guide:** [View README on GitHub](https://github.com/ipsghonline/tmp/blob/main/scripts/intune/README.md)
+
+---
+
+### Quick Download
+
+**Download All Scripts:**
+
+```powershell
+# OneDrive KFB
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Detect-OneDriveKFB.ps1" -OutFile "Detect-OneDriveKFB.ps1"
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Remediate-OneDriveKFB.ps1" -OutFile "Remediate-OneDriveKFB.ps1"
+
+# Printer Backup
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Detect-PrinterBackup.ps1" -OutFile "Detect-PrinterBackup.ps1"
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Remediate-PrinterBackup.ps1" -OutFile "Remediate-PrinterBackup.ps1"
+
+# WiFi Backup
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Detect-WiFiBackup.ps1" -OutFile "Detect-WiFiBackup.ps1"
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Remediate-WiFiBackup.ps1" -OutFile "Remediate-WiFiBackup.ps1"
+
+# PST Backup
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Detect-PSTBackup.ps1" -OutFile "Detect-PSTBackup.ps1"
+Invoke-WebRequest -Uri "https://ipsghonline.github.io/tmp/scripts/intune/Remediate-PSTBackup.ps1" -OutFile "Remediate-PSTBackup.ps1"
+```
+
+---
+
+### Deployment in Intune
 
 **Quick Start:**
 
