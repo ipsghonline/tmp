@@ -28,12 +28,6 @@ Quick reference for printer deployment and Phase 4 testing during the Monday go-
 
 ---
 
-## Jump to Location
-
-[Albuquerque](#albuquerque) | [Atlanta](#atlanta) | [Austin](#austin) | [Chantilly](#chantilly) | [Charlotte](#charlotte) | [Dallas](#dallas) | [Denver](#denver) | [El Paso](#el-paso) | [Fresno](#fresno) | [Houston](#houston) | [Jacksonville](#jacksonville) | [Las Vegas](#las-vegas) | [Los Angeles](#los-angeles) | [Milwaukie](#milwaukie) | [N. Portland](#n-portland) | [Orlando](#orlando) | [Pawtucket](#pawtucket) | [Phoenix](#phoenix) | [Raleigh](#raleigh) | [Reno](#reno) | [Sacramento](#sacramento) | [Salt Lake City](#salt-lake-city) | [San Diego](#san-diego) | [San Francisco](#san-francisco) | [Seattle](#seattle) | [Sun Valley](#sun-valley) | [Tampa](#tampa) | [Tucson](#tucson)
-
----
-
 ## Albuquerque
 
 **Security Group:** `Albuquerque Printing`
@@ -351,9 +345,3 @@ Quick reference for printer deployment and Phase 4 testing during the Monday go-
 | Printer     | IP Address  | Status                                                                                                                  |
 | ----------- | ----------- | ----------------------------------------------------------------------------------------------------------------------- |
 | az-tuc-pr00 | 10.15.72.11 | <span style="background: #28a745; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85em;">Active</span> |
-
----
-
-{: .warning }
-
-> **Printer Not Working?** If a printer is not appearing after migration, check the Security Group assignment in Intune. The device must be a member of the location's printing group (e.g., "Seattle Printing") to receive the printer deployment.
