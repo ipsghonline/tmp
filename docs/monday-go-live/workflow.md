@@ -161,6 +161,10 @@ Save all exports to: `OneDrive > Documents > BrowserBackup`
 
 ### Printer Configuration Backup
 
+{: .note }
+
+> **Printer Reference**: See the [Printers List](printers.html) for IP addresses and deployment groups at each location.
+
 **Step 1:** Open Settings → Devices → Printers & scanners
 
 **Step 2:** Take screenshot of all mapped printers (Win + Shift + S)
@@ -435,6 +439,10 @@ After ESP completes, verify these applications:
 ---
 
 ### Test 3: Printing
+
+{: .note }
+
+> **Need printer details?** See [Printers List](printers.html) for printer names and IP addresses at this site.
 
 **Step 1:** Open Notepad, type "Test"
 

@@ -102,6 +102,7 @@ Windows Serial: [SERIAL] | iOS Serial: [SERIAL] | iOS UDID: [UDID]
 | [Migration Workflow](workflow.html)    | 5-phase migration process                      |
 | [Contacts & Escalation](contacts.html) | Stakeholders, support teams, escalation matrix |
 | [Migration Tools](tools.html)          | PowerShell scripts for automated backup        |
+| [Printers List](printers.html)         | All 68 printers by location with IPs           |
 
 ---
 
