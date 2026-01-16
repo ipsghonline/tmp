@@ -17,6 +17,18 @@ Quick reference for printer deployment and Phase 4 testing during the Monday go-
 
 ---
 
+## Download
+
+<p>
+<a href="https://github.com/ipsghonline/tmp/raw/main/docs/PrintersList.csv" style="display: inline-block; background: #0969da; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600;">
+📥 Download Printers List (CSV)
+</a>
+</p>
+
+Print this list for offline reference during migration.
+
+---
+
 ## Summary
 
 | Metric             | Count |

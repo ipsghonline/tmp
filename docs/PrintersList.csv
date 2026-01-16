@@ -1,0 +1,69 @@
+Location,Security Group,Printer,IP Address,Notes
+Albuquerque,Albuquerque Printing,nm-alb-pr00,10.15.182.11,
+Atlanta,Atlanta Printing,ga-mar-pr00,10.15.194.23,
+Atlanta,Atlanta Printing,ga-mar-pr13,10.15.194.13,Inactive
+Austin,Austin Printing,tx-aus-pr00,10.15.164.11,
+Chantilly,Chantilly Printing,va-chan-pr05,10.15.232.16,Inactive
+Chantilly,Chantilly Printing,va-chan-pr06,10.15.232.17,
+Chantilly,Chantilly Printing,va-chan-pr07,10.15.232.18,
+Charlotte,Charlotte Printing,CLT-Lexmark ,10.10.24.6,
+Dallas,Dallas Printing,tx-car-pr01,10.15.174.12,
+Denver,Denver Printing,co-den-pr00,10.15.192.11,
+El Paso,El Paso Printing,tx-elp-pr00,10.15.166.11,
+Fresno,Fresno Printing,ca-fre-pr00,10.235.124.20,Inactive
+Fresno,Fresno Printing,ca-fre-pr01,10.15.40.11,
+Houston,Houston Printing,tx-hou-pr00,10.15.168.21,
+Jacksonville,Jacksonville Printing,fl-jac-pr00,10.15.0.15,Inactive
+Jacksonville,Jacksonville Printing,CEC-JAX-Warehouse-Kyocera,10.10.122.22,
+Jacksonville,Jacksonville Printing,CEC-JAX-HP JAX,10.10.122.21,
+Jacksonville,Jacksonville Printing,CEC-JAX-Main,10.10.122.20,
+Jacksonville,Jacksonville Printing,CEC-JAX-Office,10.10.122.123,
+Jacksonville,Jacksonville Printing,CEC-JAX-Order,10.10.122.54,
+Las Vegas,Las Vegas Printing,nv-las-pr00,10.15.176.12,
+Los Angeles,Los Angeles Printing,ca-lam-pr00,10.15.162.14,
+Los Angeles,Los Angeles Printing,ca-lam-pr15,10.15.162.62,
+Milwaukie,Milwaukie Printing,or-pdx-pr00,10.15.160.11,
+Milwaukie,Milwaukie Printing,or-pdx-pr01,10.15.160.21,
+Milwaukie,Milwaukie Printing,or-pdx-pr04,10.15.160.18,
+Milwaukie,Milwaukie Printing,or-pdx-pr06,10.15.160.14,
+Milwaukie,Milwaukie Printing,or-pdx-pr07,10.15.160.19,
+Milwaukie,Milwaukie Printing,or-pdx-pr08,10.15.160.15,
+N. Portland,N. Portland Printing,or-por-pr00,10.235.108.3,
+N. Portland,N. Portland Printing,or-por-pr01,10.235.108.4,
+N. Portland,N. Portland Printing,or-por-pr02,10.235.108.6,
+N. Portland,N. Portland Printing,or-por-pr03,10.235.108.5,
+Orlando,Orlando Printing,fl-orl-ilg-pr00,10.15.30.17,Inactive
+Orlando,Orlando Printing,fl-orl-pr03,10.15.30.18,Inactive
+Orlando,Orlando Printing,CEC-ORL-AR,10.10.22.232,
+Orlando,Orlando Printing,CEC-ORL-Kathy,10.10.22.19,
+Orlando,Orlando Printing,CEC-ORL-Jill,10.10.22.20,
+Orlando,Orlando Printing,CEC-ORL-Lance,10.10.22.190,
+Orlando,Orlando Printing,CEC-ORL-Main Printer,10.10.22.69,
+Orlando,Orlando Printing,CEC-ORL-Sales,10.10.22.142,
+Orlando,Orlando Printing,CEC-ORL-Sonia Printer,10.10.22.21,
+Orlando,Orlando Printing,CEC-ORL-Warehouse,10.10.22.35,
+Pawtucket,Pawtucket Printing,ri-paw-pr00,10.15.214.11,
+Phoenix,Phoenix Printing,az-phx-pr00,10.15.16.11,Inactive
+Phoenix,Phoenix Printing,az-phx-pr01,10.15.16.14,Inactive
+Phoenix,Phoenix Printing,az-phx-pr02,10.15.16.12,Inactive
+Phoenix,Phoenix Printing,az-phx-pr03,10.15.16.99,Inactive
+Phoenix,Phoenix Printing,az-phx-pr04,10.15.16.13,Inactive
+Phoenix,Phoenix Printing,PHX - Canon IR-ADV C3826,10.10.26.22,
+Phoenix,Phoenix Printing,PHX-BW-WH-SAMSUNG(TOSHIBA),10.10.26.200,
+Raleigh,Raleigh Printing,nc-mor-pr00,10.13.124.11,Inactive
+Raleigh,Raleigh Printing,nc-mor-pr01,10.13.124.17,Inactive
+Raleigh,Raleigh Printing,nc-mor-pr02,10.13.124.100,Inactive
+Raleigh,Raleigh Printing,MTF-Lexmark B2600 Series XL,10.21.1.11,
+Raleigh,Raleigh Printing,MTF-SHARP BP-50C26,10.21.1.20,
+Reno,Reno Printing,nv-spa-pr00,10.15.2.11,
+Sacramento,Sacramento Printing,ca-ran-pr00,10.230.60.10,Inactive
+Sacramento,Sacramento Printing,ca-sac-pr00,10.15.238.22,
+Salt Lake City,Salt Lake City Printing,ut-slc-pr00,10.15.114.11,
+San Diego,San Diego Printing,ca-sd-pr01,10.15.172.12,
+San Francisco,San Francisco Printing,ca-uni-pr00,10.235.115.14,
+Seattle,Seattle Printing,wa-aub-ilg2-pr00,10.230.0.11,
+Seattle,Seattle Printing,wa-aub-pr00,10.230.8.4,Inactive
+Seattle,Seattle Printing,wa-aub-pr03,10.230.8.26,Inactive
+Sun Valley,Sun Valley Printing,ca-sun-pr00,10.15.6.11,
+Tampa,Tampa Printing,fl-tam-pr00,10.15.28.11,
+Tucson,Tucson Printing,az-tuc-pr00,10.15.72.11,
